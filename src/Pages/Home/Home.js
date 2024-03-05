@@ -1,11 +1,15 @@
 import { Link } from 'react-router-dom';
+import Content from '../../Layout/Content/Content';
+import styles from './Home.module.css';
 
 const Home = () => {
     return (
-        <div>
-            <h1>Welcome to the Quiz</h1>
-            <p>This is the Homepage</p>
-        </div>
+        <Content>
+            <div className={styles.home}>
+                <h1>Welcome to the Quiz</h1>
+                <p>something</p>
+            </div>
+        </Content>
     )
 }
 
