@@ -1,8 +1,10 @@
 .content {
-    padding: 1rem;
+    justify-content: space-between;
+    align-items: center;
     background-color: #f0f0f0;
+    padding: 1rem;
+    color: #fff;
     border: 1px solid #ccc;
     border-radius: 5px;
-    width: 800px;
     margin: 0 auto;
 }

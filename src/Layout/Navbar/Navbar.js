@@ -12,12 +12,12 @@ const Navbar = () => {
             </div>
             <div>
                 <ul className={styles.navLeft}>
-                    <li><Link to="/">Start Quiz</Link></li>
+                    <li><Link className={styles.logo} to="/runquiz">Start Quiz</Link></li>
                 </ul>
             </div>
             <ul className={styles.navLeft}>
-                <li><Link to="/login">Login</Link></li>
-                <li><Link to="/register">Register</Link> </li>
+                <li><Link className={`${styles.logo} ${styles.linkSpacing}`} to="/login">Login</Link></li>
+                <li><Link className={styles.logo} to="/register">Register</Link> </li>
             </ul>
         </nav>
     )

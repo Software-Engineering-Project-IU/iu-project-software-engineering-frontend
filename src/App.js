@@ -5,11 +5,13 @@ import Register from './Pages/Register/Register';
 import RunQuiz from './Pages/RunQuiz/RunQuiz';
 import CreateQuestions from './Pages/CreateQuestion/CreateQuestion';
 import EditQuestions from './Pages/EditQuestion/EditQuestion';
+import Navbar from './Layout/Navbar/Navbar'
 
 const App = () => {
   return (
     <BrowserRouter>
       <div>
+        <Navbar />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />

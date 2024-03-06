@@ -16,8 +16,6 @@
 .navLeft {
     list-style: none;
     display: flex;
-
-
 }
 
 navLeft li {
@@ -31,4 +29,8 @@ navLeft li a {
 
 .navLeft li a:hover {
     color: #ffcc00;
+}
+
+.linkSpacing {
+    margin-right: 20px;
 }
