@@ -1,0 +1,82 @@
+.home {
+  text-align: center;
+  padding: 2rem;
+}
+.home h1 {
+  font-size: 2rem;
+  color: #EAECF0;
+}
+.home p {
+  font-size: 1rem;
+  color: #0693e3;
+}
+
+.button {
+  padding: 10px 20px;
+  background-color: #2970FF;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s, transform 0.3s;
+}
+.button:hover {
+  background-color: #0049dc;
+  transform: scale(1.05);
+}
+.button:active {
+  background-color: #0038a9;
+  transform: scale(0.95);
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(52, 64, 84, 0.9);
+  padding: 1rem;
+  color: #EAECF0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.navbar .logo {
+  font-size: 1.8rem;
+  color: #2970FF;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.navbar .logo:hover {
+  color: brighten(#EAECF0, 20%);
+}
+.navbar .navLeft {
+  list-style: none;
+  display: flex;
+}
+.navbar .navLeft li {
+  margin-right: 1.5rem;
+}
+.navbar .navLeft li a {
+  color: #EAECF0;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+.navbar .navLeft li a:hover {
+  color: #2970FF;
+}
+.navbar .linkSpacing {
+  margin-right: 20px;
+}
+
+.content {
+  justify-content: space-between;
+  align-items: center;
+  background-color: #212a3a;
+  padding: 1rem;
+  color: #EAECF0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin: 0 auto;
+}
+
+/*# sourceMappingURL=main.css.map */

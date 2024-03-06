@@ -1,26 +1,20 @@
 import React from 'react';
-import styles from './Navbar.module.css';
 import { Link } from 'react-router-dom';
+import '../../css/main.css';
 
 const Navbar = () => {
     return (
-        <nav className={styles.navbar}>
-            <div className={styles.logo}>
-                <ul className={styles.navLeft}>
-                    <li><Link className={styles.logo} to="/">Quiz-App</Link> </li>
-                </ul>
+        <nav className="navbar">
+            <div className="logo-section">
+                <Link className="logo" to="/">Quiz-App</Link>
             </div>
-            <div>
-                <ul className={styles.navLeft}>
-                    <li><Link className={styles.logo} to="/runquiz">Start Quiz</Link></li>
-                </ul>
-            </div>
-            <ul className={styles.navLeft}>
-                <li><Link className={`${styles.logo} ${styles.linkSpacing}`} to="/login">Login</Link></li>
-                <li><Link className={styles.logo} to="/register">Register</Link> </li>
+            <ul className="navLeft">
+                <li><Link to="/runquiz">Start Quiz</Link></li>
+                <li><Link to="/login">Login</Link></li>
+                <li><Link to="/register">Anmelden</Link></li>
             </ul>
         </nav>
-    )
+    );
 }
 
 export default Navbar;

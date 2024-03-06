@@ -1,0 +1,104 @@
+$primary-color: #2970FF;
+$secondary-color: rgba(52, 64, 84, 0.9);
+$content-color: #212a3a;
+$text-color: #EAECF0;
+$text-light-color: #0693e3;
+$background-color: #FAFAFA;
+$button-hover-color: darken($primary-color, 15%);
+$button-active-color: darken($primary-color, 25%);
+
+// Homepage Design
+.home {
+    text-align: center;
+    padding: 2rem;
+
+    h1 {
+        font-size: 2rem;
+        color: $text-color;
+    }
+
+    p {
+        font-size: 1rem;
+        color: $text-light-color;
+    }
+}
+
+// Button Design
+.button {
+    padding: 10px 20px;
+    background-color: $primary-color;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s, transform 0.3s;
+
+    &:hover {
+        background-color: $button-hover-color;
+        transform: scale(1.05);
+    }
+
+    &:active {
+        background-color: $button-active-color;
+        transform: scale(0.95);
+    }
+}
+
+// Navbar Design
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: $secondary-color;
+    padding: 1rem;
+    color: $text-color;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+    .logo {
+        font-size: 1.8rem;
+        color: $primary-color;
+        text-decoration: none;
+        transition: color 0.3s;
+
+        &:hover {
+            color: brighten($text-color, 20%);
+        }
+    }
+
+    .navLeft {
+        list-style: none;
+        display: flex;
+
+        li {
+            margin-right: 1.5rem;
+
+            a {
+                color: $text-color;
+                text-decoration: none;
+                font-weight: 500;
+                transition: color 0.3s;
+
+                &:hover {
+                    color: $primary-color;
+                }
+            }
+        }
+    }
+
+    .linkSpacing {
+        margin-right: 20px;
+    }
+}
+
+// Content Design
+.content {
+    justify-content: space-between;
+    align-items: center;
+    background-color: $content-color;
+    padding: 1rem;
+    color: $text-color;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 0 auto;
+}

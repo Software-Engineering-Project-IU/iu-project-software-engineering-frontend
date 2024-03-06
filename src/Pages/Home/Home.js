@@ -1,19 +1,18 @@
+import Button from '../../Components/Buttons/Button';
 import Content from '../../Layout/Content/Content';
-import styles from './Home.module.css';
+import '../../css/main.css';
 
 const Home = () => {
     return (
         <div>
         <Content>
-            <div className={styles.home}>
-                <h1>Fragenkatalog</h1>
-                <p>something</p>
+            <div className="home">
+                <Button text="Fragenkatalog einsehen"/>
             </div>
         </Content>
         <Content>
-            <div className={styles.home}>
-                <h1>Lerninhalte finden</h1>
-                <p>something</p>
+            <div className="home">
+            <Button text="Lerninhalte finden"/>
             </div>
         </Content>
         </div>
