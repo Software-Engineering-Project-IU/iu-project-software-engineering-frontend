@@ -9,7 +9,6 @@ const Navbar = () => {
                 <Link className="logo" to="/">Quiz-App</Link>
             </div>
             <ul className="navLeft">
-                <li><Link to="/runquiz">Start Quiz</Link></li>
                 <li><Link to="/login">Login</Link></li>
                 <li><Link to="/register">Anmelden</Link></li>
             </ul>

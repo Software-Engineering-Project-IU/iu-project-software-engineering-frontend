@@ -6,12 +6,14 @@ import RunQuiz from './Pages/RunQuiz/RunQuiz';
 import CreateQuestions from './Pages/CreateQuestion/CreateQuestion';
 import EditQuestions from './Pages/EditQuestion/EditQuestion';
 import Navbar from './Layout/Navbar/Navbar'
+import '../src/css/main.css';
 
 const App = () => {
   return (
     <BrowserRouter>
       <div>
         <Navbar />
+          <div className="routes">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
@@ -20,6 +22,7 @@ const App = () => {
             <Route path="/createquestion" element={<CreateQuestions />} />
             <Route path="/editquestion" element={<EditQuestions />} />
           </Routes>
+          </div>
       </div>
     </BrowserRouter>
   );

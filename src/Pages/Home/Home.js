@@ -15,6 +15,11 @@ const Home = () => {
             <Button text="Lerninhalte finden"/>
             </div>
         </Content>
+        <Content>
+            <div className="home">
+            <Button text="Quiz starten"/>
+            </div>
+        </Content>
         </div>
     )
 }

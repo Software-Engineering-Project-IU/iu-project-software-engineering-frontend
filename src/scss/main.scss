@@ -1,5 +1,5 @@
 $primary-color: #2970FF;
-$secondary-color: rgba(52, 64, 84, 0.9);
+$secondary-color: rgba(52, 64, 84);
 $content-color: #212a3a;
 $text-color: #EAECF0;
 $text-light-color: #0693e3;
@@ -25,28 +25,36 @@ $button-active-color: darken($primary-color, 25%);
 
 // Button Design
 .button {
-    padding: 10px 20px;
+    padding: 10px 15px;
     background-color: $primary-color;
-    color: white;
+    color: $background-color;
     border: none;
-    border-radius: 5px;
+    border-radius: 20px;
     cursor: pointer;
     font-size: 16px;
-    transition: background-color 0.3s, transform 0.3s;
+    transition: background-color 0.3s, transform 0.3s, color 0.3s, box-shadow 0.3s;
 
     &:hover {
-        background-color: $button-hover-color;
+        background-color: $background-color;
+        color: $primary-color;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         transform: scale(1.05);
     }
 
     &:active {
-        background-color: $button-active-color;
+        background-color: darken($background-color, 10%);
         transform: scale(0.95);
     }
 }
 
 // Navbar Design
 .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -69,22 +77,22 @@ $button-active-color: darken($primary-color, 25%);
     .navLeft {
         list-style: none;
         display: flex;
-
+    
         li {
             margin-right: 1.5rem;
-
+    
             a {
-                color: $text-color;
+                color: $primary-color;
                 text-decoration: none;
                 font-weight: 500;
-                transition: color 0.3s;
-
-                &:hover {
-                    color: $primary-color;
-                }
+                background-color: white;
+                padding: 10px 15px;
+                border-radius: 20px;
+                transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
             }
         }
     }
+    
 
     .linkSpacing {
         margin-right: 20px;
@@ -93,6 +101,8 @@ $button-active-color: darken($primary-color, 25%);
 
 // Content Design
 .content {
+    display: flex;
+    flex-direction: column;
     justify-content: space-between;
     align-items: center;
     background-color: $content-color;
@@ -101,4 +111,9 @@ $button-active-color: darken($primary-color, 25%);
     border: 1px solid #ccc;
     border-radius: 5px;
     margin: 0 auto;
+}
+
+// Routes Design
+.routes {
+    padding-top: 86px;
 }
