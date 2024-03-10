@@ -11,6 +11,29 @@
   color: #0693e3;
 }
 
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 20px;
+  width: 100%;
+  max-width: 400px;
+  position: relative;
+  min-width: 383px;
+}
+
+.form-container > div,
+.form-container > button {
+  width: 100%;
+}
+
+.input-group {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  padding-right: 95px;
+}
+
 .button {
   padding: 10px 15px;
   background-color: #2970FF;
@@ -33,6 +56,7 @@
 }
 
 .navbar {
+  min-width: 383px;
   position: fixed;
   top: 0;
   left: 0;
@@ -76,6 +100,7 @@
 }
 
 .content {
+  min-width: 383px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

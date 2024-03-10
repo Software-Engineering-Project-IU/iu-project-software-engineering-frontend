@@ -2,7 +2,7 @@ import React from 'react';
 
 const InputField = ({ label, type = 'text', name, value, onChange }) => {
     return (
-        <div className="inputField">
+        <div>
             {label && <label htmlFor={name}>{label}</label>}
             <input
                 type={type}
