@@ -1,5 +1,18 @@
+/*
+*	Register.js	
+*
+*	Ersteller:		    Kevin Krazius
+*	Erstellungsdatum:	03-11-2024
+*	Info/Notizen:		Erstellen einer Register-Komponente, hier wird angezeigt was unter Route "/register" angezeigt wird
+*
+*	Editiert von:		<Name>
+*	Editiert am:		<Datum>
+*	Info/Notizen:		<Beschreibung der Änderung>
+*
+*/
+
 import { useState } from 'react';
-import { isValidEmail } from '../../Components/HelpFunctions/utils';
+import { isValidEmail } from '../../Components/HelpFunctions/Utils';
 import Button from '../../Components/Buttons/Button';
 import InputField from '../../Components/InputFields/InputField';
 import Content from '../../Layout/Content/Content';

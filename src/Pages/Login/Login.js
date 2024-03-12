@@ -1,5 +1,18 @@
+/*
+*	Login.js	
+*
+*	Ersteller:		    Kevin Krazius
+*	Erstellungsdatum:	03-10-2024
+*	Info/Notizen:		Erstellen einer Login-Komponente, hier wird angezeigt was unter Route "/login" angezeigt wird
+*
+*	Editiert von:		Kevin Krazius
+*	Editiert am:		03-11-2024
+*	Info/Notizen:		Auslagern der isValidEmail-Komponente und importieren selbiger
+*
+*/
+
 import { useState } from 'react';
-import { isValidEmail } from '../../Components/HelpFunctions/utils';
+import { isValidEmail } from '../../Components/HelpFunctions/Utils';
 import Button from '../../Components/Buttons/Button';
 import InputField from '../../Components/InputFields/InputField';
 import Content from '../../Layout/Content/Content';
