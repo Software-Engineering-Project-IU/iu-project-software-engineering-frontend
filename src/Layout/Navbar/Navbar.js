@@ -5,15 +5,16 @@
 *	Erstellungsdatum:	03-03-2024
 *	Info/Notizen:		Implementierung einer Navbar-Komponente
 *
-*	Editiert von:		<Name>
-*	Editiert am:		<Datum>
-*	Info/Notizen:		<Beschreibung der Änderung>
+*	Editiert von:		Kevin Krazius
+*	Editiert am:		03-13-2024
+*	Info/Notizen:		Welcome Banner integriert
 *
 */
 
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../../css/main.css';
+import WelcomeBanner from '../../Components/Banner/WelcomeBanner';
 
 const Navbar = () => {
     return (
@@ -21,10 +22,14 @@ const Navbar = () => {
             <div className="logo-section">
                 <Link className="logo" to="/">IU-Quiz-App</Link>
             </div>
-            <ul className="navLeft">
-                <li><Link to="/login">Login</Link></li>
-                <li><Link to="/register">Sign up</Link></li>
+            <div className="navbar-right-section">
+                {/* Hier wird die isLoggedIn Funktion genutzt um abzufragen ob der Nutzer angemeldet ist, Logik muss noch implementiert werden */}
+                <WelcomeBanner text="Welcome" username="Kevin" isLoggedIn={false} />
+                <ul className="navRight">
+                    <li><Link to="/login">Login</Link></li>
+                    <li><Link to="/register">Sign up</Link></li>
             </ul>
+            </div>
         </nav>
     );
 }

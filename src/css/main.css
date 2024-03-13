@@ -1,17 +1,15 @@
 /*
-*	  main.css	
+*	  main.scss	
 *
-*	  Ersteller:		      Kevin Krazius
-*	  Erstellungsdatum:	  03-06-2024
+*	  Ersteller:		    Kevin Krazius
+*	  Erstellungsdatum:	    03-06-2024
 *	  Info/Notizen:		    Diese Datei wird aus der main.scss erstellt
 *
 *	  Editiert von:		    Kevin Krazius
-*	  Editiert am:		    03-11-2024
-*	  Info/Notizen:		    Navbar angepasst
+*	  Editiert am:		    03-13-2024
+*	  Info/Notizen:		    Welcome Banner
 *
 */
-
-
 .home {
   text-align: center;
   padding: 2rem;
@@ -70,7 +68,7 @@
 }
 
 .navbar {
-  min-width: 383px;
+  min-width: 405px;
   position: fixed;
   top: 0;
   left: 0;
@@ -93,14 +91,14 @@
 .navbar .logo:hover {
   color: brighten(#EAECF0, 20%);
 }
-.navbar .navLeft {
+.navbar .navRight {
   list-style: none;
   display: flex;
 }
-.navbar .navLeft li {
+.navbar .navRight li {
   margin-right: 1.5rem;
 }
-.navbar .navLeft li a {
+.navbar .navRight li a {
   color: #2970FF;
   text-decoration: none;
   font-weight: 500;
@@ -109,12 +107,17 @@
   border-radius: 20px;
   transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
 }
+.navbar .navbar-right-section {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
 .navbar .linkSpacing {
   margin-right: 20px;
 }
 
 .content {
-  min-width: 383px;
+  min-width: 405;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -125,10 +128,24 @@
   border: 1px solid #ccc;
   border-radius: 5px;
   margin: 0 auto;
+  padding-top: 15px;
 }
 
 .routes {
-  padding-top: 86px;
+  padding-top: 105px;
+}
+
+.welcome-banner {
+  text-align: center;
+  margin: 0 auto;
+}
+
+.welcome-banner.active {
+  color: #2970FF;
+}
+
+.welcome-banner.inactive {
+  color: #EAECF0;
 }
 
 /*# sourceMappingURL=main.css.map */

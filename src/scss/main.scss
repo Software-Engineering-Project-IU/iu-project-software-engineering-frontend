@@ -1,13 +1,13 @@
 /*
 *	  main.scss	
 *
-*	  Ersteller:		      Kevin Krazius
-*	  Erstellungsdatum:	  03-06-2024
+*	  Ersteller:		    Kevin Krazius
+*	  Erstellungsdatum:	    03-06-2024
 *	  Info/Notizen:		    Diese Datei wird aus der main.scss erstellt
 *
 *	  Editiert von:		    Kevin Krazius
-*	  Editiert am:		    03-11-2024
-*	  Info/Notizen:		    Navbar angepasst
+*	  Editiert am:		    03-13-2024
+*	  Info/Notizen:		    Welcome Banner
 *
 */
 
@@ -86,7 +86,7 @@ $button-active-color: darken($primary-color, 25%);
 
 // Navbar Design
 .navbar {
-    min-width: 383px;
+    min-width: 405px;
     position: fixed;
     top: 0;
     left: 0;
@@ -112,7 +112,7 @@ $button-active-color: darken($primary-color, 25%);
         }
     }
 
-    .navLeft {
+    .navRight {
         list-style: none;
         display: flex;
     
@@ -131,6 +131,11 @@ $button-active-color: darken($primary-color, 25%);
         }
     }
     
+    .navbar-right-section {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    }
 
     .linkSpacing {
         margin-right: 20px;
@@ -139,7 +144,7 @@ $button-active-color: darken($primary-color, 25%);
 
 // Content Design
 .content {
-    min-width: 383px;
+    min-width: 405;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -150,9 +155,24 @@ $button-active-color: darken($primary-color, 25%);
     border: 1px solid #ccc;
     border-radius: 5px;
     margin: 0 auto;
+    padding-top: 15px;
 }
 
 // Routes Design
 .routes {
-    padding-top: 86px;
+    padding-top: 105px;
+}
+
+// Welcome Banner Design
+.welcome-banner {
+    text-align: center;
+    margin: 0 auto;
+}
+
+.welcome-banner.active {
+    color: $primary-color;
+}
+
+.welcome-banner.inactive {
+    color: $text-color;
 }
