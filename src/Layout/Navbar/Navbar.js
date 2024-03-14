@@ -24,7 +24,7 @@ const Navbar = () => {
             </div>
             <div className="navbar-right-section">
                 {/* Hier wird die isLoggedIn Funktion genutzt um abzufragen ob der Nutzer angemeldet ist, Logik muss noch implementiert werden */}
-                <WelcomeBanner text="Welcome" username="Kevin" isLoggedIn={false} />
+                <WelcomeBanner text="Welcome" username="Kevin" isLoggedIn={true} />
                 <ul className="navRight">
                     <li><Link to="/login">Login</Link></li>
                     <li><Link to="/register">Sign up</Link></li>

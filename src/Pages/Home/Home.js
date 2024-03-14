@@ -20,14 +20,10 @@ const Home = () => {
         <div>
         <Content>
             <div className="home">
-                <Button text="Fragenkatalog einsehen"/>
+                <Button text="Modul finden"/>
             </div>
         </Content>
-        <Content>
-            <div className="home">
-            <Button text="Lerninhalte finden"/>
-            </div>
-        </Content>
+
         <Content>
             <div className="home">
             <Button text="Quiz starten"/>

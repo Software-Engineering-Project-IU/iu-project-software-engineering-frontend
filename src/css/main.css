@@ -1,13 +1,13 @@
 /*
-*	  main.scss	
+*	  main.scss	/ css
 *
 *	  Ersteller:		    Kevin Krazius
 *	  Erstellungsdatum:	    03-06-2024
-*	  Info/Notizen:		    Diese Datei wird aus der main.scss erstellt
+*	  Info/Notizen:		    Diese Datei wird aus der main.scss erstellt / erstellt die css
 *
 *	  Editiert von:		    Kevin Krazius
-*	  Editiert am:		    03-13-2024
-*	  Info/Notizen:		    Welcome Banner
+*	  Editiert am:		    03-14-2024
+*	  Info/Notizen:		    Qustion- / AnswerBlock Design
 *
 */
 .home {
@@ -33,7 +33,6 @@
   position: relative;
   min-width: 383px;
 }
-
 .form-container > div,
 .form-container > button {
   width: 100%;
@@ -106,6 +105,8 @@
   padding: 10px 15px;
   border-radius: 20px;
   transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+  font-size: 1.5rem;
+  font-family: Arial, sans-serif;
 }
 .navbar .navbar-right-section {
   display: flex;
@@ -117,7 +118,7 @@
 }
 
 .content {
-  min-width: 405;
+  min-width: 405px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -139,13 +140,62 @@
   text-align: center;
   margin: 0 auto;
 }
-
 .welcome-banner.active {
   color: #2970FF;
 }
-
 .welcome-banner.inactive {
   color: #EAECF0;
+}
+
+.question-block {
+  background-color: #f2f2f2;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 8px rgb(52, 64, 84);
+}
+.question-block h2 {
+  color: #2970FF;
+  margin-bottom: 15px;
+}
+.question-block p {
+  font-size: 18px;
+  color: rgb(52, 64, 84);
+}
+
+.answer-block {
+  background-color: #FAFAFA;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgb(52, 64, 84);
+}
+.answer-block h2 {
+  color: #2970FF;
+  margin-bottom: 15px;
+}
+.answer-block ul {
+  list-style-type: none;
+  padding: 0;
+}
+.answer-block li {
+  background-color: #2970FF;
+  color: #EAECF0;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+.answer-block li:hover {
+  background-color: #0049dc;
+  transform: scale(1.05);
+}
+.answer-block li.selected {
+  background-color: #00c60d;
+  color: #212a3a;
+}
+.answer-block li:last-child {
+  margin-bottom: 0;
 }
 
 /*# sourceMappingURL=main.css.map */

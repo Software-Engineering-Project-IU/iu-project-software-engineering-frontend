@@ -1,13 +1,13 @@
 /*
-*	  main.scss	
+*	  main.scss	/ css
 *
 *	  Ersteller:		    Kevin Krazius
 *	  Erstellungsdatum:	    03-06-2024
-*	  Info/Notizen:		    Diese Datei wird aus der main.scss erstellt
+*	  Info/Notizen:		    Diese Datei wird aus der main.scss erstellt / erstellt die css
 *
 *	  Editiert von:		    Kevin Krazius
-*	  Editiert am:		    03-13-2024
-*	  Info/Notizen:		    Welcome Banner
+*	  Editiert am:		    03-14-2024
+*	  Info/Notizen:		    Qustion- / AnswerBlock Design
 *
 */
 
@@ -17,10 +17,10 @@ $content-color: #212a3a;
 $text-color: #EAECF0;
 $text-light-color: #0693e3;
 $background-color: #FAFAFA;
+$selected-answer: #00c60d;
 $button-hover-color: darken($primary-color, 15%);
 $button-active-color: darken($primary-color, 25%);
 
-// Homepage Design
 .home {
     text-align: center;
     padding: 2rem;
@@ -36,7 +36,6 @@ $button-active-color: darken($primary-color, 25%);
     }
 }
 
-// Form Container for Loginpage and Registerpage
 .form-container {
     display: flex;
     flex-direction: column;
@@ -46,11 +45,11 @@ $button-active-color: darken($primary-color, 25%);
     max-width: 400px;
     position: relative;
     min-width: 383px;
-}
 
-.form-container > div,
-.form-container > button {
-    width: calc(100%);
+    > div,
+    > button {
+        width: calc(100%);
+    }
 }
 
 .input-group {
@@ -60,7 +59,6 @@ $button-active-color: darken($primary-color, 25%);
     padding-right: 95px;
 }
 
-// Button Design
 .button {
     padding: 10px 15px;
     background-color: $primary-color;
@@ -84,7 +82,6 @@ $button-active-color: darken($primary-color, 25%);
     }
 }
 
-// Navbar Design
 .navbar {
     min-width: 405px;
     position: fixed;
@@ -92,7 +89,6 @@ $button-active-color: darken($primary-color, 25%);
     left: 0;
     width: 100%;
     z-index: 1000;
-
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -115,10 +111,10 @@ $button-active-color: darken($primary-color, 25%);
     .navRight {
         list-style: none;
         display: flex;
-    
+
         li {
             margin-right: 1.5rem;
-    
+
             a {
                 color: $primary-color;
                 text-decoration: none;
@@ -127,14 +123,16 @@ $button-active-color: darken($primary-color, 25%);
                 padding: 10px 15px;
                 border-radius: 20px;
                 transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+                font-size: 1.5rem;
+                font-family: Arial, sans-serif;
             }
         }
     }
-    
+
     .navbar-right-section {
-    display: flex;
-    align-items: center;
-    gap: 20px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
     }
 
     .linkSpacing {
@@ -142,9 +140,8 @@ $button-active-color: darken($primary-color, 25%);
     }
 }
 
-// Content Design
 .content {
-    min-width: 405;
+    min-width: 405px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -158,21 +155,78 @@ $button-active-color: darken($primary-color, 25%);
     padding-top: 15px;
 }
 
-// Routes Design
 .routes {
     padding-top: 105px;
 }
 
-// Welcome Banner Design
 .welcome-banner {
     text-align: center;
     margin: 0 auto;
+
+    &.active {
+        color: $primary-color;
+    }
+
+    &.inactive {
+        color: $text-color;
+    }
 }
 
-.welcome-banner.active {
-    color: $primary-color;
+.question-block {
+    background-color: #f2f2f2;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px $secondary-color;
+
+    h2 {
+        color: $primary-color;
+        margin-bottom: 15px;
+    }
+
+    p {
+        font-size: 18px;
+        color: $secondary-color;
+    }
 }
 
-.welcome-banner.inactive {
-    color: $text-color;
+.answer-block {
+    background-color: $background-color;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px $secondary-color;
+
+    h2 {
+        color: $primary-color;
+        margin-bottom: 15px;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    li {
+        background-color: $primary-color;
+        color: $text-color;
+        margin-bottom: 10px;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.3s;
+
+        &:hover {
+            background-color: $button-hover-color;
+            transform: scale(1.05);
+        }
+
+        &.selected {
+            background-color: $selected-answer;
+            color: $content-color;
+        }
+    }
+
+    li:last-child {
+        margin-bottom: 0;
+    }
 }
