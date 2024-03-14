@@ -13,10 +13,13 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../../Components/AuthProvider/AuthProvider'
 import '../../css/main.css';
 import WelcomeBanner from '../../Components/Banner/WelcomeBanner';
 
 const Navbar = () => {
+    const { isLoggedIn } = useAuth();
+
     return (
         <nav className="navbar">
             <div className="logo-section">
@@ -24,7 +27,7 @@ const Navbar = () => {
             </div>
             <div className="navbar-right-section">
                 {/* Hier wird die isLoggedIn Funktion genutzt um abzufragen ob der Nutzer angemeldet ist, Logik muss noch implementiert werden */}
-                <WelcomeBanner text="Welcome" username="Kevin" isLoggedIn={true} />
+                <WelcomeBanner text="Welcome" username="Username" isLoggedIn={isLoggedIn} />
                 <ul className="navRight">
                     <li><Link to="/login">Login</Link></li>
                     <li><Link to="/register">Sign up</Link></li>

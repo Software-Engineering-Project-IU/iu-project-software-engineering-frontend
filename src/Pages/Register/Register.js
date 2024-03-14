@@ -5,9 +5,9 @@
 *	Erstellungsdatum:	03-11-2024
 *	Info/Notizen:		Erstellen einer Register-Komponente, hier wird angezeigt was unter Route "/register" angezeigt wird
 *
-*	Editiert von:		<Name>
-*	Editiert am:		<Datum>
-*	Info/Notizen:		<Beschreibung der Änderung>
+*	Editiert von:		Kevin Krazius
+*	Editiert am:		03-14-2024
+*	Info/Notizen:		Try-Catch-Block mit Weiterleitung an Login Seite hinzu
 *
 */
 
@@ -16,6 +16,7 @@ import { isValidEmail } from '../../Components/HelpFunctions/Utils';
 import Button from '../../Components/Buttons/Button';
 import InputField from '../../Components/InputFields/InputField';
 import Content from '../../Layout/Content/Content';
+import { useNavigate } from 'react-router-dom';
 import '../../css/main.css';
 
 const Register = () => {
@@ -23,6 +24,7 @@ const Register = () => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
 
     const handleRegister = () => {
 
@@ -32,8 +34,20 @@ const Register = () => {
             return;
         }
 
-        console.log("Login attempted with Email: ", email, " ,Password: ", password, " and Username: ", username);
-        // API-Request
+        console.log("Registering attempted with Email: ", email, " ,Password: ", password, " and Username: ", username);
+        // Annahme: Hier beginnt dein API-Request User anlegen
+        try {
+            // Hier würde dein API-Request stehen. Dies ist nur ein Platzhalter.
+            // const response = await myApi.createUser({ username, email, password });
+
+            // Wenn die API-Anfrage erfolgreich war:
+            alert('Registrieren erfolgreich! Sie werden jetzt zur Login-Seite weitergeleitet.');
+            navigate('/login');
+        } catch (error) {
+            // Wenn es ein Problem mit der Registrierung gab, informiere den Benutzer
+            alert('Es gab ein Problem bei der Registrierung: ' + error.message);
+        }
+
     }
     
     return (

@@ -7,10 +7,12 @@ import CreateQuestions from './Pages/CreateQuestion/CreateQuestion';
 import EditQuestions from './Pages/EditQuestion/EditQuestion';
 import Navbar from './Layout/Navbar/Navbar'
 import '../src/css/main.css';
+import { AuthProvider } from './Components/AuthProvider/AuthProvider';
 
 const App = () => {
   return (
     <BrowserRouter>
+      <AuthProvider>
       <div>
         <Navbar />
           <div className="routes">
@@ -24,6 +26,7 @@ const App = () => {
           </Routes>
           </div>
       </div>
+      </AuthProvider>
     </BrowserRouter>
   );
 }

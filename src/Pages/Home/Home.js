@@ -13,9 +13,25 @@
 
 import Button from '../../Components/Buttons/Button';
 import Content from '../../Layout/Content/Content';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../Components/AuthProvider/AuthProvider'
 import '../../css/main.css';
 
 const Home = () => {
+    const navigate = useNavigate();
+    const { isLoggedIn } = useAuth();
+
+    const handleQuizStart = () => {
+        // Überprüfe ob der Benutzer eingeloggt ist
+        if (isLoggedIn) {
+            // Wenn eingeloggt, navigiere zum Quiz
+            navigate('/runquiz');
+        } else {
+            // Wenn nicht eingeloggt, navigiere zur Login-Seite
+            navigate('/login');
+        }
+    };
+
     return (
         <div>
         <Content>
@@ -26,7 +42,7 @@ const Home = () => {
 
         <Content>
             <div className="home">
-            <Button text="Quiz starten"/>
+            <Button text="Quiz starten" onClick={handleQuizStart}/>
             </div>
         </Content>
         </div>

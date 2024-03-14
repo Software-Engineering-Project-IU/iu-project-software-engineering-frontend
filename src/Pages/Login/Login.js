@@ -13,15 +13,19 @@
 
 import { useState } from 'react';
 import { isValidEmail } from '../../Components/HelpFunctions/Utils';
+import { useAuth } from '../../Components/AuthProvider/AuthProvider'
 import Button from '../../Components/Buttons/Button';
 import InputField from '../../Components/InputFields/InputField';
 import Content from '../../Layout/Content/Content';
+import { useNavigate } from 'react-router-dom';
 import '../../css/main.css';
 
 const Login = () => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
+    const { setIsLoggedIn } = useAuth();
 
     // Login-Request
     const handleLogin = () => {
@@ -34,6 +38,19 @@ const Login = () => {
 
         console.log("Login attempted with Email: ", email, " and Password: ", password);
         // API-Request
+        // Annahme: Hier beginnt dein API-Request User anlegen
+        try {
+            // Hier würde dein API-Request stehen. Dies ist nur ein Platzhalter.
+            // const response = await myApi.createUser({ username, email, password });
+
+            // Wenn die API-Anfrage erfolgreich war:
+            alert('Anmeldung erfolgreich!');
+            setIsLoggedIn(true);
+            navigate('/');
+        } catch (error) {
+            // Wenn es ein Problem mit der Registrierung gab, informiere den Benutzer
+            alert('Es gab ein Problem bei der Anmeldung: ' + error.message);
+        }       
     }
 
     return (
