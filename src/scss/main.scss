@@ -17,7 +17,9 @@ $content-color: #212a3a;
 $text-color: #EAECF0;
 $text-light-color: #0693e3;
 $background-color: #FAFAFA;
-$selected-answer: #00c60d;
+$selected-answer: #84adff;
+$correct-answer: #4CAF50;
+$incorrect-answer: #F44336;
 $button-hover-color: darken($primary-color, 15%);
 $button-active-color: darken($primary-color, 25%);
 
@@ -224,9 +226,29 @@ $button-active-color: darken($primary-color, 25%);
             background-color: $selected-answer;
             color: $content-color;
         }
+
+        &.correct {
+            background-color: $correct-answer;
+            animation: highlight 1s;
+        }
+
+        &.incorrect {
+            background-color: $incorrect-answer;
+            animation: highlight 1s;
+        }
     }
 
     li:last-child {
         margin-bottom: 0;
+    }
+}
+
+/* Animationen für richtige/falsche Antworten */
+@keyframes highlight {
+    from {
+        transform: scale(1.1);
+    }
+    to {
+        transform: scale(1);
     }
 }

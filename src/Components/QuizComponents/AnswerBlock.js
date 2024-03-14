@@ -12,25 +12,29 @@
 */
 
 import React from 'react';
-import Button from '../Buttons/Button';
-import '../../css/main.css'; // Stelle sicher, dass der Pfad korrekt ist
+import '../../css/main.css';
 
-const AnswerBlock = ({ answers, onSelectAnswer, selectedAnswer, onSubmit }) => {
+const AnswerBlock = ({ answers, onSelectAnswer, selectedAnswer, isCorrect }) => {
     return (
         <div className="answer-block">
             <h2>Antwortmöglichkeiten:</h2>
             <ul>
-                {answers.map((answer, index) => (
-                    <li 
-                        key={index} 
-                        onClick={() => onSelectAnswer(answer)}
-                        className={answer === selectedAnswer ? 'selected' : ''}
-                    >
-                        {answer}
-                    </li>
-                ))}
+                {answers.map((answer, index) => {
+                    // Bestimme die Klasse basierend auf dem Zustand der Antwort
+                    let className = '';
+                    if (answer === selectedAnswer) {
+                        className = 'selected';
+                        if (isCorrect !== null) {
+                            className += isCorrect ? ' correct' : ' incorrect';
+                        }
+                    }
+                    return (
+                        <li key={index} onClick={() => onSelectAnswer(answer)} className={className}>
+                            {answer}
+                        </li>
+                    );
+                })}
             </ul>
-            {selectedAnswer && <Button text="Antworten" onClick={onSubmit} />}
         </div>
     );
 };

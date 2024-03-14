@@ -12,10 +12,11 @@
 */
 
 import React, { useState} from "react";
+import Button from "../../Components/Buttons/Button";
 import AnswerBlock from "../../Components/QuizComponents/AnswerBlock";
 import QuestionBlock from "../../Components/QuizComponents/QuestionBlock";
 import Content from "../../Layout/Content/Content";
-import Button from "../../Components/Buttons/Button";
+//import { useNavigate } from 'react-router-dom';
 
 const RunQuiz = () => {
     // Beispiel-Daten / API-Aufruf
@@ -23,17 +24,40 @@ const RunQuiz = () => {
     const answers = ["Welcher Berg ist der höchste Berg der Welt1Welcher Berg ist der höchste Berg der Welt1Welcher Berg ist der höchste Berg der Welt1Welcher Berg ist der höchste Berg der Welt1?",
                     "Welcher Berg ist der höchste Berg der Welt2?",
                     "Welcher Berg ist der höchste Berg der Welt3?",
-                    "Welcher Berg ist der höchste Berg der Welt4?"];
+                    "Welcher Berg ist der höchste Berg der Welt4?"
+    ];
+    const correctAnswer = "Welcher Berg ist der höchste Berg der Welt2?";
 
-                    const [selectedAnswer, setSelectedAnswer] = useState(null);
+    const [selectedAnswer, setSelectedAnswer] = useState(null);
+    const [isCorrect, setIsCorrect] = useState(null);
+    const [isAnswerSubmitted, setIsAnswerSubmitted] = useState(false);
+    //const navigate = useNavigate();
 
+    // Was passiert wenn der Hilfe-Button geklickt wird
+    const handleRequestHelp = () => {
+        console.log("Hilfe anfordern...")
+        // Logik für Hilfsanforderung
+    }
+
+    // Antworten sind nur auswählbar wenn noch nicht auf antworten geklickt wurde
     const handleSelectAnswer = (answer) => {
-        console.log("Ausgewählte Antwort:", answer);
-        setSelectedAnswer(answer); // Setze die ausgewählte Antwort
+        if(!isAnswerSubmitted) {
+            console.log("Ausgewählte Antwort:", answer);
+            setSelectedAnswer(answer); // Setze die ausgewählte Antwort
+        }
      };
 
-     const handleSubmit = () => {
-        console.log("Antwort überprüfen: " + selectedAnswer); // Hier kannst du Logik hinzufügen, um die Antwort zu überprüfen
+    // Was passiert wenn auf Antworten geklickt wurde
+    const handleSubmit = () => {
+        console.log("Antwort überprüfen: " + selectedAnswer); 
+        setIsAnswerSubmitted(true);
+
+        const correct = selectedAnswer === correctAnswer;
+        setIsCorrect(correct);
+
+        if(correct){
+            // Nächste Frage
+        }
     };
 
     return (
@@ -45,8 +69,10 @@ const RunQuiz = () => {
                     answers={answers} 
                     onSelectAnswer={handleSelectAnswer} 
                     selectedAnswer={selectedAnswer} 
-                    onSubmit={handleSubmit} 
+                    isCorrect={isCorrect} 
                 />
+                {selectedAnswer && <Button text="Antworten" onClick={handleSubmit} />}
+                {isCorrect === false && <Button text="Hilfe anfordern" onClick={handleRequestHelp} />}
             </Content>
         </div>
         </div>

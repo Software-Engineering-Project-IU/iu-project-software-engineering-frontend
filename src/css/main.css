@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /*
 *	  main.scss	/ css
 *
@@ -191,11 +192,29 @@
   transform: scale(1.05);
 }
 .answer-block li.selected {
-  background-color: #00c60d;
+  background-color: #84adff;
   color: #212a3a;
+}
+.answer-block li.correct {
+  background-color: #4CAF50;
+  animation: highlight 1s;
+}
+.answer-block li.incorrect {
+  background-color: #F44336;
+  animation: highlight 1s;
 }
 .answer-block li:last-child {
   margin-bottom: 0;
+}
+
+/* Animationen für richtige/falsche Antworten */
+@keyframes highlight {
+  from {
+    transform: scale(1.1);
+  }
+  to {
+    transform: scale(1);
+  }
 }
 
 /*# sourceMappingURL=main.css.map */
