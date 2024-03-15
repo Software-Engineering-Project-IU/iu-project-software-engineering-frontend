@@ -18,6 +18,7 @@ import InputField from '../../Components/InputFields/InputField';
 import Content from '../../Layout/Content/Content';
 import { useNavigate } from 'react-router-dom';
 import '../../css/main.css';
+import { useAuth } from '../../Components/AuthProvider/AuthProvider';
 
 const Register = () => {
 
@@ -25,8 +26,10 @@ const Register = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
+    const { setUser } = useAuth();
 
     const handleRegister = () => {
+        
 
         // Validate E-Mail
         if (!isValidEmail(email)) {
@@ -41,8 +44,9 @@ const Register = () => {
             // const response = await myApi.createUser({ username, email, password });
 
             // Wenn die API-Anfrage erfolgreich war:
-            alert('Registrieren erfolgreich! Sie werden jetzt zur Login-Seite weitergeleitet.');
-            navigate('/login');
+            alert('Registrieren erfolgreich! Sie werden jetzt zur Homepage weitergeleitet.');
+            setUser({username, email, id: 1})
+            navigate('/');
         } catch (error) {
             // Wenn es ein Problem mit der Registrierung gab, informiere den Benutzer
             alert('Es gab ein Problem bei der Registrierung: ' + error.message);

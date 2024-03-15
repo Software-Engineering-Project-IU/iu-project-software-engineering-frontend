@@ -19,11 +19,11 @@ import '../../css/main.css';
 
 const Home = () => {
     const navigate = useNavigate();
-    const { isLoggedIn } = useAuth();
+    const { user } = useAuth();
 
     const handleQuizStart = () => {
         // Überprüfe ob der Benutzer eingeloggt ist
-        if (isLoggedIn) {
+        if (user) {
             // Wenn eingeloggt, navigiere zum Quiz
             navigate('/runquiz');
         } else {

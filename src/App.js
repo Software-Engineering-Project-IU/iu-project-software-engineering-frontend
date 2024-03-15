@@ -8,30 +8,19 @@ import EditQuestions from './Pages/EditQuestion/EditQuestion';
 import Navbar from './Layout/Navbar/Navbar'
 import '../src/css/main.css';
 import { AuthProvider } from './Components/AuthProvider/AuthProvider';
-import { useState } from 'react';
 
 const App = () => {
 
-  const [user, setUser] = useState(undefined);
-  async function loginUser(email, pw) {
-    // REST-API Anfrage
-
-    const user = { id: 1 ,username: "Max" };
-    // await api.get("/v1/auth/login", {
-    //   params: { email, password: pw },
-    // });
-    setUser(user);
-  }
 
   return (
     <BrowserRouter>
       <AuthProvider>
       <div>
-        <Navbar user={user}/>
+        <Navbar />
           <div className="routes">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login onLogin={loginUser}/>} />
+            <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/runquiz" element={<RunQuiz />} />
             <Route path="/createquestion" element={<CreateQuestions />} />

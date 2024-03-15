@@ -16,9 +16,14 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../../Components/AuthProvider/AuthProvider'
 import '../../css/main.css';
 import WelcomeBanner from '../../Components/Banner/WelcomeBanner';
+import Button from '../../Components/Buttons/Button';
 
-const Navbar = ({user}) => {
-    const { isLoggedIn } = useAuth();
+const Navbar = () => {
+    const { user, setUser } = useAuth();
+
+    function logOutUser() {
+        setUser(undefined);
+    }
 
     return (
         <nav className="navbar">
@@ -26,11 +31,10 @@ const Navbar = ({user}) => {
                 <Link className="logo" to="/">IU-Quiz-App</Link>
             </div>
             <div className="navbar-right-section">
-                {/* Hier wird die isLoggedIn Funktion genutzt um abzufragen ob der Nutzer angemeldet ist, Logik muss noch implementiert werden */}
-                <WelcomeBanner text="Welcome" username={user?.username??"username"} isLoggedIn={isLoggedIn} />
+                <WelcomeBanner text="Welcome" username={user?.username??"username"} isLoggedIn={user!== undefined} />
                 <ul className="navRight">
-                    <li><Link to="/login">Login</Link></li>
-                    <li><Link to="/register">Sign up</Link></li>
+                    {!user?<><li><Link to="/login">Login</Link></li>
+                    <li><Link to="/register">Sign up</Link></li></>:<li><Button text={"Logout"} onClick={logOutUser}/></li>}
             </ul>
             </div>
         </nav>

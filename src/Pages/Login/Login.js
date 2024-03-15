@@ -20,12 +20,12 @@ import Content from '../../Layout/Content/Content';
 import { useNavigate } from 'react-router-dom';
 import '../../css/main.css';
 
-const Login = ({onLogin}) => {
+const Login = () => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
-    const { setIsLoggedIn } = useAuth();
+    const { setUser } = useAuth();
 
     // Login-Request
     const handleLogin = () => {
@@ -45,8 +45,8 @@ const Login = ({onLogin}) => {
 
             // Wenn die API-Anfrage erfolgreich war:
             alert('Anmeldung erfolgreich!');
-            setIsLoggedIn(true);
-            onLogin()
+            setUser({ id: 1 ,username: "Max" });
+            //onLogin()
             navigate('/');
         } catch (error) {
             // Wenn es ein Problem mit der Registrierung gab, informiere den Benutzer
