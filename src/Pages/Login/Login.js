@@ -20,7 +20,7 @@ import Content from '../../Layout/Content/Content';
 import { useNavigate } from 'react-router-dom';
 import '../../css/main.css';
 
-const Login = () => {
+const Login = ({onLogin}) => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -46,6 +46,7 @@ const Login = () => {
             // Wenn die API-Anfrage erfolgreich war:
             alert('Anmeldung erfolgreich!');
             setIsLoggedIn(true);
+            onLogin()
             navigate('/');
         } catch (error) {
             // Wenn es ein Problem mit der Registrierung gab, informiere den Benutzer

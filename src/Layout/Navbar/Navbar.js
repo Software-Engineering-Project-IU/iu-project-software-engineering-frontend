@@ -17,7 +17,7 @@ import { useAuth } from '../../Components/AuthProvider/AuthProvider'
 import '../../css/main.css';
 import WelcomeBanner from '../../Components/Banner/WelcomeBanner';
 
-const Navbar = () => {
+const Navbar = ({user}) => {
     const { isLoggedIn } = useAuth();
 
     return (
@@ -27,7 +27,7 @@ const Navbar = () => {
             </div>
             <div className="navbar-right-section">
                 {/* Hier wird die isLoggedIn Funktion genutzt um abzufragen ob der Nutzer angemeldet ist, Logik muss noch implementiert werden */}
-                <WelcomeBanner text="Welcome" username="Username" isLoggedIn={isLoggedIn} />
+                <WelcomeBanner text="Welcome" username={user?.username??"username"} isLoggedIn={isLoggedIn} />
                 <ul className="navRight">
                     <li><Link to="/login">Login</Link></li>
                     <li><Link to="/register">Sign up</Link></li>

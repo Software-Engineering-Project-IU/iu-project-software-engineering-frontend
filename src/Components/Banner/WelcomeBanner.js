@@ -24,3 +24,4 @@ const WelcomeBanner = ({ text, username, isLoggedIn }) => {
 };
 
 export default WelcomeBanner;
+
