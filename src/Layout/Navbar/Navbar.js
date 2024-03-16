@@ -6,8 +6,8 @@
 *	Info/Notizen:		Implementierung einer Navbar-Komponente
 *
 *	Editiert von:		Kevin Krazius
-*	Editiert am:		03-13-2024
-*	Info/Notizen:		Welcome Banner integriert
+*	Editiert am:		03-15-2024
+*	Info/Notizen:		Logout integriert
 *
 */
 
@@ -22,13 +22,9 @@ const Navbar = () => {
     const { user, setUser } = useAuth();
     const navigate = useNavigate();
 
-    function navigateTo(route) {
-        navigate(route);
-    }
-
-
     function logOutUser() {
         setUser(undefined);
+        navigate("/");
     }
 
     return (
@@ -39,8 +35,14 @@ const Navbar = () => {
             <div className="navbar-right-section">
                 <WelcomeBanner text="Welcome" username={user?.username??"username"} isLoggedIn={user!== undefined} />
                 <ul className="navRight">
-                    {!user?<><li><Button text={"Login"} onClick={() => navigateTo("/login")}/></li>
-                    <li><Button text={"Sign up"} onClick={() => navigateTo("/register")}/></li></>:<li><Button text={"Logout"} onClick={logOutUser}/></li>}
+                    {!user
+                    ?
+                    <>
+                        <li><Button text={"Login"} onClick={() => navigate("/login")}/></li>
+                        <li><Button text={"Sign up"} onClick={() => navigate("/register")}/></li>
+                    </>
+                    :
+                        <li><Button text={"Logout"} onClick={logOutUser}/></li>}
             </ul>
             </div>
         </nav>
