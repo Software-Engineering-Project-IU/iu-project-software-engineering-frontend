@@ -12,7 +12,7 @@
 */
 
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../Components/AuthProvider/AuthProvider'
 import '../../scss/main.scss';
 import WelcomeBanner from '../../Components/Banner/WelcomeBanner';
@@ -20,6 +20,15 @@ import Button from '../../Components/Buttons/Button';
 
 const Navbar = () => {
     const { user, setUser } = useAuth();
+    const navigate = useNavigate();
+
+    function navigateToLogin() {
+        navigate("/login");
+    }
+
+    function navigateToRegister() {
+        navigate("/register");
+    }
 
     function logOutUser() {
         setUser(undefined);
@@ -33,8 +42,8 @@ const Navbar = () => {
             <div className="navbar-right-section">
                 <WelcomeBanner text="Welcome" username={user?.username??"username"} isLoggedIn={user!== undefined} />
                 <ul className="navRight">
-                    {!user?<><li><Link to="/login">Login</Link></li>
-                    <li><Link to="/register">Sign up</Link></li></>:<li><Button text={"Logout"} onClick={logOutUser}/></li>}
+                    {!user?<><li><Button text={"Login"} onClick={navigateToLogin}/></li>
+                    <li><Button text={"Sign up"} onClick={navigateToRegister}/></li></>:<li><Button text={"Logout"} onClick={logOutUser}/></li>}
             </ul>
             </div>
         </nav>
