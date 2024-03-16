@@ -15,7 +15,7 @@ import Button from '../../Components/Buttons/Button';
 import Content from '../../Layout/Content/Content';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../Components/AuthProvider/AuthProvider'
-import '../../css/main.css';
+import '../../scss/main.scss';
 
 const Home = () => {
     const navigate = useNavigate();

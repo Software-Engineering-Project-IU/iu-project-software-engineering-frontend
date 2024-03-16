@@ -12,7 +12,8 @@
 */
 
 import React from 'react';
-import '../../css/main.css';
+import '../../scss/main.scss';
+
 
 const AnswerBlock = ({ answers, onSelectAnswer, selectedAnswer, isCorrect }) => {
     return (

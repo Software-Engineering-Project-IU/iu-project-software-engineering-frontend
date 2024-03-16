@@ -12,7 +12,7 @@
 */
 
 import React from 'react';
-import '../../css/main.css';
+import '../../scss/main.scss';
 
 const Content = ({ children }) => {
     return (

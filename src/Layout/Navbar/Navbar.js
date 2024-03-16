@@ -14,7 +14,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../Components/AuthProvider/AuthProvider'
-import '../../css/main.css';
+import '../../scss/main.scss';
 import WelcomeBanner from '../../Components/Banner/WelcomeBanner';
 import Button from '../../Components/Buttons/Button';
 

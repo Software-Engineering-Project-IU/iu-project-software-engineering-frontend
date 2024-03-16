@@ -6,7 +6,7 @@ import RunQuiz from './Pages/RunQuiz/RunQuiz';
 import CreateQuestions from './Pages/CreateQuestion/CreateQuestion';
 import EditQuestions from './Pages/EditQuestion/EditQuestion';
 import Navbar from './Layout/Navbar/Navbar'
-import '../src/css/main.css';
+import './scss/main.scss';
 import { AuthProvider } from './Components/AuthProvider/AuthProvider';
 
 const App = () => {

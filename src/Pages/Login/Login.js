@@ -18,7 +18,7 @@ import Button from '../../Components/Buttons/Button';
 import InputField from '../../Components/InputFields/InputField';
 import Content from '../../Layout/Content/Content';
 import { useNavigate } from 'react-router-dom';
-import '../../css/main.css';
+import '../../scss/main.scss';
 
 const Login = () => {
 

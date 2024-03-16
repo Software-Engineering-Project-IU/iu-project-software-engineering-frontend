@@ -12,7 +12,7 @@
 */
 
 import React from 'react';
-import '../../css/main.css'; // Stelle sicher, dass der Pfad korrekt ist
+import '../../scss/main.scss';
 
 const QuestionBlock = ({ question }) => {
     return (

@@ -17,7 +17,7 @@ import Button from '../../Components/Buttons/Button';
 import InputField from '../../Components/InputFields/InputField';
 import Content from '../../Layout/Content/Content';
 import { useNavigate } from 'react-router-dom';
-import '../../css/main.css';
+import '../../scss/main.scss';
 import { useAuth } from '../../Components/AuthProvider/AuthProvider';
 
 const Register = () => {
