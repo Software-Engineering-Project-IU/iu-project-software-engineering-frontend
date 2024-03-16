@@ -32,11 +32,22 @@ const Home = () => {
         }
     };
 
+    const handleAddQuestion = () => {
+        // Überprüfe ob der Benutzer eingeloggt ist
+        if (user) {
+            // Wenn eingeloggt, navigiere zum Quiz
+            navigate('/createquestion');
+        } else {
+            // Wenn nicht eingeloggt, navigiere zur Login-Seite
+            navigate('/login');
+        }
+    };
+
     return (
         <div>
         <Content>
             <div className="home">
-                <Button text="Modul finden"/>
+                <Button text="Frage hinzufügen" onClick={handleAddQuestion}/>
             </div>
         </Content>
 

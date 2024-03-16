@@ -22,13 +22,10 @@ const Navbar = () => {
     const { user, setUser } = useAuth();
     const navigate = useNavigate();
 
-    function navigateToLogin() {
-        navigate("/login");
+    function navigateTo(route) {
+        navigate(route);
     }
 
-    function navigateToRegister() {
-        navigate("/register");
-    }
 
     function logOutUser() {
         setUser(undefined);
@@ -42,8 +39,8 @@ const Navbar = () => {
             <div className="navbar-right-section">
                 <WelcomeBanner text="Welcome" username={user?.username??"username"} isLoggedIn={user!== undefined} />
                 <ul className="navRight">
-                    {!user?<><li><Button text={"Login"} onClick={navigateToLogin}/></li>
-                    <li><Button text={"Sign up"} onClick={navigateToRegister}/></li></>:<li><Button text={"Logout"} onClick={logOutUser}/></li>}
+                    {!user?<><li><Button text={"Login"} onClick={() => navigateTo("/login")}/></li>
+                    <li><Button text={"Sign up"} onClick={() => navigateTo("/register")}/></li></>:<li><Button text={"Logout"} onClick={logOutUser}/></li>}
             </ul>
             </div>
         </nav>

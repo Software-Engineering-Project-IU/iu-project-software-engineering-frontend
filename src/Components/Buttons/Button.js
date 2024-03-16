@@ -15,9 +15,9 @@
 import React from 'react';
 import '../../scss/main.scss';
 
-const Button = ({ text, onClick }) => {
+const Button = ({ text, onClick, classNameParam}) => {
     return (
-        <button className="button" onClick={onClick}>
+        <button className={`${classNameParam || 'button'}`} onClick={onClick}>
             {text}
         </button>
     );

@@ -82,6 +82,11 @@ $button-active-color: darken($primary-color, 25%);
         background-color: darken($background-color, 10%);
         transform: scale(0.95);
     }
+
+    &.selected {
+        background-color: $correct-answer;
+        color: $text-color;
+    }
 }
 
 .navbar {

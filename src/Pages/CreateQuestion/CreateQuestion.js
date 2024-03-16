@@ -1,11 +1,28 @@
+/*
+*	    CreateQuestion.js	
+*
+*	    Ersteller:		    Kevin Krazius
+*	    Erstellungsdatum:	03-16-2024
+*	    Info/Notizen:		Komponente die aufgerufen wird wenn /createquestion aufgerufen wird
+*
+*	    Editiert von:		<Name>
+*	    Editiert am:		<Datum>
+*       Info/Notizen:		<Beschreibung der Änderung>		    
+*
+*/
+
+import CreateQuestionBlock from "../../Components/QuizComponents/CreateQuestionBlock";
+import Content from "../../Layout/Content/Content";
 
 
-const CreateQuestions = () => {
+const CreateQuestion = () => {
     return (
         <div>
-            <h1>Here you can CREATE Questions</h1>
+            <Content>
+                <CreateQuestionBlock /> 
+            </Content>
         </div>
     )
 }
 
-export default CreateQuestions;
+export default CreateQuestion;
