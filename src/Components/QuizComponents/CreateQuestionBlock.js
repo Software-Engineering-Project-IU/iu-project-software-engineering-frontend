@@ -67,7 +67,7 @@ const CreateQuestionBlock = () => {
                 </>
             )}
             <h2>Frage eingeben:</h2>
-            <InputField/>
+            <InputField isBig={true}/>
         </div>
     );
 };

@@ -1,30 +1,27 @@
-/*
-*	Inputfield.js
-*
-*	Ersteller:		    Kevin Krazius
-*	Erstellungsdatum:	03-10-2024
-*	Info/Notizen:		Implementierung eines Eingabefelds
-*
-*	Editiert von:		<Name>
-*	Editiert am:		<Datum>
-*	Info/Notizen:		<Beschreibung der Änderung>
-*
-*/
-
-
 import React from 'react';
+import '../../scss/main.scss'
 
-const InputField = ({ label, type = 'text', name, value, onChange }) => {
+const InputField = ({ label, type = 'text', name, value, onChange, isBig }) => {
     return (
         <div>
             {label && <label htmlFor={name}>{label}</label>}
-            <input
-                type={type}
-                id={name}
-                name={name}
-                value={value}
-                onChange={onChange}
-            />
+            {isBig ? (
+                <textarea
+                    id={name}
+                    name={name}
+                    value={value}
+                    onChange={onChange}
+                    className="big-inputfield"
+                />
+            ) : (
+                <input
+                    type={type}
+                    id={name}
+                    name={name}
+                    value={value}
+                    onChange={onChange}
+                />
+            )}
         </div>
     );
 };
