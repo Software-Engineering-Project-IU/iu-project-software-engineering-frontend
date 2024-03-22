@@ -22,7 +22,15 @@ const CreateQuestionBlock = () => {
     const [selectedModule, setSelectedModule] = useState('');
     // Zustand für das Anzeigen der Eingabekomponente
     const [showInput, setShowInput] = useState(false);
-
+    // Zustand für Fragentext
+    const [questionText, setQuestionText] = useState("");
+    // Zustand für Modultext
+    const [moduleText, setModuleText] = useState("");
+    // Zustand für Antworten
+    const [answer1, setAnswer1] = useState("");
+    const [answer2, setAnswer2] = useState("");
+    const [answer3, setAnswer3] = useState("");
+    const [answer4, setAnswer4] = useState("");
 
     // Funktion, die aufgerufen wird, wenn ein Modul ausgewählt wird
     const handleSelectModule = (moduleName) => {
@@ -39,6 +47,17 @@ const CreateQuestionBlock = () => {
         setSelectedModule('');
         setShowInput(true); // Eingabekomponente anzeigen
         // Logik zur Erstellung eines neuen Moduls hinzufügen
+    };
+
+    // Funktion welche prüft ob sämtliche Eingaben getätigt wurden, anschließend wird über API an Datenbank übertragen
+    const createQuestion = () => {
+        console.log("Erstelltes Modul: ", moduleText || selectedModule);
+        console.log("Erstellte Frage: ", questionText);
+        console.log("Erstellte Antwort: ", answer1);
+        console.log("Erstellte Frage: ", answer2);
+        console.log("Erstellte Frage: ", answer3);
+        console.log("Erstellte Frage: ", answer4);
+        // Logik zum Senden der Frage an die API
     };
 
 
@@ -63,11 +82,16 @@ const CreateQuestionBlock = () => {
             {showInput && (
                 <>
                     <h2>Neues Modul:</h2>
-                    <InputField placeholder="Modulname eingeben" />
+                    <InputField value={moduleText} onChange={e => setModuleText(e.target.value)}/>
                 </>
             )}
             <h2>Frage eingeben:</h2>
-            <InputField isBig={true}/>
+            <InputField isBig={true} value={questionText} onChange={e => setQuestionText(e.target.value)}/>
+            <InputField label={"Antwort 1 eingeben:"} value={answer1} onChange={e => setAnswer1(e.target.value)}/>
+            <InputField label={"Antwort 2 eingeben:"} value={answer2} onChange={e => setAnswer2(e.target.value)}/>
+            <InputField label={"Antwort 3 eingeben:"} value={answer3} onChange={e => setAnswer3(e.target.value)}/>
+            <InputField label={"Antwort 4 eingeben:"} value={answer4} onChange={e => setAnswer4(e.target.value)}/>
+            <Button text={"Frage erstellen"} onClick={createQuestion}/>
         </div>
     );
 };
