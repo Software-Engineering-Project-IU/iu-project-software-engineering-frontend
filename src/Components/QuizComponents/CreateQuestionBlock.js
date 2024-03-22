@@ -3,7 +3,7 @@
 *
 *	    Ersteller:		    Kevin Krazius
 *	    Erstellungsdatum:	03-16-2024
-*	    Info/Notizen:		Komponente welche der Fragenerstellung dient
+*	    Info/Notizen:		Komponente, welche der Fragenerstellung dient
 *
 *	    Editiert von:		<Name>
 *	    Editiert am:		<Datum>

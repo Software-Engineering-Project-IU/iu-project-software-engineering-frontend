@@ -1,3 +1,16 @@
+/*
+*	    index.js	
+*
+*	    Ersteller:		      Kevin Krazius
+*	    Erstellungsdatum:	  02-29-2024
+*	    Info/Notizen:		    index-Datei ist zuständig für das rendern der App
+
+*	    Editiert von:		    <Name>
+*	    Editiert am:		    <Datum>
+*     Info/Notizen:		    <Beschreibung der Änderung>		    
+*
+*/
+
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';

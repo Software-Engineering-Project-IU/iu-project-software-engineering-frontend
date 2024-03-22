@@ -5,8 +5,8 @@
 *	Erstellungsdatum:	03-13-2024
 *	Info/Notizen:		Implementierung eines Banners
 *
-*	Editiert von:		
-*	Editiert am:		
+*	Editiert von:		<Name>
+*	Editiert am:		<Datum>
 *	Info/Notizen:		<Beschreibung der Änderung>
 *
 */

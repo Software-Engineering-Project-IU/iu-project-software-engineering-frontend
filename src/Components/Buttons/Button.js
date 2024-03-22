@@ -5,8 +5,8 @@
 *	Erstellungsdatum:	03-06-2024
 *	Info/Notizen:		Implementierung einer einfachen Button-Komponente
 *
-*	Editiert von:		Kevin Krazius
-*	Editiert am:		03-12-2024
+*	Editiert von:		<Name>
+*	Editiert am:		<Datum>
 *	Info/Notizen:		<Beschreibung der Änderung>
 *
 */

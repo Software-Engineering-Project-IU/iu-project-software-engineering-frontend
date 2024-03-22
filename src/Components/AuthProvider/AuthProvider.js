@@ -1,3 +1,16 @@
+/*
+*	AuthProvider.js	
+*
+*	Ersteller:		    Kevin Krazius
+*	Erstellungsdatum:	03-16-2024
+*	Info/Notizen:		Authentication-Provider-Komponente, welche Nutzerdaten validiert
+*
+*	Editiert von:		
+*	Editiert am:		
+*	Info/Notizen:		
+*
+*/
+
 import React, { createContext, useContext, useState } from 'react';
 
 const AuthContext = createContext();

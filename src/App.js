@@ -1,3 +1,16 @@
+/*
+*	    App.js	
+*
+*	    Ersteller:		      Kevin Krazius
+*	    Erstellungsdatum:	  02-29-2024
+*	    Info/Notizen:		    App-Komponente. Definiert den Aufbau der Web-Applikation
+
+*	    Editiert von:		    <Name>
+*	    Editiert am:		    <Datum>
+*     Info/Notizen:		    <Beschreibung der Änderung>		    
+*
+*/
+
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './Pages/Home/Home';
 import Login from './Pages/Login/Login';

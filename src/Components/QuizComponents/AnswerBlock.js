@@ -3,7 +3,7 @@
 *
 *	    Ersteller:		    Kevin Krazius
 *	    Erstellungsdatum:	03-14-2024
-*	    Info/Notizen:		Komponente welche die Antwortmöglichkeiten anzeigt
+*	    Info/Notizen:		Komponente, welche die Antwortmöglichkeiten anzeigt
 *
 *	    Editiert von:		<Name>
 *	    Editiert am:		<Datum>
