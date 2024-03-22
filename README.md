@@ -1,3 +1,7 @@
+# Set up project on your machine
+
+Copy or clone this repository to your local machine. In your console navigate to copied repository and run 'npm install'. After that you can use 'npm run start' to run this app on localhost:3000
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
