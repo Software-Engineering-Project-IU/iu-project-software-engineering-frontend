@@ -9,6 +9,9 @@
 *	  Editiert am:		    03-14-2024
 *	  Info/Notizen:		    Question- / AnswerBlock Design
 *
+*	  Editiert von:		    Kevin Krazius
+*	  Editiert am:		    03-14-2024
+*	  Info/Notizen:		    Footer Design
 */
 
 // Variablen für verschiedene Farben
@@ -257,6 +260,12 @@ $button-active-color: darken($primary-color, 25%);
     border-radius: 4px;
 }
 
+.footer {
+    padding: 20px 0;
+    background-color: $background-color;
+    text-align: center;
+    border-top: 1px solid $background-color;
+}
 
 /* Animationen für richtige/falsche Antworten */
 @keyframes highlight {

@@ -21,6 +21,7 @@ import EditQuestions from './Pages/EditQuestion/EditQuestion';
 import Navbar from './Layout/Navbar/Navbar'
 import './scss/main.scss';
 import { AuthProvider } from './Components/AuthProvider/AuthProvider';
+import Footer from './Layout/Footer/Footer';
 
 const App = () => {
 
@@ -28,7 +29,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <AuthProvider>
-      <div>
+      <div className="app-container">
         <Navbar />
           <div className="routes">
           <Routes>
@@ -40,6 +41,7 @@ const App = () => {
             <Route path="/editquestion" element={<EditQuestions />} />
           </Routes>
           </div>
+        <Footer />
       </div>
       </AuthProvider>
     </BrowserRouter>
