@@ -5,9 +5,9 @@
 *	    Erstellungsdatum:	03-16-2024
 *	    Info/Notizen:		Komponente, welche der Fragenerstellung dient
 *
-*	    Editiert von:		<Name>
-*	    Editiert am:		<Datum>
-*       Info/Notizen:		<Beschreibung der Änderung>		    
+*	    Editiert von:		Kevin Krazius
+*	    Editiert am:		03-26-2024
+*       Info/Notizen:		Toggle zum festlegen der Korrektheit der Antworten hinzu	    
 *
 */
 
@@ -17,7 +17,6 @@ import InputField from '../InputFields/InputField';
 import Button from '../Buttons/Button';
 
 const CreateQuestionBlock = () => {
-
     // Zustand für das ausgewählte Modul
     const [selectedModule, setSelectedModule] = useState('');
     // Zustand für das Anzeigen der Eingabekomponente
@@ -27,12 +26,12 @@ const CreateQuestionBlock = () => {
     // Zustand für Modultext
     const [moduleText, setModuleText] = useState("");
     // Zustand für Antworten
-    const [answer1, setAnswer1] = useState("");
-    const [answer2, setAnswer2] = useState("");
-    const [answer3, setAnswer3] = useState("");
-    const [answer4, setAnswer4] = useState("");
-    // Zustand für die Korrektheit der Antwort
-    const [isCorrectAnswer, setIsCorrectAnswer] = useState(false);
+    const [answers, setAnswers] = useState([
+        { text: '', isCorrect: false },
+        { text: '', isCorrect: false },
+        { text: '', isCorrect: false },
+        { text: '', isCorrect: false }
+    ]);
 
     // Funktion, die aufgerufen wird, wenn ein Modul ausgewählt wird
     const handleSelectModule = (moduleName) => {
@@ -55,16 +54,22 @@ const CreateQuestionBlock = () => {
     const createQuestion = () => {
         console.log("Erstelltes Modul: ", moduleText || selectedModule);
         console.log("Erstellte Frage: ", questionText);
-        console.log("Erstellte Antwort: ", answer1);
-        console.log("Erstellte Frage: ", answer2);
-        console.log("Erstellte Frage: ", answer3);
-        console.log("Erstellte Frage: ", answer4);
+        console.log("Erstellte Antworten: ", answers);
         // Logik zum Senden der Frage an die API
     };
 
+    // Handler zum Aktualisieren der Antwort
+    const handleAnswerChange = (index, value) => {
+        const newAnswers = [...answers];
+        newAnswers[index].text = value;
+        setAnswers(newAnswers);
+    };
+
     // Handler zum Umschalten der Antwortkorrektheit
-    const handleToggleCorrectness = () => {
-        setIsCorrectAnswer(prevState => !prevState);
+    const handleToggleCorrectness = (index) => {
+        const newAnswers = [...answers];
+        newAnswers[index].isCorrect = !newAnswers[index].isCorrect;
+        setAnswers(newAnswers);
     };
 
     return (
@@ -95,47 +100,27 @@ const CreateQuestionBlock = () => {
             )}
             <h2>Frage eingeben:</h2>
             <InputField isBig={true} value={questionText} onChange={e => setQuestionText(e.target.value)}/>
-            <p/>
-            <InputField label={"Antwort 1 eingeben: "} value={answer1} onChange={e => setAnswer1(e.target.value)}/>
-            <label>
-                <input 
-                    type="checkbox"
-                    checked={isCorrectAnswer}
-                    onChange={handleToggleCorrectness}
-                />
-                Ist Antwort korrekt?
-            </label>
-            <p/>
-            <InputField label={"Antwort 2 eingeben: "} value={answer2} onChange={e => setAnswer2(e.target.value)}/>
-            <label>
-                <input 
-                    type="checkbox"
-                    checked={isCorrectAnswer}
-                    onChange={handleToggleCorrectness}
-                />
-                Ist Antwort korrekt?
-            </label>
-            <p/>
-            <InputField label={"Antwort 3 eingeben: "} value={answer3} onChange={e => setAnswer3(e.target.value)}/>
-            <label>
-                <input 
-                    type="checkbox"
-                    checked={isCorrectAnswer}
-                    onChange={handleToggleCorrectness}
-                />
-                Ist Antwort korrekt?
-            </label>
-            <p/>
-            <InputField label={"Antwort 4 eingeben: "} value={answer4} onChange={e => setAnswer4(e.target.value)}/>
-            <label>
-                <input 
-                    type="checkbox"
-                    checked={isCorrectAnswer}
-                    onChange={handleToggleCorrectness}
-                />
-                Ist Antwort korrekt?
-            </label>
-            <p/>
+            {/* Eingabefelder für Antworten und Toggle-Buttons */}
+            <h2>Antworten eingeben:</h2>
+            {answers.map((answer, index) => (
+                <div key={index}>
+                    <InputField 
+                        label={`Antwort ${index + 1} eingeben: `}
+                        value={answer.text}
+                        onChange={e => handleAnswerChange(index, e.target.value)}
+                    />
+                    <p/>
+                    <label>
+                        <input 
+                            type="checkbox"
+                            checked={answer.isCorrect}
+                            onChange={() => handleToggleCorrectness(index)}
+                        />
+                        Ist Antwort korrekt?
+                    </label>
+                    <p/>
+                </div>
+            ))}
             <Button text={"Frage erstellen"} onClick={createQuestion}/>
         </div>
     );
