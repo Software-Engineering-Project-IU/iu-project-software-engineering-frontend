@@ -197,6 +197,31 @@ $button-active-color: darken($primary-color, 25%);
     padding-top: 15px;
 }
 
+.content-create-question {
+    min-width: 405px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background-color: $content-color;
+    padding: 1rem;
+    color: $text-color;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 0 auto;
+    padding-top: 15px;
+
+    ul {
+         list-style-type: none;
+         padding: 0;
+         display: flex;
+         flex-wrap: wrap;
+         justify-content: center;
+         gap: 10px;
+         width: 100%;
+     }
+}
+
 .routes {
     padding-top: 105px;
 }
@@ -284,7 +309,7 @@ $button-active-color: darken($primary-color, 25%);
 }
 
 .big-inputfield {
-    width: 100%;
+    width: 500px;
     height: 150px;
     padding: 10px;
     border: 1px solid #ccc;
@@ -300,23 +325,40 @@ $button-active-color: darken($primary-color, 25%);
 
 .catalog-block {
     display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
+    flex-direction: column;
+    align-items: center;
 
-    h3 {
-        color: $background-color;
-        font-size: 1.5rem;
-    }
-
-    p {
-        color: $text-color;
-        font-size: 1.2rem;
+    .module-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 20px;
     }
 
     .question-container {
         display: flex;
         flex-wrap: wrap;
         gap: 20px;
+        justify-content: center;
+    }
+
+    .question-block {
+        background-color: $content-color;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 8px $secondary-color;
+        width: calc(50% - 10px);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex-basis: calc(50% - 20px);
+    }
+
+    h3, p {
+        color: $text-color;
+        margin: 0;
+        padding: 5px;
     }
 }
 

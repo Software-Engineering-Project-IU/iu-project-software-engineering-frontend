@@ -71,8 +71,11 @@ const RunQuiz = () => {
                     selectedAnswer={selectedAnswer} 
                     isCorrect={isCorrect} 
                 />
+                <p/>
                 {selectedAnswer && <Button text="Antworten" onClick={handleSubmit} />}
+                <p/>
                 {isCorrect === false && <Button text="Hilfe anfordern" onClick={handleRequestHelp} />}
+                <p/>
             </Content>
         </div>
         </div>

@@ -62,21 +62,23 @@ const CreateQuestionBlock = () => {
 
 
     return (
-        <div>
+        <div className='content-create-question'>
             <h2>Modul auswählen:</h2>
             {/* verfügbare Module auflisten und auswählbar machen */}
             <ul>
-                {["Modul 1", "Modul 2", "Modul 3", "Modul 4"].map((moduleName) => (
+                {["Modul 1", "Modul 2", "Modul 3", "Modul 4", "Modul 5", "Modul 6", "Modul 7", "Modul 8"].map((moduleName) => (
                     <div key={moduleName}>
                         <Button 
                             text={moduleName} 
                             onClick={() => handleSelectModule(moduleName)}
                             classNameParam={selectedModule === moduleName ? 'button selected' : 'button'}
                         />
+                        <p/>
                     </div>
                 ))}
             </ul>
             {/* Button für neues Modul erstellen -> Textfeld geht auf... */}
+            <p/>
             <Button text={"Neues Modul erstellen"} onClick={handleCreateNewModule}/>
             {/* Zeige Eingabefeld, wenn showInput true ist */}
             {showInput && (
@@ -87,10 +89,15 @@ const CreateQuestionBlock = () => {
             )}
             <h2>Frage eingeben:</h2>
             <InputField isBig={true} value={questionText} onChange={e => setQuestionText(e.target.value)}/>
-            <InputField label={"Antwort 1 eingeben:"} value={answer1} onChange={e => setAnswer1(e.target.value)}/>
-            <InputField label={"Antwort 2 eingeben:"} value={answer2} onChange={e => setAnswer2(e.target.value)}/>
-            <InputField label={"Antwort 3 eingeben:"} value={answer3} onChange={e => setAnswer3(e.target.value)}/>
-            <InputField label={"Antwort 4 eingeben:"} value={answer4} onChange={e => setAnswer4(e.target.value)}/>
+            <p/>
+            <InputField label={"Antwort 1 eingeben: "} value={answer1} onChange={e => setAnswer1(e.target.value)}/>
+            <p/>
+            <InputField label={"Antwort 2 eingeben: "} value={answer2} onChange={e => setAnswer2(e.target.value)}/>
+            <p/>
+            <InputField label={"Antwort 3 eingeben: "} value={answer3} onChange={e => setAnswer3(e.target.value)}/>
+            <p/>
+            <InputField label={"Antwort 4 eingeben: "} value={answer4} onChange={e => setAnswer4(e.target.value)}/>
+            <p/>
             <Button text={"Frage erstellen"} onClick={createQuestion}/>
         </div>
     );

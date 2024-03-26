@@ -9,6 +9,10 @@
 *	    Editiert am:		    03-26-2024
 *     Info/Notizen:		    Auslagern der Testdaten, Funktion Gruppieren der Testdaten hinzu. Buttons hinzu  
 *
+*	    Editiert von:		    Kevin Krazius
+*	    Editiert am:		    03-26-2024
+*     Info/Notizen:		    
+*
 */
 
 import React, { useState } from 'react';
@@ -33,31 +37,31 @@ const QuestionCatalog = () => {
 
   return (
     <div className='catalog-block'>
-      {Object.keys(modules).map((modulname) => (
-        <div key={modulname}>
-          <Button 
-          buttonColor={'secondary'}
-          text={modulname} 
-          onClick={() => toggleModuleVisibility(modulname)} 
-          />
-
-          {visibleModule === modulname && (
-            <div className='question-container'>
-              {modules[modulname].map((question) => (
-                <div key={question.id}>
-                  <h3>{question.frage}</h3>
-                  {question.antworten.map((antwort, index) => (
-                    <div key={index} className={`antwort ${antwort.isCorrect ? 'correct' : ''}`}>
-                      <p>{antwort.text}</p>
-                    </div>
-                  ))}
-                  <Button text={"Bearbeiten"} />
+      <div className='module-buttons'>
+          {Object.keys(modules).map((modulname) => (
+              <Button 
+                  key={modulname}
+                  buttonColor={visibleModule === modulname ? 'primary' : 'secondary'}
+                  text={modulname}
+                  onClick={() => toggleModuleVisibility(modulname)}
+              />
+          ))}
+      </div>
+      {visibleModule && (
+        <div className='question-container'>
+          {modules[visibleModule].map((question) => (
+            <div key={question.id} className='question-block'>
+              <h3>{question.frage}</h3>
+              {question.antworten.map((antwort, index) => (
+                <div key={index}>
+                  <p>{antwort.text}</p>
                 </div>
               ))}
+              <Button text={"Bearbeiten"} />
             </div>
-          )}
+          ))}
         </div>
-      ))}
+      )}
     </div>
   );
 };
