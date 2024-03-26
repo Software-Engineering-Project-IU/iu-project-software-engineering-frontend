@@ -31,6 +31,8 @@ const CreateQuestionBlock = () => {
     const [answer2, setAnswer2] = useState("");
     const [answer3, setAnswer3] = useState("");
     const [answer4, setAnswer4] = useState("");
+    // Zustand für die Korrektheit der Antwort
+    const [isCorrectAnswer, setIsCorrectAnswer] = useState(false);
 
     // Funktion, die aufgerufen wird, wenn ein Modul ausgewählt wird
     const handleSelectModule = (moduleName) => {
@@ -60,6 +62,10 @@ const CreateQuestionBlock = () => {
         // Logik zum Senden der Frage an die API
     };
 
+    // Handler zum Umschalten der Antwortkorrektheit
+    const handleToggleCorrectness = () => {
+        setIsCorrectAnswer(prevState => !prevState);
+    };
 
     return (
         <div className='content-create-question'>
@@ -91,12 +97,44 @@ const CreateQuestionBlock = () => {
             <InputField isBig={true} value={questionText} onChange={e => setQuestionText(e.target.value)}/>
             <p/>
             <InputField label={"Antwort 1 eingeben: "} value={answer1} onChange={e => setAnswer1(e.target.value)}/>
+            <label>
+                <input 
+                    type="checkbox"
+                    checked={isCorrectAnswer}
+                    onChange={handleToggleCorrectness}
+                />
+                Ist Antwort korrekt?
+            </label>
             <p/>
             <InputField label={"Antwort 2 eingeben: "} value={answer2} onChange={e => setAnswer2(e.target.value)}/>
+            <label>
+                <input 
+                    type="checkbox"
+                    checked={isCorrectAnswer}
+                    onChange={handleToggleCorrectness}
+                />
+                Ist Antwort korrekt?
+            </label>
             <p/>
             <InputField label={"Antwort 3 eingeben: "} value={answer3} onChange={e => setAnswer3(e.target.value)}/>
+            <label>
+                <input 
+                    type="checkbox"
+                    checked={isCorrectAnswer}
+                    onChange={handleToggleCorrectness}
+                />
+                Ist Antwort korrekt?
+            </label>
             <p/>
             <InputField label={"Antwort 4 eingeben: "} value={answer4} onChange={e => setAnswer4(e.target.value)}/>
+            <label>
+                <input 
+                    type="checkbox"
+                    checked={isCorrectAnswer}
+                    onChange={handleToggleCorrectness}
+                />
+                Ist Antwort korrekt?
+            </label>
             <p/>
             <Button text={"Frage erstellen"} onClick={createQuestion}/>
         </div>
