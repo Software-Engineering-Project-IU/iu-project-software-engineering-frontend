@@ -18,7 +18,7 @@ const Footer = () => {
     return (
         <footer className="footer">
             <div className="container">
-                <span>© {new Date().getFullYear()} Deine Firma oder Name. Alle Rechte vorbehalten.</span>
+                <span>© {new Date().getFullYear()} IU-Software-Engineering-Project. Alle Rechte vorbehalten.</span>
             </div>
         </footer>
     );

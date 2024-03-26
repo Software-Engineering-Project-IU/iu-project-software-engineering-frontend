@@ -15,9 +15,11 @@
 import React from 'react';
 import '../../scss/main.scss';
 
-const Button = ({ text, onClick, classNameParam}) => {
+const Button = ({ text, onClick, classNameParam, buttonColor = 'primary' }) => {
+    const buttonClass = `button ${buttonColor === 'primary' ? 'button-primary' : 'button-secondary'} ${classNameParam || ''}`;
+
     return (
-        <button className={`${classNameParam || 'button'}`} onClick={onClick}>
+        <button className={buttonClass} onClick={onClick}>
             {text}
         </button>
     );

@@ -17,6 +17,7 @@
 // Variablen für verschiedene Farben
 $primary-color: #2970FF;
 $secondary-color: rgba(52, 64, 84);
+$secondary-button-color: #a6c4ff;
 $content-color: #212a3a;
 $text-color: #EAECF0;
 $text-light-color: #0693e3;
@@ -67,7 +68,6 @@ $button-active-color: darken($primary-color, 25%);
 
 .button {
     padding: 10px 15px;
-    background-color: $primary-color;
     color: $background-color;
     border: none;
     border-radius: 20px;
@@ -90,6 +90,37 @@ $button-active-color: darken($primary-color, 25%);
     &.selected {
         background-color: $correct-answer;
         color: $text-color;
+    }
+
+    &-primary {
+        background-color: $primary-color;
+        color: $text-color;
+    }
+
+    &-secondary {
+        background-color: $secondary-button-color;
+        color: $text-color;
+    }
+}
+
+.button-primary {
+    background-color: $primary-color;
+    &:hover {
+        background-color: $background-color;
+    }
+    &:active {
+        background-color: darken($primary-color, 20%);
+    }
+}
+
+.button-secondary {
+    background-color: $secondary-color;
+    color: $text-light-color;
+    &:hover {
+        background-color: darken($secondary-color, 10%);
+    }
+    &:active {
+        background-color: darken($secondary-color, 20%);
     }
 }
 
@@ -266,6 +297,29 @@ $button-active-color: darken($primary-color, 25%);
     text-align: center;
     border-top: 1px solid $background-color;
 }
+
+.catalog-block {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+
+    h3 {
+        color: $background-color;
+        font-size: 1.5rem;
+    }
+
+    p {
+        color: $text-color;
+        font-size: 1.2rem;
+    }
+
+    .question-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+}
+
 
 /* Animationen für richtige/falsche Antworten */
 @keyframes highlight {

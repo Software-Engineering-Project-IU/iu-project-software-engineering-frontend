@@ -25,7 +25,7 @@ import QuestionCatalog from '../../Components/QuizComponents/QuestionCatalog';
 const Home = () => {
     const navigate = useNavigate();
     const { user } = useAuth();
-    const [showQuestionCatalog, setShowQuestionCatalog] = useState(false);
+    const [ showQuestionCatalog, setShowQuestionCatalog ] = useState(false);
 
     function routeNavigation(route) {
         // Überprüfe ob der Benutzer eingeloggt ist
@@ -33,8 +33,8 @@ const Home = () => {
             // Wenn eingeloggt, navigiere zum Quiz
             navigate(route);
         } else {
-            // Wenn nicht eingeloggt, navigiere zur Login-Seite
-            navigate('/login');
+            alert('Bitte melden Sie sich an.');
+            return;
         }
     };
 
