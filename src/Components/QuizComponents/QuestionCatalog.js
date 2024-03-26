@@ -18,10 +18,26 @@
 import React, { useState } from 'react';
 import { testData } from '../../Data/testData';
 import Button from '../Buttons/Button';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../Components/AuthProvider/AuthProvider';
 
 const QuestionCatalog = () => {
   // Zustände für die Anzeige der Module
   const [visibleModule, setVisibleModule] = useState('');
+
+  const navigate = useNavigate();
+  const { user } = useAuth();
+
+  function routeNavigation(route) {
+    // Überprüfe ob der Benutzer eingeloggt ist
+    if (user) {
+        // Wenn eingeloggt, navigiere
+        navigate(route);
+    } else {
+        alert('Bitte melden Sie sich an.');
+        return;
+    }
+  };
 
   // Funktion zum Umschalten der sichtbaren Module
   const toggleModuleVisibility = (moduleName) => {
@@ -57,7 +73,7 @@ const QuestionCatalog = () => {
                   <p>{antwort.text}</p>
                 </div>
               ))}
-              <Button text={"Bearbeiten"} />
+              <Button text={"Bearbeiten"} onClick={() => routeNavigation(`/editquestion/${question.id}`)} />
             </div>
           ))}
         </div>

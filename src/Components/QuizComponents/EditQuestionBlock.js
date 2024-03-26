@@ -1,5 +1,5 @@
 /*
-*	    EditQuestion.js	
+*	    EditQuestionBlock.js	
 *
 *	    Ersteller:		    Kevin Krazius
 *	    Erstellungsdatum:	03-16-2024
@@ -12,11 +12,9 @@
 */
 
 import { useParams } from 'react-router-dom';
-import Content from '../../Layout/Content/Content';
 import { testData } from '../../Data/testData';
-import EditQuestionBlock from '../../Components/QuizComponents/EditQuestionBlock';
 
-const EditQuestions = () => {
+const EditQuestionBlock = () => {
     // ID aus der URL erhalten
     let { id } = useParams();
 
@@ -28,9 +26,7 @@ const EditQuestions = () => {
     if (!question) {
         return (
             <div>
-                <Content>
                     <h1>Question not found!</h1>
-                </Content>
             </div>
         );
     }
@@ -40,12 +36,18 @@ const EditQuestions = () => {
 
     return (
         <div>
-            <Content>
-                <EditQuestionBlock />
-            </Content>
+                <h1>Frage bearbeiten</h1>
+                <h2>Modul: {question.modulname}</h2>
+                <h2>Frage: {question.frage}</h2>
+                <h3>Antworten:</h3>
+                <ul>
+                    {question.antworten.map((antwort, index) => (
+                        <li key={index}>{antwort.text}</li>
+                    ))}
+                </ul>
         </div>
     );
 }
 
-export default EditQuestions;
+export default EditQuestionBlock;
 

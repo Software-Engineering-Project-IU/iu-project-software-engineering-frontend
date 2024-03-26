@@ -30,7 +30,7 @@ const Home = () => {
     function routeNavigation(route) {
         // Überprüfe ob der Benutzer eingeloggt ist
         if (user) {
-            // Wenn eingeloggt, navigiere zum Quiz
+            // Wenn eingeloggt, navigiere
             navigate(route);
         } else {
             alert('Bitte melden Sie sich an.');
