@@ -99,7 +99,13 @@ const CreateQuestionBlock = () => {
                 </>
             )}
             <h2>Frage eingeben:</h2>
-            <InputField isBig={true} value={questionText} onChange={e => setQuestionText(e.target.value)}/>
+            <InputField 
+                isBig={true} 
+                value={questionText} 
+                onChange={e => setQuestionText(e.target.value)}
+                height={200}
+                width={750}
+            />
             {/* Eingabefelder für Antworten und Toggle-Buttons */}
             <h2>Antworten eingeben:</h2>
             {answers.map((answer, index) => (

@@ -12,9 +12,9 @@
 */
 
 import React from 'react';
-import '../../scss/main.scss'
+import '../../scss/main.scss';
 
-const InputField = ({ label, type = 'text', name, value, onChange, isBig }) => {
+const InputField = ({ label, type = 'text', name, value, onChange, isBig, height, width }) => {
     return (
         <div>
             {label && <label htmlFor={name}>{label}</label>}
@@ -25,6 +25,7 @@ const InputField = ({ label, type = 'text', name, value, onChange, isBig }) => {
                     value={value}
                     onChange={onChange}
                     className="big-inputfield"
+                    style={{ height: height ? `${height}px` : '150px', width: width ? `${width}px` : '100%' }}
                 />
             ) : (
                 <input
@@ -40,3 +41,4 @@ const InputField = ({ label, type = 'text', name, value, onChange, isBig }) => {
 };
 
 export default InputField;
+
