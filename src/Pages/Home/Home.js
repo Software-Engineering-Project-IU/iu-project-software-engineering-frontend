@@ -21,6 +21,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../Components/AuthProvider/AuthProvider';
 import '../../scss/main.scss';
 import QuestionCatalog from '../../Components/QuizComponents/QuestionCatalog';
+import HelpBlock from '../../Components/QuizComponents/Helpblock';
 
 const Home = () => {
     const navigate = useNavigate();
@@ -40,12 +41,7 @@ const Home = () => {
 
     return (
         <div>
-        <Content>
-            <div className="home">
-                <Button text="Frage hinzufügen" onClick={() => routeNavigation('/createquestion')}/>
-            </div>
-        </Content>
-
+            
         <Content>
             <div className="home">
                 <Button text="Quiz starten" onClick={() => routeNavigation('/runquiz')}/>
@@ -57,6 +53,19 @@ const Home = () => {
                 <Button text="Fragenkatalog" onClick={() => setShowQuestionCatalog(!showQuestionCatalog)}/>
             </div>
             {showQuestionCatalog && <QuestionCatalog />}
+        </Content>
+
+                
+        <Content>
+            <div className="home">
+                <Button text="Frage hinzufügen" onClick={() => routeNavigation('/createquestion')}/>
+            </div>
+        </Content>
+
+        <Content>
+            <div className="home">
+                <HelpBlock />
+            </div>
         </Content>
         </div>
     )

@@ -42,9 +42,14 @@ $button-active-color: darken($primary-color, 25%);
         color: $text-color;
     }
 
+    h2 {
+        font-size: x-large;
+        color: $incorrect-answer;
+    }
+
     p {
         font-size: 1rem;
-        color: $text-light-color;
+        color: $background-color;
     }
 }
 
