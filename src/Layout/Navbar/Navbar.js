@@ -19,13 +19,13 @@ import WelcomeBanner from '../../Components/Banner/WelcomeBanner';
 import Button from '../../Components/Buttons/Button';
 
 const Navbar = () => {
-    const { user, setUser } = useAuth();
+    const { user, logoutUser } = useAuth();
     const navigate = useNavigate();
 
-    function logOutUser() {
-        setUser(undefined);
-        navigate("/");
-    }
+    // function logOutUser() {
+    //     setUser(undefined);
+    //     navigate("/");
+    // }
 
     return (
         <nav className="navbar">
@@ -42,7 +42,7 @@ const Navbar = () => {
                         <li><Button text={"Sign up"} onClick={() => navigate("/register")}/></li>
                     </>
                     :
-                        <li><Button text={"Logout"} onClick={logOutUser}/></li>}
+                        <li><Button text={"Logout"} onClick={logoutUser}/></li>}
             </ul>
             </div>
         </nav>
