@@ -1,4 +1,14 @@
 // Testdaten für Frontend
+
+/*
+*	testData.js	
+*
+*	Ersteller:		    Kevin Krazius
+*	Erstellungsdatum:	03-11-2024
+*	Info/Notizen:		Testdaten
+*
+*/
+
 export const testData = [
     // Mathematik Module
     ...Array(15).fill().map((_, index) => ({
@@ -11,7 +21,7 @@ export const testData = [
             {"text": `${index + 6}`, "isCorrect": false},
             {"text": `${index + 7}`, "isCorrect": false}
         ],
-        "isHelpNeeded": Math.random() < 0.5 // zufällig Hilfe benötigt
+        "isHelpNeeded": Math.random() < 0.5
     })),
 
     // Geographie Module
@@ -25,7 +35,7 @@ export const testData = [
             {"text": `Stadt ${index + 2}`, "isCorrect": false},
             {"text": `Stadt ${index + 3}`, "isCorrect": false}
         ],
-        "isHelpNeeded": Math.random() < 0.5 // zufällig Hilfe benötigt
+        "isHelpNeeded": Math.random() < 0.5
     })),
 
     // Biologie Module
@@ -39,7 +49,7 @@ export const testData = [
             {"text": `Funktion ${index + 2}`, "isCorrect": false},
             {"text": `Funktion ${index + 3}`, "isCorrect": false}
         ],
-        "isHelpNeeded": Math.random() < 0.5 // zufällig Hilfe benötigt
+        "isHelpNeeded": Math.random() < 0.5
     })),
 
     // Literatur Module
@@ -53,7 +63,7 @@ export const testData = [
             {"text": `Autor ${index + 2}`, "isCorrect": false},
             {"text": `Autor ${index + 3}`, "isCorrect": false}
         ],
-        "isHelpNeeded": Math.random() < 0.5 // zufällig Hilfe benötigt
+        "isHelpNeeded": Math.random() < 0.5
     })),
 
     // Physik Module
@@ -67,7 +77,7 @@ export const testData = [
             {"text": `Gesetz ${index + 2}`, "isCorrect": false},
             {"text": `Gesetz ${index + 3}`, "isCorrect": false}
         ],
-        "isHelpNeeded": Math.random() < 0.5 // zufällig Hilfe benötigt
+        "isHelpNeeded": Math.random() < 0.5
     })),
 
     // Geschichte Module
@@ -81,7 +91,7 @@ export const testData = [
             {"text": `Ereignis ${index + 2}`, "isCorrect": false},
             {"text": `Ereignis ${index + 3}`, "isCorrect": false}
         ],
-        "isHelpNeeded": Math.random() < 0.5 // zufällig Hilfe benötigt
+        "isHelpNeeded": Math.random() < 0.5
     })),
 ];
 

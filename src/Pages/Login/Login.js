@@ -9,49 +9,51 @@
 *	Editiert am:		03-11-2024
 *	Info/Notizen:		Auslagern der isValidEmail-Komponente und importieren selbiger
 *
+*	Editiert von:		Kevin Krazius
+*	Editiert am:		03-29-2024
+*	Info/Notizen:		Importieren der User-Testdaten, implementieren der Logik für das anmelden
 */
 
 import { useState } from 'react';
-import { isValidEmail } from '../../Components/HelpFunctions/Utils';
 import { useAuth } from '../../Components/AuthProvider/AuthProvider'
 import Button from '../../Components/Buttons/Button';
 import InputField from '../../Components/InputFields/InputField';
 import Content from '../../Layout/Content/Content';
 import { useNavigate } from 'react-router-dom';
+import { userData } from '../../Data/userTestData';
 import '../../scss/main.scss';
 
 const Login = () => {
 
-    const [email, setEmail] = useState('');
+    const [user, setUser] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
-    const { setUser } = useAuth();
+    const { loginUser } = useAuth();
 
     // Login-Request
     const handleLogin = () => {
         
-        // Validate E-Mail
-        if (!isValidEmail(email)) {
-            alert('Bitte geben Sie eine gültige E-Mail-Adresse ein.');
+        // Prüfen, ob beide Felder befüllt sind
+        if(!user || !password) {
+            alert('Bitte füllen Sie alle Felder aus.');
             return;
         }
 
-        console.log("Login attempted with Email: ", email, " and Password: ", password);
-        // API-Request
-        // Annahme: Hier beginnt dein API-Request User anlegen
-        try {
-            // Hier würde dein API-Request stehen. Dies ist nur ein Platzhalter.
-            // const response = await myApi.createUser({ username, email, password });
+        //Suchen nach User in Testdaten
+        const foundUser = userData.find(userData => userData.userName === user);
 
-            // Wenn die API-Anfrage erfolgreich war:
-            alert('Anmeldung erfolgreich!');
-            setUser({ id: 1 ,username: "Max" });
-            //onLogin()
-            navigate('/');
-        } catch (error) {
-            // Wenn es ein Problem mit der Registrierung gab, informiere den Benutzer
-            alert('Es gab ein Problem bei der Anmeldung: ' + error.message);
-        }       
+        // Prüfen, ob Nutzer und Passwort übereinstimmen
+        if(foundUser && foundUser.password === password) {
+            console.log("Login attempted with Username: ", user, " and Password: ", password);
+            alert("Anmeldung erfolgreich!");
+
+            loginUser(foundUser);
+
+            navigate("/");
+        } else {
+            alert("Ungültige Anmeldeinformationen");
+            return;
+        }      
     }
 
     return (
@@ -59,7 +61,7 @@ const Login = () => {
         <Content>
             <div className="form-container">
                 <div className="input-group">
-                    <InputField label="E-Mail: " type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
+                    <InputField label="Username: " type="name" name="username" value={user} onChange={(e) => setUser(e.target.value)}/>
                 </div>
                 <div className="input-group">
                     <InputField label="Password: " type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)}/>

@@ -33,7 +33,7 @@ const Navbar = () => {
                 <Link className="logo" to="/">IU-Quiz-App</Link>
             </div>
             <div className="navbar-right-section">
-                <WelcomeBanner text="Welcome" username={user?.username??"username"} isLoggedIn={user!== undefined} />
+                <WelcomeBanner text="Welcome" username={user?.userName ?? "username"} isLoggedIn={user !== undefined} />
                 <ul className="navRight">
                     {!user
                     ?
