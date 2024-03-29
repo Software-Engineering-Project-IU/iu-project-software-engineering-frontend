@@ -13,6 +13,7 @@
 
 import React, { createContext, useContext, useState } from 'react';
 import { userData } from '../../Data/userTestData';
+import { useNavigate } from 'react-router-dom';
 
 const AuthContext = createContext();
 
@@ -20,6 +21,7 @@ export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(undefined);
+    const navigate = useNavigate();
 
     const loginUser = (userData) => {
         setUser(userData);
@@ -27,6 +29,7 @@ export const AuthProvider = ({ children }) => {
 
     const logoutUser = () => {
         setUser(undefined);
+        navigate("/");
     };
 
     return (

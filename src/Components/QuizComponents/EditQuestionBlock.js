@@ -66,8 +66,10 @@ const EditQuestionBlock = () => {
 
     // Handler zum Umschalten der Antwortkorrektheit
     const handleToggleCorrectness = (index) => {
-        const newAnswers = [...questionData.antworten];
-        newAnswers[index].isCorrect = !newAnswers[index].isCorrect;
+        const newAnswers = questionData.antworten.map((answer, idx) => ({
+            ...answer,
+            isCorrect: idx === index ? !answer.isCorrect : false // Setze nur die gewählte Antwort auf true, alle anderen auf false
+        }));
         setQuestionData({
             ...questionData,
             antworten: newAnswers

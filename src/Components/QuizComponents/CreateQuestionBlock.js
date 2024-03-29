@@ -15,6 +15,7 @@ import React, { useState } from 'react';
 import '../../scss/main.scss';
 import InputField from '../InputFields/InputField';
 import Button from '../Buttons/Button';
+import { testData } from '../../Data/testData';
 
 const CreateQuestionBlock = () => {
     // Zustand für das ausgewählte Modul
@@ -32,6 +33,10 @@ const CreateQuestionBlock = () => {
         { text: '', isCorrect: false },
         { text: '', isCorrect: false }
     ]);
+
+    // Extrahiere Modulnamen aus testData
+    const modules = Array.from(new Set(testData.map(item => item.modulname)));
+
 
     // Funktion, die aufgerufen wird, wenn ein Modul ausgewählt wird
     const handleSelectModule = (moduleName) => {
@@ -67,9 +72,12 @@ const CreateQuestionBlock = () => {
 
     // Handler zum Umschalten der Antwortkorrektheit
     const handleToggleCorrectness = (index) => {
-        const newAnswers = [...answers];
-        newAnswers[index].isCorrect = !newAnswers[index].isCorrect;
-        setAnswers(newAnswers);
+        // Aktualisiere alle Antworten, sodass nur die ausgewählte Antwort als korrekt markiert wird
+        const updatedAnswers = answers.map((answer, idx) => ({
+            ...answer,
+            isCorrect: idx === index ? !answer.isCorrect : false // Nur die ausgewählte Antwort kann umgeschaltet werden, alle anderen sind falsch
+        }));
+        setAnswers(updatedAnswers);
     };
 
     return (
@@ -77,7 +85,7 @@ const CreateQuestionBlock = () => {
             <h2>Modul auswählen:</h2>
             {/* verfügbare Module auflisten und auswählbar machen */}
             <ul>
-                {["Modul 1", "Modul 2", "Modul 3", "Modul 4", "Modul 5", "Modul 6", "Modul 7", "Modul 8"].map((moduleName) => (
+                {modules.map((moduleName) => (
                     <div key={moduleName}>
                         <Button 
                             text={moduleName} 
