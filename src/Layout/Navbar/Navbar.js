@@ -22,11 +22,6 @@ const Navbar = () => {
     const { user, logoutUser } = useAuth();
     const navigate = useNavigate();
 
-    // function logOutUser() {
-    //     setUser(undefined);
-    //     navigate("/");
-    // }
-
     return (
         <nav className="navbar">
             <div className="logo-section">
