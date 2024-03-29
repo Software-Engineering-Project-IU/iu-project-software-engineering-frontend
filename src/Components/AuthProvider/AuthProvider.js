@@ -5,9 +5,9 @@
 *	Erstellungsdatum:	03-16-2024
 *	Info/Notizen:		Authentication-Provider-Komponente, welche Nutzerdaten validiert
 *
-*	Editiert von:		
-*	Editiert am:		
-*	Info/Notizen:		
+*	Editiert von:		Kevin Krazius
+*	Editiert am:		03-29-2024
+*	Info/Notizen:		Tetstdaten hinzu, loginUser-Funktion implementiert
 *
 */
 
