@@ -20,17 +20,27 @@ const HelpBlock = () => {
     // Filtern der Fragen, für die Hilfe benötigt wird
     const questionsNeedingHelp = testData.filter(question => question.isHelpNeeded);
 
-    const [helpComment, setHelpComment] = useState("");
+    const [helpComment, setHelpComment] = useState({});
 
-    const handleHelpCommentChange = (e) => {
-        setHelpComment(e.target.value);
+    const handleHelpCommentChange = (id, value) => {
+        // Aktualisiere den Zustand basierend auf der Frage-ID
+        setHelpComment({
+            ...helpComment,
+            [id]: value,
+        });
     };
 
-    const handleSubmitHelpComment = () => {
-        // Hier könnte die Logik für das Absenden des Hilfskommentars implementiert werden
-        console.log("Hilfskommentar abgeschickt:", helpComment);
-        // Zurücksetzen des Eingabefelds nach dem Absenden
-        setHelpComment("");
+    const handleSubmitHelpComment = (id) => {
+        if (!helpComment[id] || !helpComment[id].trim()) {
+            alert('Bitte geben Sie einen Hilfskommentar ein.');
+            return;
+        }
+        console.log("Hilfskommentar abgeschickt für Frage ID", id, ":", helpComment[id]);
+        // Optional: Kommentar nach dem Absenden löschen
+        setHelpComment({
+            ...helpComment,
+            [id]: '',
+        });
     };
 
     return (
@@ -48,14 +58,14 @@ const HelpBlock = () => {
                         label={`(Hilfskommentar schreiben)`}
                         type="text"
                         name={`helpComment_${testData.id}`}
-                        value={helpComment}
-                        onChange={handleHelpCommentChange}
+                        value={helpComment[testData.id] || ''}
+                        onChange={(e) => handleHelpCommentChange(testData.id, e.target.value)}
                         isBig={true}
                         height={100}
                         width={300}
                     />
                     <p/>
-                    <Button text="Hilfskommentar abschicken" onClick={handleSubmitHelpComment} />
+                    <Button text="Hilfskommentar abschicken" onClick={() => handleSubmitHelpComment(testData.id)} />
                 </div>
             ))}
         </div>
