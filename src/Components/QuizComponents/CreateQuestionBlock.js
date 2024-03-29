@@ -57,10 +57,27 @@ const CreateQuestionBlock = () => {
 
     // Funktion welche prüft ob sämtliche Eingaben getätigt wurden, anschließend wird über API an Datenbank übertragen
     const createQuestion = () => {
+        if (!(selectedModule || moduleText)) {
+            alert("Bitte wählen Sie ein Modul aus oder benennen Sie ein neues.");
+            return;
+        }
+        if (!questionText) {
+            alert("Bitte geben Sie einen Fragetext ein.");
+            return;
+        }
+        if (answers.some(answer => answer.text === '')) {
+            alert("Bitte geben Sie alle Antworten ein.");
+            return;
+        }
+        if (answers.filter(answer => answer.isCorrect).length !== 1) {
+            alert("Bitte markieren Sie genau eine Antwort als korrekt.");
+            return;
+        }
+    
         console.log("Erstelltes Modul: ", moduleText || selectedModule);
         console.log("Erstellte Frage: ", questionText);
         console.log("Erstellte Antworten: ", answers);
-        // Logik zum Senden der Frage an die API
+        // Logik zum Senden der Frage an die API oder was auch immer als nächstes kommt
     };
 
     // Handler zum Aktualisieren der Antwort
@@ -130,7 +147,7 @@ const CreateQuestionBlock = () => {
                             checked={answer.isCorrect}
                             onChange={() => handleToggleCorrectness(index)}
                         />
-                        Ist Antwort korrekt?
+                        Antwort korrekt?
                     </label>
                     <p/>
                 </div>
