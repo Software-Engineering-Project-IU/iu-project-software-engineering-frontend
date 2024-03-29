@@ -5,9 +5,9 @@
 *	Erstellungsdatum:	03-29-2024
 *	Info/Notizen:		Testdaten für User erstellt
 *
-*	Editiert von:		
-*	Editiert am:		
-*	Info/Notizen:		
+*	Editiert von:		Kevin Krazius
+*	Editiert am:		03-29-2024
+*	Info/Notizen:		Daten für Hilfsanfragen hinzugefügt
 *
 */
 
@@ -18,5 +18,26 @@ export const userData = [
         "password": "iu-projekt",
 
         // Daten für Hilfsanfragen...
+        "helpRequests": [
+            {
+                "questionId": 2,
+                "modulname": "Mathematik",
+                "frage": "Was ist 2 + 3?",
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "userName": "TestUser2",
+        "password": "iu-projekt",
+
+        // Daten für Hilfsanfragen...
+        "helpRequests": [
+            {
+                "questionId": 5,
+                "modulname": "Literatur",
+                "frage": "Wer ist dieser junge Werther?",
+            }
+        ]
     }
 ]

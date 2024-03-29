@@ -12,6 +12,10 @@
 *   Editiert von:		Kevin Krazius
 *	Editiert am:		03-24-2024
 *	Info/Notizen:		useState importiert, QuestionCatalog importiert und integriert
+*
+*   Editiert von:		Kevin Krazius
+*	Editiert am:		03-29-2024
+*	Info/Notizen:		HelpRequest integriert
 */
 
 import React, { useState } from 'react';
@@ -22,6 +26,7 @@ import { useAuth } from '../../Components/AuthProvider/AuthProvider';
 import '../../scss/main.scss';
 import QuestionCatalog from '../../Components/QuizComponents/QuestionCatalog';
 import HelpBlock from '../../Components/QuizComponents/Helpblock';
+import HelpRequests from '../../Components/QuizComponents/HelpRequests';
 
 const Home = () => {
     const navigate = useNavigate();
@@ -42,6 +47,12 @@ const Home = () => {
     return (
         <div>
             
+        <Content>
+            <div className="home">
+                <HelpRequests userName={user ? user.userName : ''}/>
+            </div>
+        </Content>
+
         <Content>
             <div className="home">
                 <Button text="Quiz starten" onClick={() => routeNavigation('/runquiz')}/>
@@ -67,6 +78,7 @@ const Home = () => {
                 <HelpBlock />
             </div>
         </Content>
+
         </div>
     )
 }
