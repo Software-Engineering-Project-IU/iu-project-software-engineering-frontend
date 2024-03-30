@@ -57,6 +57,8 @@ const RunQuiz = () => {
     const handleRequestHelp = () => {
         console.log("Hilfe anfordern...")
         // Logik für Hilfsanforderung
+
+        alert("Hilfe erfolgreich angefordert für die Frage: " + quizData.frage);
     }
 
     return (

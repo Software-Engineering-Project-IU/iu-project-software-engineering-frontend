@@ -12,7 +12,7 @@
 */
 
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import '../../scss/main.scss';
 import InputField from '../InputFields/InputField';
 import Button from '../Buttons/Button';
@@ -21,6 +21,7 @@ import { testData } from '../../Data/testData';
 const EditQuestionBlock = () => {
     // ID aus der URL erhalten
     let { id } = useParams();
+    const navigate = useNavigate();
 
     // Zustand für die Frage
     const [questionData, setQuestionData] = useState({
@@ -76,6 +77,11 @@ const EditQuestionBlock = () => {
         });
     };
 
+    const handleUpdateQuestion = () => {
+        alert("Frage wurde aktualisiert.")
+        navigate("/");
+    }
+
     return (
         <div className='content-create-question'>
             <h2>Modul: {questionData.modulname}</h2>
@@ -102,7 +108,7 @@ const EditQuestionBlock = () => {
                     <p/>
                 </div>
             ))}
-            <Button text={"Frage aktualisieren"} onClick={() => console.log("Daten aktualisiert:", questionData)}/>
+            <Button text={"Frage aktualisieren"} onClick={handleUpdateQuestion}/>
         </div>
     );
 };

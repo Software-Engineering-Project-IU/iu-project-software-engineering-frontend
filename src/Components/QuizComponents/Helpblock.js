@@ -15,12 +15,15 @@ import React, { useState } from "react";
 import { testData } from "../../Data/testData";
 import Button from "../Buttons/Button";
 import InputField from "../InputFields/InputField";
+import { useAuth } from "../AuthProvider/AuthProvider";
 
 const HelpBlock = () => {
     // Filtern der Fragen, für die Hilfe benötigt wird
     const questionsNeedingHelp = testData.filter(question => question.isHelpNeeded);
 
     const [helpComment, setHelpComment] = useState({});
+
+    const { user } = useAuth();
 
     const handleHelpCommentChange = (id, value) => {
         // Aktualisiere den Zustand basierend auf der Frage-ID
@@ -31,16 +34,20 @@ const HelpBlock = () => {
     };
 
     const handleSubmitHelpComment = (id) => {
-        if (!helpComment[id] || !helpComment[id].trim()) {
-            alert('Bitte geben Sie einen Hilfskommentar ein.');
-            return;
+        if(user){
+            if (!helpComment[id] || !helpComment[id].trim()) {
+                alert('Bitte geben Sie einen Hilfskommentar ein.');
+                return;
+            }
+            console.log("Hilfskommentar abgeschickt für Frage ID", id, ":", helpComment[id]);
+            // Optional: Kommentar nach dem Absenden löschen
+            setHelpComment({
+                ...helpComment,
+                [id]: '',
+            });
+        } else {
+            alert("Bitte melden Sie sich an.");
         }
-        console.log("Hilfskommentar abgeschickt für Frage ID", id, ":", helpComment[id]);
-        // Optional: Kommentar nach dem Absenden löschen
-        setHelpComment({
-            ...helpComment,
-            [id]: '',
-        });
     };
 
     return (

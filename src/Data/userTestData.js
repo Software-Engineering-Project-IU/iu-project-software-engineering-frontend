@@ -23,6 +23,7 @@ export const userData = [
                 "questionId": 2,
                 "modulname": "Mathematik",
                 "frage": "Was ist 2 + 3?",
+                "providedHelp": "Nichts!"
             }
         ]
     },
@@ -37,6 +38,7 @@ export const userData = [
                 "questionId": 5,
                 "modulname": "Literatur",
                 "frage": "Wer ist dieser junge Werther?",
+                "providedHelp": "Haben Sie versucht ihr Gerät neu zu starten?"
             }
         ]
     }

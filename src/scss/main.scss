@@ -47,6 +47,10 @@ $button-active-color: darken($primary-color, 25%);
         color: $incorrect-answer;
     }
 
+    h3 {
+        color: $correct-answer;
+    }
+
     p {
         font-size: 1rem;
         color: $background-color;
@@ -133,6 +137,11 @@ $button-active-color: darken($primary-color, 25%);
     &:active {
         background-color: darken($secondary-color, 20%);
     }
+}
+
+.buttons-help-request {
+    display: flex;
+    justify-content: space-between;
 }
 
 .navbar {
