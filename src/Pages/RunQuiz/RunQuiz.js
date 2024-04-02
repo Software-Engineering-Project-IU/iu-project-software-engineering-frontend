@@ -11,7 +11,7 @@
  *
  *      Editiert von:		Kevin Krazius
  *	    Editiert am:		04-2-2024
- *      Info/Notizen:		Axios integriert
+ *      Info/Notizen:		Axios integriert -
  *
  */
 
@@ -28,12 +28,13 @@ const RunQuiz = () => {
   const [isCorrect, setIsCorrect] = useState(null);
   const [isAnswerSubmitted, setIsAnswerSubmitted] = useState(false);
   const [quizData, setQuizData] = useState(null);
+  const quizDataRequest = "http://localhost:3001/quizdata";
 
   useEffect(() => {
     // Funktion zum Abrufen der Quizdaten
     const fetchQuizData = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/quizdata");
+        const response = await axios.get(quizDataRequest);
         setQuizData(response.data);
       } catch (error) {
         console.error("Fehler beim Abrufen der Quizdaten:", error);

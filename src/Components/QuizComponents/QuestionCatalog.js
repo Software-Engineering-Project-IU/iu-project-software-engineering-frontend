@@ -7,26 +7,41 @@
  *
  *	    Editiert von:		    Kevin Krazius
  *	    Editiert am:		    03-26-2024
- *     Info/Notizen:		    Auslagern der Testdaten, Funktion Gruppieren der Testdaten hinzu. Buttons hinzu
+ *      Info/Notizen:		    Auslagern der Testdaten, Funktion Gruppieren der Testdaten hinzu. Buttons hinzu
  *
  *	    Editiert von:		    Kevin Krazius
- *	    Editiert am:		    03-26-2024
- *     Info/Notizen:
+ *	    Editiert am:		    04-2-2024
+ *      Info/Notizen:       Axios integriert, Fetching der Daten über API
  *
  */
 
-import React, { useState } from "react";
-import { testData } from "../../Data/testData";
+import React, { useEffect, useState } from "react";
 import Button from "../Buttons/Button";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../Components/AuthProvider/AuthProvider";
+import axios from "axios";
 
 const QuestionCatalog = () => {
   // Zustände für die Anzeige der Module
   const [visibleModule, setVisibleModule] = useState("");
-
+  const [testData, setTestData] = useState([]);
   const navigate = useNavigate();
   const { user } = useAuth();
+
+  useEffect(() => {
+    // Funktion zum Abrufen der Testdaten
+    const fetchTestData = async () => {
+      try {
+        const response = await axios.get("http://localhost:3001/quizdata");
+        setTestData(response.data);
+      } catch (error) {
+        console.error("Fehler beim Abrufen der Testdaten:", error);
+      }
+    };
+
+    // Testdaten beim Laden der Komponente abrufen
+    fetchTestData();
+  }, []);
 
   function routeNavigation(route) {
     // Überprüfe ob der Benutzer eingeloggt ist
