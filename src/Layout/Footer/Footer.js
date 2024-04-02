@@ -11,17 +11,20 @@
 *
 */
 
-import React from 'react';
-import '../../scss/main.scss';
+import React from "react";
+import "../../scss/main.scss";
 
 const Footer = () => {
-    return (
-        <footer className="footer">
-            <div className="container">
-                <span>© {new Date().getFullYear()} IU-Software-Engineering-Project. Alle Rechte vorbehalten.</span>
-            </div>
-        </footer>
-    );
+  return (
+    <footer className="footer">
+      <div className="container">
+        <span>
+          © {new Date().getFullYear()} IU-Software-Engineering-Project. Alle
+          Rechte vorbehalten.
+        </span>
+      </div>
+    </footer>
+  );
 };
 
 export default Footer;
