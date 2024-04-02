@@ -11,28 +11,50 @@
  *
  */
 
-import React, { useState } from "react";
-import { userData } from "../../Data/userTestData";
+import React, { useEffect, useState } from "react";
 import { useAuth } from "../AuthProvider/AuthProvider";
 import "../../scss/main.scss";
 import Button from "../Buttons/Button";
+import axios from "axios";
 
-const HelpRequests = ({ userName }) => {
-  const currentUser = userData.find((user) => user.userName === userName);
-  const [isHelpVisible, setIsHelpVisible] = useState(true);
+const HelpRequests = () => {
+  const { user } = useAuth();
+  const [helpRequest, setHelpRequest] = useState([]);
 
-  function handleHelpful() {}
+  useEffect(() => {
+    if (user) {
+      // Funktion zum Abrufen der Hilfsanfragen des Benutzers
+      const fetchHelpRequests = async () => {
+        try {
+          const response = await axios.get(
+            `http://localhost:3001/user/${user.id}`
+          );
+          setHelpRequest(response.data.helpRequests); // Setze die erhaltenen Hilfsanfragen in den Zustand
+        } catch (error) {
+          console.error("Fehler beim Abrufen der Hilfsanfragen:", error);
+        }
+      };
 
-  function handleUnhelpful() {}
+      // Hilfsanfragen beim Laden der Komponente abrufen
+      fetchHelpRequests();
+    }
+  }, [user]);
+
+  const handleHelpful = () => {
+    // Logik für hilfreiche Hilfsanfragen
+    console.log("Hilfreich geklickt.");
+  };
+
+  const handleUnhelpful = () => {
+    // Logik für nicht hilfreiche Hilfsanfragen
+    console.log("Nicht hilfreich geklickt.");
+  };
 
   return (
     <div>
       <h2>Deine Hilfsanfragen:</h2>
-      {isHelpVisible &&
-      currentUser &&
-      currentUser.helpRequests &&
-      currentUser.helpRequests.length > 0 ? (
-        currentUser.helpRequests.map((request, index) => (
+      {user && helpRequest.length > 0 ? (
+        helpRequest.map((request, index) => (
           <div key={index}>
             <p>Modul: {request.modulname}</p>
             <p>Frage: {request.frage}</p>
