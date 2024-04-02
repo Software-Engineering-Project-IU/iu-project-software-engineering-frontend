@@ -3,11 +3,11 @@
  *
  *	Ersteller:		    Kevin Krazius
  *	Erstellungsdatum:	03-29-2024
- *	Info/Notizen:		Komponente um Hilfsanfragen eines Users anzuzeigen, falls vorhanden
+ *	Info/Notizen:		  Komponente um Hilfsanfragen eines Users anzuzeigen, falls vorhanden
  *
- *	Editiert von:
- *	Editiert am:
- *	Info/Notizen:
+ *	Editiert von:     Kevin Krazius
+ *	Editiert am:      04-02-2024
+ *	Info/Notizen:     Axios implementiert, Fetching Anfragen für API
  *
  */
 

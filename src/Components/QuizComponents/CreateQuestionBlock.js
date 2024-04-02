@@ -7,15 +7,19 @@
  *
  *	    Editiert von:		Kevin Krazius
  *	    Editiert am:		03-26-2024
- *       Info/Notizen:		Toggle zum festlegen der Korrektheit der Antworten hinzu
+ *      Info/Notizen:		Toggle zum festlegen der Korrektheit der Antworten hinzu
+ *
+ *      Editiert von:		Kevin Krazius
+ *	    Editiert am:		04-02-2024
+ *      Info/Notizen:		Axios integriert, Fetching der Quizdata
  *
  */
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../../scss/main.scss";
 import InputField from "../InputFields/InputField";
 import Button from "../Buttons/Button";
-import { testData } from "../../Data/testData";
+import axios from "axios";
 
 const CreateQuestionBlock = () => {
   // Zustand für das ausgewählte Modul
@@ -33,9 +37,24 @@ const CreateQuestionBlock = () => {
     { text: "", isCorrect: false },
     { text: "", isCorrect: false },
   ]);
+  // Quizdaten
+  const [quizData, setQuizData] = useState([]);
 
-  // Extrahiere Modulnamen aus testData
-  const modules = Array.from(new Set(testData.map((item) => item.modulname)));
+  // Extrahiere Modulnamen
+  const modules = Array.from(new Set(quizData.map((item) => item.modulname)));
+
+  // Funktion, um Quizdaten von der API abzurufen
+  useEffect(() => {
+    const fetchQuizData = async () => {
+      try {
+        const response = await axios.get("http://localhost:3001/quizdata");
+        setQuizData(response.data);
+      } catch (error) {
+        console.error("Fehler beim Abrufen der Quizdaten:", error);
+      }
+    };
+    fetchQuizData();
+  }, []);
 
   // Funktion, die aufgerufen wird, wenn ein Modul ausgewählt wird
   const handleSelectModule = (moduleName) => {

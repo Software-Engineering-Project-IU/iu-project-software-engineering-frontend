@@ -3,11 +3,11 @@
  *
  *	    Ersteller:		    Kevin Krazius
  *	    Erstellungsdatum:	03-16-2024
- *	    Info/Notizen:		Komponente die aufgerufen wird wenn /editquestion aufgerufen wird
+ *	    Info/Notizen:		  Komponente die aufgerufen wird wenn /editquestion aufgerufen wird
  *
  *	    Editiert von:		Kevin Krazius
- *	    Editiert am:		03-26-2024
- *       Info/Notizen:		<Beschreibung der Änderung>
+ *	    Editiert am:		04-02-2024
+ *      Info/Notizen:		Axios implementiert - Fetching Data
  *
  */
 
@@ -16,7 +16,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import "../../scss/main.scss";
 import InputField from "../InputFields/InputField";
 import Button from "../Buttons/Button";
-import { testData } from "../../Data/testData";
+import axios from "axios";
 
 const EditQuestionBlock = () => {
   // ID aus der URL erhalten
@@ -35,24 +35,17 @@ const EditQuestionBlock = () => {
     ],
   });
 
-  // Daten der Frage mit der entsprechenden ID aus den Testdaten laden
+  // Daten der Frage mit der entsprechenden ID von der API abrufen
   useEffect(() => {
-    // Hier müsste die Logik für den Datenabruf aus der Datenbank implementiert werden
-    const fetchData = async () => {
+    const fetchQuestionData = async () => {
       try {
-        // Annahme: testData ist eine Funktion, die die Testdaten lädt
-        // const testData = await testData();
-        const question = testData.find((q) => q.id === parseInt(id));
-        if (question) {
-          setQuestionData(question);
-        } else {
-          console.log("Frage nicht gefunden!");
-        }
+        const response = await axios.get(`http://localhost:3001/quiz/${id}`);
+        setQuestionData(response.data);
       } catch (error) {
-        console.error("Fehler beim Laden der Daten:", error);
+        console.error("Fehler beim Laden der Frage:", error);
       }
     };
-    fetchData();
+    fetchQuestionData();
   }, [id]);
 
   // Handler zum Aktualisieren der Antwort
