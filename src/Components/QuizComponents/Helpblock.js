@@ -3,29 +3,36 @@
  *
  *	    Ersteller:		    Kevin Krazius
  *	    Erstellungsdatum:	03-28-2024
- *	    Info/Notizen:		Komponente, welche Hilfsanfragen anzeigt
+ *	    Info/Notizen:		  Komponente, welche Hilfsanfragen anzeigt
  *
- *	    Editiert von:		<Name>
- *	    Editiert am:		<Datum>
- *       Info/Notizen:		<Beschreibung der Änderung>
+ *	    Editiert von:		Kevin Krazius
+ *	    Editiert am:		04-02-2024
+ *      Info/Notizen:		Axios implementiert - Fetching Data from API
  *
  */
 
-import React, { useState } from "react";
-import { testData } from "../../Data/testData";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import Button from "../Buttons/Button";
 import InputField from "../InputFields/InputField";
 import { useAuth } from "../AuthProvider/AuthProvider";
 
 const HelpBlock = () => {
-  // Filtern der Fragen, für die Hilfe benötigt wird
-  const questionsNeedingHelp = testData.filter(
-    (question) => question.isHelpNeeded
-  );
-
+  const [questionsNeedingHelp, setQuestionsNeedingHelp] = useState([]);
   const [helpComment, setHelpComment] = useState({});
-
   const { user } = useAuth();
+
+  useEffect(() => {
+    const fetchQuestionsNeedingHelp = async () => {
+      try {
+        const response = await axios.get("http://localhost:3001/helpRequests");
+        setQuestionsNeedingHelp(response.data);
+      } catch (error) {
+        console.error("Fehler beim Laden der Hilfsanfragen:", error);
+      }
+    };
+    fetchQuestionsNeedingHelp();
+  }, []);
 
   const handleHelpCommentChange = (id, value) => {
     // Aktualisiere den Zustand basierend auf der Frage-ID
