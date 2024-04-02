@@ -6,7 +6,7 @@
  *	    Info/Notizen:		Komponente die aufgerufen wird wenn /editquestion aufgerufen wird
  *
  *	    Editiert von:		Kevin Krazius
- *	    Editiert am:		03-26-2024
+ *	    Editiert am:		04-02-2024
  *      Info/Notizen:		Axios implementiert, Fetching Data from API
  *
  */
