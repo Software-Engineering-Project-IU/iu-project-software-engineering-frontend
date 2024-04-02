@@ -3,7 +3,7 @@
  *
  *	Ersteller:		    Kevin Krazius
  *	Erstellungsdatum:	03-10-2024
- *	Info/Notizen:		Erstellen einer Login-Komponente, hier wird angezeigt was unter Route "/login" angezeigt wird
+ *	Info/Notizen:		  Erstellen einer Login-Komponente, hier wird angezeigt was unter Route "/login" angezeigt wird
  *
  *	Editiert von:		Kevin Krazius
  *	Editiert am:		03-11-2024
@@ -12,6 +12,11 @@
  *	Editiert von:		Kevin Krazius
  *	Editiert am:		03-29-2024
  *	Info/Notizen:		Importieren der User-Testdaten, implementieren der Logik für das anmelden
+ *
+ *  Editiert von:		Kevin Krazius
+ *	Editiert am:		04-02-2024
+ *	Info/Notizen:		Axios integriert, Login-Anfrage angepasst
+ *
  */
 
 import { useState } from "react";
@@ -20,7 +25,7 @@ import Button from "../../Components/Buttons/Button";
 import InputField from "../../Components/InputFields/InputField";
 import Content from "../../Layout/Content/Content";
 import { useNavigate } from "react-router-dom";
-import { userData } from "../../Data/userTestData";
+import axios from "axios";
 import "../../scss/main.scss";
 
 const Login = () => {
@@ -30,32 +35,44 @@ const Login = () => {
   const { loginUser } = useAuth();
 
   // Login-Request
-  const handleLogin = () => {
-    // Prüfen, ob beide Felder befüllt sind
-    if (!user || !password) {
-      alert("Bitte füllen Sie alle Felder aus.");
-      return;
-    }
+  const handleLogin = async () => {
+    try {
+      // Prüfen, ob beide Felder befüllt sind
+      if (!user || !password) {
+        alert("Bitte füllen Sie alle Felder aus.");
+        return;
+      }
 
-    //Suchen nach User in Testdaten
-    const foundUser = userData.find((userData) => userData.userName === user);
+      // Abrufen der Benutzerdaten über eine GET-Anfrage
+      const response = await axios.get("http://localhost:3001/users");
 
-    // Prüfen, ob Nutzer und Passwort übereinstimmen
-    if (foundUser && foundUser.password === password) {
-      console.log(
-        "Login attempted with Username: ",
-        user,
-        " and Password: ",
-        password
-      );
-      alert("Anmeldung erfolgreich!");
+      // Überprüfen, ob die GET-Anfrage erfolgreich war
+      if (response.status === 200) {
+        // Überprüfen, ob ein Benutzer mit den eingegebenen Anmeldeinformationen gefunden wurde
+        const foundUser = response.data.find(
+          (userData) =>
+            userData.userName === user && userData.password === password
+        );
 
-      loginUser(foundUser);
+        if (foundUser) {
+          // Wenn ein Benutzer mit den eingegebenen Anmeldeinformationen gefunden wurde
+          console.log("Login successful:", foundUser);
 
-      navigate("/");
-    } else {
-      alert("Ungültige Anmeldeinformationen");
-      return;
+          loginUser(foundUser);
+
+          alert("Anmeldung erfolgreich!");
+          navigate("/");
+        } else {
+          // Wenn kein Benutzer mit den eingegebenen Anmeldeinformationen gefunden wurde
+          alert("Ungültige Anmeldeinformationen");
+        }
+      } else {
+        // Wenn die GET-Anfrage fehlgeschlagen ist
+        alert("Fehler beim Abrufen der Benutzerdaten");
+      }
+    } catch (error) {
+      console.error("Fehler beim Anmelden:", error);
+      alert("Fehler beim Anmelden. Bitte versuchen Sie es erneut.");
     }
   };
 
