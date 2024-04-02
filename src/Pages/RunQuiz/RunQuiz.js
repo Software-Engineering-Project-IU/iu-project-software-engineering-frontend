@@ -7,7 +7,11 @@
  *
  *	    Editiert von:		Kevin Krazius
  *	    Editiert am:		03-29-2024
- *       Info/Notizen:		Test-Daten integriert
+ *      Info/Notizen:		Test-Daten integriert
+ *
+ *      Editiert von:		Kevin Krazius
+ *	    Editiert am:		04-2-2024
+ *      Info/Notizen:		Axios integriert
  *
  */
 
@@ -16,26 +20,36 @@ import Button from "../../Components/Buttons/Button";
 import AnswerBlock from "../../Components/QuizComponents/AnswerBlock";
 import QuestionBlock from "../../Components/QuizComponents/QuestionBlock";
 import Content from "../../Layout/Content/Content";
-import { testData } from "../../Data/testData";
+import axios from "axios";
 
 const RunQuiz = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [isCorrect, setIsCorrect] = useState(null);
   const [isAnswerSubmitted, setIsAnswerSubmitted] = useState(false);
+  const [quizData, setQuizData] = useState(null);
 
-  // Lade die aktuelle Frage basierend auf dem Index
-  const quizData = testData[currentQuestionIndex];
-  const correctAnswer = quizData.antworten.find(
-    (answer) => answer.isCorrect
-  ).text;
+  useEffect(() => {
+    // Funktion zum Abrufen der Quizdaten
+    const fetchQuizData = async () => {
+      try {
+        const response = await axios.get("http://localhost:3001/quizdata");
+        setQuizData(response.data);
+      } catch (error) {
+        console.error("Fehler beim Abrufen der Quizdaten:", error);
+      }
+    };
+
+    // Quizdaten beim Laden der Komponente abrufen
+    fetchQuizData();
+  }, []);
 
   // Nächste Frage laden
   const loadNextQuestion = () => {
     setSelectedAnswer(null);
     setIsCorrect(null);
     setIsAnswerSubmitted(false);
-    setCurrentQuestionIndex((prevIndex) => (prevIndex + 1) % testData.length); // Loop durch Fragen
+    setCurrentQuestionIndex((prevIndex) => (prevIndex + 1) % quizData.length); // Loop durch Fragen
   };
 
   // Antworten sind nur auswählbar wenn noch nicht auf antworten geklickt wurde
@@ -47,9 +61,13 @@ const RunQuiz = () => {
 
   // Was passiert wenn auf Antworten geklickt wurde
   const handleSubmit = () => {
+    const selectedAnswerObject = quizData[currentQuestionIndex].antworten.find(
+      (answer) => answer.text === selectedAnswer
+    );
+
     if (selectedAnswer) {
       setIsAnswerSubmitted(true);
-      setIsCorrect(selectedAnswer === correctAnswer);
+      setIsCorrect(selectedAnswerObject.isCorrect);
     } else {
       alert("Wähle eine Antwort aus!");
     }
@@ -60,15 +78,24 @@ const RunQuiz = () => {
     console.log("Hilfe anfordern...");
     // Logik für Hilfsanforderung
 
-    alert("Hilfe erfolgreich angefordert für die Frage: " + quizData.frage);
+    alert(
+      "Hilfe erfolgreich angefordert für die Frage: " +
+        quizData[currentQuestionIndex].frage
+    );
   };
+
+  if (!quizData) {
+    return <div>Lade Quizdaten...</div>;
+  }
 
   return (
     <div>
       <Content>
-        <QuestionBlock question={quizData.frage} />
+        <QuestionBlock question={quizData[currentQuestionIndex].frage} />
         <AnswerBlock
-          answers={quizData.antworten.map((ans) => ans.text)}
+          answers={quizData[currentQuestionIndex].antworten.map(
+            (ans) => ans.text
+          )}
           onSelectAnswer={handleSelectAnswer}
           selectedAnswer={selectedAnswer}
           isCorrect={isCorrect && isAnswerSubmitted}
