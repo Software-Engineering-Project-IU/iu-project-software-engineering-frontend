@@ -7,22 +7,35 @@
  *
  *	    Editiert von:		Kevin Krazius
  *	    Editiert am:		03-26-2024
- *       Info/Notizen:		<Beschreibung der Änderung>
+ *      Info/Notizen:		Axios implementiert, Fetching Data from API
  *
  */
 
 import { useParams } from "react-router-dom";
 import Content from "../../Layout/Content/Content";
-import { testData } from "../../Data/testData";
+import axios from "axios";
 import EditQuestionBlock from "../../Components/QuizComponents/EditQuestionBlock";
+import { useState, useEffect } from "react";
 
 const EditQuestions = () => {
   // ID aus der URL erhalten
   let { id } = useParams();
 
-  // Die entsprechende Frage finden
-  // Später Anfrage an API
-  const question = testData.find((question) => question.id === parseInt(id));
+  // Zustand für die Frage
+  const [question, setQuestion] = useState(null);
+
+  // Daten der Frage mit der entsprechenden ID von der API laden
+  useEffect(() => {
+    const fetchQuestion = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3001/quiz/${id}`);
+        setQuestion(response.data);
+      } catch (error) {
+        console.error("Error fetching question:", error);
+      }
+    };
+    fetchQuestion();
+  }, [id]);
 
   // Überprüfen, ob die Frage gefunden wurde
   if (!question) {
