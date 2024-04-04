@@ -51,7 +51,7 @@ const Login = () => {
         // Überprüfen, ob ein Benutzer mit den eingegebenen Anmeldeinformationen gefunden wurde
         const foundUser = response.data.find(
           (userData) =>
-            userData.userName === user && userData.password === password
+            userData.user_name === user && userData.password === password
         );
 
         if (foundUser) {

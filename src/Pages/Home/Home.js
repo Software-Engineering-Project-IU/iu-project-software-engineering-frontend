@@ -46,7 +46,7 @@ const Home = () => {
 
   return (
     <div>
-      <Content>
+      {/*<Content>
         <div className="home">
           <HelpRequests userName={user ? user.userName : ""} />
         </div>
@@ -78,7 +78,7 @@ const Home = () => {
             onClick={() => routeNavigation("/createquestion")}
           />
         </div>
-      </Content>
+  </Content> */}
 
       <Content>
         <div className="home">

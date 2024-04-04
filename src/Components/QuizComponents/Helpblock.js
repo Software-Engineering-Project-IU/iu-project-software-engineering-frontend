@@ -25,7 +25,7 @@ const HelpBlock = () => {
   useEffect(() => {
     const fetchQuestionsNeedingHelp = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/helpRequests");
+        const response = await axios.get("http://localhost:3001/help_requests");
         setQuestionsNeedingHelp(response.data);
       } catch (error) {
         console.error("Fehler beim Laden der Hilfsanfragen:", error);
@@ -70,10 +70,10 @@ const HelpBlock = () => {
       {questionsNeedingHelp.map((testData) => (
         <div className="question-block" key={testData.id}>
           <h3>
-            {testData.modulname}: {testData.frage}
+            {testData.module_name}: {testData.question_text}
           </h3>
           <div>
-            {testData.antworten.map((answer, index) => (
+            {testData.questions.map((answer, index) => (
               <p key={index}>{answer.text}</p>
             ))}
           </div>
