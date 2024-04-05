@@ -59,7 +59,7 @@ const Home = () => {
             onClick={() => routeNavigation("/runquiz")}
           />
         </div>
-      </Content>
+  </Content> */}
 
       <Content>
         <div className="home">
@@ -69,7 +69,7 @@ const Home = () => {
           />
         </div>
         {showQuestionCatalog && <QuestionCatalog />}
-      </Content> */}
+      </Content>
 
       <Content>
         <div className="home">

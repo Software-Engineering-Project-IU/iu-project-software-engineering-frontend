@@ -24,24 +24,36 @@ import axios from "axios";
 const QuestionCatalog = () => {
   // Zustände für die Anzeige der Module
   const [visibleModule, setVisibleModule] = useState("");
-  const [testData, setTestData] = useState([]);
+  const [questionData, setQuestionData] = useState([]);
+  const [answerData, setAnswerData] = useState([]);
   const navigate = useNavigate();
   const { user } = useAuth();
 
   useEffect(() => {
-    // Funktion zum Abrufen der Testdaten
-    const fetchTestData = async () => {
+    // Funktion zum Abrufen der Questions
+    const fetchQuestionData = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/quizdata");
-        setTestData(response.data);
+        const responseQuestions = await axios.get(
+          "http://localhost:3001/quiz/questions"
+        );
+        const responseAnswers = await axios.get(
+          "http://localhost:3001/quiz/answers"
+        );
+        setQuestionData(responseQuestions.data);
+        setAnswerData(responseAnswers.data);
       } catch (error) {
         console.error("Fehler beim Abrufen der Testdaten:", error);
       }
     };
 
-    // Testdaten beim Laden der Komponente abrufen
-    fetchTestData();
+    fetchQuestionData();
   }, []);
+
+  const groupedAnswers = answerData.reduce((acc, answer) => {
+    acc[answer.question_id] = acc[answer.question_id] || [];
+    acc[answer.question_id].push(answer);
+    return acc;
+  }, {});
 
   function routeNavigation(route) {
     // Überprüfe ob der Benutzer eingeloggt ist
@@ -60,34 +72,40 @@ const QuestionCatalog = () => {
   };
 
   // Gruppieren der Fragen nach Modulnamen
-  const modules = testData.reduce((acc, question) => {
-    acc[question.modulname] = acc[question.modulname] || [];
-    acc[question.modulname].push(question);
+  const modules = questionData.reduce((acc, question) => {
+    acc[question.module_name] = acc[question.module_name] || [];
+    acc[question.module_name].push(question);
     return acc;
   }, {});
 
   return (
     <div className="catalog-block">
       <div className="module-buttons">
-        {Object.keys(modules).map((modulname) => (
+        {Object.keys(modules).map((module_name, index) => (
           <Button
-            key={modulname}
-            buttonColor={visibleModule === modulname ? "primary" : "secondary"}
-            text={modulname}
-            onClick={() => toggleModuleVisibility(modulname)}
+            key={index}
+            buttonColor={
+              visibleModule === module_name ? "primary" : "secondary"
+            }
+            text={module_name}
+            onClick={() => toggleModuleVisibility(module_name)}
           />
         ))}
       </div>
       {visibleModule && (
         <div className="question-container">
-          {modules[visibleModule].map((question) => (
-            <div key={question.id} className="question-block">
-              <h3>{question.frage}</h3>
-              {question.antworten.map((antwort, index) => (
-                <div key={index}>
-                  <p>{antwort.text}</p>
+          {modules[visibleModule].map((question, index) => (
+            <div key={index} className="question-block">
+              <h3>{question.question_text}</h3>
+              {groupedAnswers[question.id] && (
+                <div>
+                  {groupedAnswers[question.id].map((answer, index) => (
+                    <div key={index}>
+                      <p>{answer.answer_text}</p>
+                    </div>
+                  ))}
                 </div>
-              ))}
+              )}
               <Button
                 text={"Bearbeiten"}
                 onClick={() => routeNavigation(`/editquestion/${question.id}`)}
