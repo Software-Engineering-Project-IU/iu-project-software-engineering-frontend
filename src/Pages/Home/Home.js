@@ -69,7 +69,7 @@ const Home = () => {
           />
         </div>
         {showQuestionCatalog && <QuestionCatalog />}
-      </Content>
+      </Content> */}
 
       <Content>
         <div className="home">
@@ -78,7 +78,7 @@ const Home = () => {
             onClick={() => routeNavigation("/createquestion")}
           />
         </div>
-  </Content> */}
+      </Content>
 
       <Content>
         <div className="home">

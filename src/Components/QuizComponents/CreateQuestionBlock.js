@@ -13,6 +13,10 @@
  *	    Editiert am:		04-02-2024
  *      Info/Notizen:		Axios integriert, Fetching der Quizdata
  *
+ *      Editiert von:		Kevin Krazius
+ *	    Editiert am:		04-05-2024
+ *      Info/Notizen:		An API-Anfrage angepasst, Name aus DB für Modulnamen übernommen, useState hinzu
+ *
  */
 
 import React, { useEffect, useState } from "react";
@@ -39,15 +43,17 @@ const CreateQuestionBlock = () => {
   ]);
   // Quizdaten
   const [quizData, setQuizData] = useState([]);
-
-  // Extrahiere Modulnamen
-  const modules = Array.from(new Set(quizData.map((item) => item.modulname)));
+  // Moduldaten
+  const [modules, setModules] = useState([]);
 
   // Funktion, um Quizdaten von der API abzurufen
   useEffect(() => {
     const fetchQuizData = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/quizdata");
+        const response = await axios.get(
+          "http://localhost:3001/quiz/questions"
+        );
+
         setQuizData(response.data);
       } catch (error) {
         console.error("Fehler beim Abrufen der Quizdaten:", error);
@@ -55,6 +61,14 @@ const CreateQuestionBlock = () => {
     };
     fetchQuizData();
   }, []);
+
+  // Extrahiere Modulnamen
+  useEffect(() => {
+    const extractedModules = Array.from(
+      new Set(quizData.map((item) => item.module_name))
+    );
+    setModules(extractedModules);
+  }, [quizData]);
 
   // Funktion, die aufgerufen wird, wenn ein Modul ausgewählt wird
   const handleSelectModule = (moduleName) => {
@@ -92,7 +106,7 @@ const CreateQuestionBlock = () => {
       return;
     }
 
-    console.log("Erstelltes Modul: ", moduleText || selectedModule);
+    console.log("Erstelltes/Gewähltes Modul: ", moduleText || selectedModule);
     console.log("Erstellte Frage: ", questionText);
     console.log("Erstellte Antworten: ", answers);
     // Logik zum Senden der Frage an die API oder was auch immer als nächstes kommt
@@ -120,13 +134,13 @@ const CreateQuestionBlock = () => {
       <h2>Modul auswählen:</h2>
       {/* verfügbare Module auflisten und auswählbar machen */}
       <ul>
-        {modules.map((moduleName) => (
-          <div key={moduleName}>
+        {modules.map((module_name, index) => (
+          <div key={index}>
             <Button
-              text={moduleName}
-              onClick={() => handleSelectModule(moduleName)}
+              text={module_name}
+              onClick={() => handleSelectModule(module_name)}
               classNameParam={
-                selectedModule === moduleName ? "button selected" : "button"
+                selectedModule === module_name ? "button selected" : "button"
               }
             />
             <p />
