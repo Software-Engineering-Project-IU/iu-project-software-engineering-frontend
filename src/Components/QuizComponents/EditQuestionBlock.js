@@ -9,6 +9,9 @@
  *	    Editiert am:		04-02-2024
  *      Info/Notizen:		Axios implementiert - Fetching Data
  *
+ *	    Editiert von:		    Kevin Krazius
+ *	    Editiert am:		    04-05-2024
+ *      Info/Notizen:       Logik implementiert um auf Daten der Datenbank zuzugreifen und diese in UI integriert
  */
 
 import React, { useState, useEffect } from "react";
