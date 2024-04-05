@@ -10,8 +10,12 @@
  *      Info/Notizen:		    Auslagern der Testdaten, Funktion Gruppieren der Testdaten hinzu. Buttons hinzu
  *
  *	    Editiert von:		    Kevin Krazius
- *	    Editiert am:		    04-2-2024
+ *	    Editiert am:		    04-02-2024
  *      Info/Notizen:       Axios integriert, Fetching der Daten über API
+ *
+ *	    Editiert von:		    Kevin Krazius
+ *	    Editiert am:		    04-05-2024
+ *      Info/Notizen:       Logik implementiert um auf Daten der Datenbank zuzugreifen und diese in UI integriert
  *
  */
 

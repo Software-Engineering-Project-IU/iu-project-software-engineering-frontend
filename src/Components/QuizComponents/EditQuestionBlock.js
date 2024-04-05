@@ -23,24 +23,22 @@ const EditQuestionBlock = () => {
   let { id } = useParams();
   const navigate = useNavigate();
 
-  // Zustand für die Frage
-  const [questionData, setQuestionData] = useState({
-    modulname: "",
-    frage: "",
-    antworten: [
-      { text: "", isCorrect: false },
-      { text: "", isCorrect: false },
-      { text: "", isCorrect: false },
-      { text: "", isCorrect: false },
-    ],
-  });
+  // Zustand für die Frage und Antworten
+  const [questionData, setQuestionData] = useState([]);
+  const [answerData, setAnswerData] = useState([]);
 
   // Daten der Frage mit der entsprechenden ID von der API abrufen
   useEffect(() => {
     const fetchQuestionData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/quiz/${id}`);
-        setQuestionData(response.data);
+        const responseQuestion = await axios.get(
+          `http://localhost:3001/quiz/questions/${id}`
+        );
+        const responseAnswer = await axios.get(
+          `http://localhost:3001/quiz/answers/${id}`
+        );
+        setQuestionData(responseQuestion.data);
+        setAnswerData(responseAnswer.data);
       } catch (error) {
         console.error("Fehler beim Laden der Frage:", error);
       }
@@ -77,29 +75,35 @@ const EditQuestionBlock = () => {
 
   return (
     <div className="content-create-question">
-      <h2>Modul: {questionData.modulname}</h2>
-      <h2>Frage bearbeiten:</h2>
-      <InputField
-        isBig={true}
-        value={questionData.frage}
-        onChange={(e) =>
-          setQuestionData({ ...questionData, frage: e.target.value })
-        }
-      />
+      {questionData.map((question, index) => (
+        <div key={index}>
+          <h2>Modul: {question.module_name}</h2>
+          <h2>Frage bearbeiten:</h2>
+
+          <InputField
+            isBig={true}
+            value={question.question_text}
+            onChange={(e) =>
+              setQuestionData({ ...questionData, frage: e.target.value })
+            }
+          />
+        </div>
+      ))}
+
       {/* Eingabefelder für Antworten und Toggle-Buttons */}
       <h2>Antworten eingeben:</h2>
-      {questionData.antworten.map((answer, index) => (
+      {answerData.map((answer, index) => (
         <div key={index}>
           <InputField
             label={`Antwort ${index + 1} eingeben: `}
-            value={answer.text}
+            value={answer.answer_text}
             onChange={(e) => handleAnswerChange(index, e.target.value)}
           />
           <p />
           <label>
             <input
               type="checkbox"
-              checked={answer.isCorrect}
+              checked={answer.is_correct}
               onChange={() => handleToggleCorrectness(index)}
             />
             Ist Antwort korrekt?

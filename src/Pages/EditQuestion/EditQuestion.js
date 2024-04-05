@@ -9,6 +9,9 @@
  *	    Editiert am:		04-02-2024
  *      Info/Notizen:		Axios implementiert, Fetching Data from API
  *
+ *	    Editiert von:		    Kevin Krazius
+ *	    Editiert am:		    04-05-2024
+ *      Info/Notizen:       Logik implementiert um auf Daten der Datenbank zuzugreifen und diese in UI integriert
  */
 
 import { useParams } from "react-router-dom";
@@ -21,15 +24,24 @@ const EditQuestions = () => {
   // ID aus der URL erhalten
   let { id } = useParams();
 
-  // Zustand für die Frage
+  // Zustand für die Frage, Antworten und Loading
   const [question, setQuestion] = useState(null);
+  const [answer, setAnswer] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   // Daten der Frage mit der entsprechenden ID von der API laden
   useEffect(() => {
     const fetchQuestion = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/quiz/${id}`);
-        setQuestion(response.data);
+        const responseQuestion = await axios.get(
+          `http://localhost:3001/quiz/questions/${id}`
+        );
+        const responseAnswer = await axios.get(
+          `http://localhost:3001/quiz/answers/${id}`
+        );
+        setQuestion(responseQuestion.data);
+        setAnswer(responseAnswer.data);
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching question:", error);
       }
@@ -38,18 +50,26 @@ const EditQuestions = () => {
   }, [id]);
 
   // Überprüfen, ob die Frage gefunden wurde
-  if (!question) {
+  if (!question && !answer) {
     return (
       <div>
         <Content>
-          <h1>Question not found!</h1>
+          <h1>Question/Answer not found!</h1>
         </Content>
       </div>
     );
   }
 
-  // Ausgabe der Frage auf der Konsole
-  console.log("Gefundene Frage:", question);
+  // Überprüfen, ob die Frage gefunden wurde
+  if (loading) {
+    return (
+      <div>
+        <Content>
+          <h1>Loading...</h1>
+        </Content>
+      </div>
+    );
+  }
 
   return (
     <div>

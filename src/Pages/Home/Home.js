@@ -50,7 +50,7 @@ const Home = () => {
         <div className="home">
           <HelpRequests userName={user ? user.userName : ""} />
         </div>
-      </Content>
+      </Content>*/}
 
       <Content>
         <div className="home">
@@ -59,7 +59,7 @@ const Home = () => {
             onClick={() => routeNavigation("/runquiz")}
           />
         </div>
-  </Content> */}
+      </Content>
 
       <Content>
         <div className="home">
