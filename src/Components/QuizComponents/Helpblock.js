@@ -15,54 +15,37 @@
  *
  */
 
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useContext, useEffect, useState } from "react";
 import Button from "../Buttons/Button";
 import InputField from "../InputFields/InputField";
 import { useAuth } from "../AuthProvider/AuthProvider";
+import QuizContext from "../../Context/QuizContext";
 
 const HelpBlock = () => {
   const [questionsNeedingHelp, setQuestionsNeedingHelp] = useState([]);
   const [helpComment, setHelpComment] = useState({});
-  const [loading, setLoading] = useState(true); // Zustand für den Ladezustand
+  const [loading, setLoading] = useState(true);
   const { user } = useAuth();
+  const { questions } = useContext(QuizContext);
 
   useEffect(() => {
     const fetchQuestionsNeedingHelp = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:3001/quiz/questions"
-        );
-        const helpRequests = response.data;
-
         // Filtere nur die Fragen, bei denen is_help_needed true ist
-        const questionsNeedingHelpIds = helpRequests
-          .filter((request) => request.is_help_needed)
-          .map((request) => request.id);
-
-        // Für jede Frage-ID eine Anfrage an die Datenbank senden, um Frage und Antworten abzurufen
-        const questionsData = await Promise.all(
-          questionsNeedingHelpIds.map(async (id) => {
-            const questionResponse = await axios.get(
-              `http://localhost:3001/quiz/questions/${id}`
-            );
-            const answersResponse = await axios.get(
-              `http://localhost:3001/quiz/answers/${id}`
-            );
-            const questionData = questionResponse.data[0];
-            const answersData = answersResponse.data;
-            return { ...questionData, answers: answersData };
-          })
+        const filteredQuestions = questions.filter(
+          (question) => question.is_help_needed
         );
 
-        setQuestionsNeedingHelp(questionsData);
+        // Setze den Fragenzustand entsprechend
+        setQuestionsNeedingHelp(filteredQuestions);
         setLoading(false); // Setze den Ladezustand auf false, wenn die Daten geladen wurden
       } catch (error) {
         console.error("Fehler beim Laden der Hilfsanfragen:", error);
       }
     };
+
     fetchQuestionsNeedingHelp();
-  }, []);
+  }, [questions]);
 
   const handleHelpCommentChange = (id, value) => {
     // Aktualisiere den Zustand basierend auf der Frage-ID

@@ -80,11 +80,11 @@ const Home = () => {
         </div>
       </Content> */}
 
-      {/* <Content>
+      <Content>
         <div className="home">
           <HelpBlock />
         </div>
-    </Content> */}
+      </Content>
     </div>
   );
 };
