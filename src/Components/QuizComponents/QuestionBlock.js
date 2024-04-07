@@ -16,7 +16,7 @@ import "../../scss/main.scss";
 
 const QuestionBlock = ({ question }) => {
   return (
-    <div className="question-block">
+    <div className="question-block-run-quiz">
       <h2>Frage:</h2>
       <p>{question}</p>
     </div>

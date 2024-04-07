@@ -398,6 +398,24 @@ $button-active-color: darken($primary-color, 25%);
   }
 }
 
+.question-block-run-quiz {
+  background-color: #f2f2f2;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 8px $secondary-color;
+
+  h2 {
+    color: $primary-color;
+    margin-bottom: 15px;
+  }
+
+  p {
+    font-size: 18px;
+    color: $secondary-color;
+  }
+}
+
 /* Animationen für richtige/falsche Antworten */
 @keyframes highlight {
   from {

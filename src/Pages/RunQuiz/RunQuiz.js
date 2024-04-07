@@ -15,106 +15,88 @@
  *
  */
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import Button from "../../Components/Buttons/Button";
 import AnswerBlock from "../../Components/QuizComponents/AnswerBlock";
 import QuestionBlock from "../../Components/QuizComponents/QuestionBlock";
 import Content from "../../Layout/Content/Content";
-import axios from "axios";
+import QuizContext from "../../Context/QuizContext";
 
 const RunQuiz = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [isCorrect, setIsCorrect] = useState(null);
   const [isAnswerSubmitted, setIsAnswerSubmitted] = useState(false);
-  // Zustand für die Frage und Antworten
-  const [questionData, setQuestionData] = useState([]);
-  const [answerData, setAnswerData] = useState([]);
 
-  const questionDataRequest = "http://localhost:3001/quiz/questions";
-  const answerDataRequest = "http://localhost:3001/quiz/answers";
+  // Zugriff auf Frage- und Antwortdaten aus dem QuizContext
+  const { questions } = useContext(QuizContext);
 
-  useEffect(() => {
-    // Funktion zum Abrufen der Quizdaten
-    const fetchData = async () => {
-      try {
-        const [questionResponse, answerResponse] = await Promise.all([
-          axios.get(questionDataRequest),
-          axios.get(answerDataRequest),
-        ]);
-        setQuestionData(questionResponse.data);
-        // Antwortdatenstruktur anpassen, um sie mit der Frage verknüpft zu halten
-        const formattedAnswerData = {};
-        answerResponse.data.forEach((answer) => {
-          if (!formattedAnswerData[answer.question_id]) {
-            formattedAnswerData[answer.question_id] = [];
-          }
-          formattedAnswerData[answer.question_id].push(answer);
-        });
-        setAnswerData(formattedAnswerData);
-      } catch (error) {
-        console.error("Fehler beim Abrufen der Quizdaten:", error);
-      }
-    };
-    fetchData();
-  }, []);
-
-  // Nächste Frage laden
+  // Funktion zum Laden der nächsten Frage
   const loadNextQuestion = () => {
     setSelectedAnswer(null);
     setIsCorrect(null);
     setIsAnswerSubmitted(false);
-    setCurrentQuestionIndex(
-      (prevIndex) => (prevIndex + 1) % questionData.length
-    ); // Loop durch Fragen
+    setCurrentQuestionIndex((prevIndex) => (prevIndex + 1) % questions.length);
   };
 
-  // Antworten sind nur auswählbar wenn noch nicht auf antworten geklickt wurde
+  // Handler zum Auswählen einer Antwort
   const handleSelectAnswer = (answer) => {
     if (!isAnswerSubmitted) {
       setSelectedAnswer(answer);
     }
   };
 
-  // Was passiert wenn auf Antworten geklickt wurde
+  // Handler zum Überprüfen der ausgewählten Antwort
   const handleSubmit = () => {
-    const selectedAnswerObject = answerData[
-      questionData[currentQuestionIndex].id
-    ].find((answer) => answer.answer_text === selectedAnswer);
+    const selectedQuestion = questions[currentQuestionIndex];
+    const selectedAnswerObject = selectedQuestion.answers.find(
+      (ans) => ans.answer_text === selectedAnswer
+    );
 
     if (selectedAnswer) {
       setIsAnswerSubmitted(true);
-      setIsCorrect(selectedAnswerObject.isCorrect);
+      setIsCorrect(selectedAnswerObject.is_correct === 1);
     } else {
       alert("Wähle eine Antwort aus!");
     }
   };
 
-  // Was passiert wenn der Hilfe-Button geklickt wird
+  // Handler zum Anfordern von Hilfe
   const handleRequestHelp = () => {
-    console.log("Hilfe anfordern...");
-    // Logik für Hilfsanforderung
+    const selectedQuestion = questions[currentQuestionIndex];
+    const helpRequest = {
+      question_id: selectedQuestion.id,
+      module_name: selectedQuestion.module_name,
+      question_text: selectedQuestion.question_text,
+      selected_answer: selectedAnswer,
+    };
 
+    // Hier kann die Logik für die Hilfsanforderung implementiert werden,
+    // z.B. eine API-Anfrage an den Server senden oder eine Benachrichtigung anzeigen
+
+    // Beispiel: Ausgabe einer Benachrichtigung mit den Informationen zur Hilfeanforderung
     alert(
-      "Hilfe erfolgreich angefordert für die Frage: " +
-        questionData[currentQuestionIndex].question_text
+      `Hilfe erfolgreich angefordert für:
+    Modul: ${helpRequest.module_name}
+    Frage: ${helpRequest.question_text}
+    Ausgewählte Antwort: ${helpRequest.selected_answer}`
     );
   };
 
-  if (!questionData.length) {
+  // Wenn keine Fragen vorhanden sind, zeige eine Ladeanzeige an
+  if (!questions.length) {
     return <div>Lade Quizdaten...</div>;
   }
 
-  console.log(questionData);
-  console.log(answerData);
+  // Rendern der Quizkomponente
   return (
     <div>
       <Content>
         <QuestionBlock
-          question={questionData[currentQuestionIndex].question_text}
+          question={questions[currentQuestionIndex].question_text}
         />
         <AnswerBlock
-          answers={answerData[questionData[currentQuestionIndex].id].map(
+          answers={questions[currentQuestionIndex].answers.map(
             (ans) => ans.answer_text
           )}
           onSelectAnswer={handleSelectAnswer}
