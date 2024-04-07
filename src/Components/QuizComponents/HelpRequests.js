@@ -9,36 +9,23 @@
  *	Editiert am:      04-02-2024
  *	Info/Notizen:     Axios implementiert, Fetching Anfragen für API
  *
+ *  Editiert von:     Kevin Krazius
+ *	Editiert am:      04-02-2024
+ *	Info/Notizen:     API Anfragen ausgelagert, Code angepasst
+ *
  */
 
-import React, { useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { useAuth } from "../AuthProvider/AuthProvider";
 import "../../scss/main.scss";
 import Button from "../Buttons/Button";
-import axios from "axios";
+import HelpContext from "../../Context/HelpContext";
+import QuizContext from "../../Context/QuizContext";
 
 const HelpRequests = () => {
   const { user } = useAuth();
-  const [helpRequest, setHelpRequest] = useState([]);
-
-  useEffect(() => {
-    if (user) {
-      // Funktion zum Abrufen der Hilfsanfragen des Benutzers
-      const fetchHelpRequests = async () => {
-        try {
-          const response = await axios.get(
-            `http://localhost:3001/user/${user.id}`
-          );
-          setHelpRequest(response.data.helpRequests); // Setze die erhaltenen Hilfsanfragen in den Zustand
-        } catch (error) {
-          console.error("Fehler beim Abrufen der Hilfsanfragen:", error);
-        }
-      };
-
-      // Hilfsanfragen beim Laden der Komponente abrufen
-      fetchHelpRequests();
-    }
-  }, [user]);
+  const { help } = useContext(HelpContext);
+  const { questions } = useContext(QuizContext);
 
   const handleHelpful = () => {
     // Logik für hilfreiche Hilfsanfragen
@@ -50,30 +37,39 @@ const HelpRequests = () => {
     console.log("Nicht hilfreich geklickt.");
   };
 
+  const getQuestionById = (questionId) => {
+    return questions.find((question) => question.id === questionId);
+  };
+
   return (
     <div>
       <h2>Deine Hilfsanfragen:</h2>
-      {user && helpRequest.length > 0 ? (
-        helpRequest.map((request, index) => (
-          <div key={index}>
-            <p>Modul: {request.modulname}</p>
-            <p>Frage: {request.frage}</p>
-            {request.providedHelp && (
-              <div className="home">
-                <h3>Hilfe wurde bereitgestellt:</h3>
-                <p>{request.providedHelp}</p>
-                <div className="buttons-help-request">
-                  <Button text={"Hilfreich"} onClick={handleHelpful} />
-                  <Button
-                    text={"Nicht hilfreich"}
-                    buttonColor="button-secondary"
-                    onClick={handleUnhelpful}
-                  />
-                </div>
+      {user && help.length > 0 ? (
+        help
+          .filter((request) => request.user_id === user.id)
+          .map((request, index) => {
+            const question = getQuestionById(request.question_id);
+            return (
+              <div key={index}>
+                <p>Modul: {question.module_name}</p>
+                <p>Frage: {question.question_text}</p>
+                {request.provided_help && (
+                  <div className="home">
+                    <h3>Hilfe wurde bereitgestellt:</h3>
+                    <p>{request.provided_help}</p>
+                    <div className="buttons-help-request">
+                      <Button text={"Hilfreich"} onClick={handleHelpful} />
+                      <Button
+                        text={"Nicht hilfreich"}
+                        buttonColor="button-secondary"
+                        onClick={handleUnhelpful}
+                      />
+                    </div>
+                  </div>
+                )}
               </div>
-            )}
-          </div>
-        ))
+            );
+          })
       ) : (
         <p>Keine Hilfsanfragen.</p>
       )}

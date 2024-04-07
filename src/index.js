@@ -18,14 +18,17 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { QuizProvider } from "./Context/QuizContext";
 import { UserProvider } from "./Context/UserContext";
+import { HelpProvider } from "./Context/HelpContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <UserProvider>
-      <QuizProvider>
-        <App />
-      </QuizProvider>
+      <HelpProvider>
+        <QuizProvider>
+          <App />
+        </QuizProvider>
+      </HelpProvider>
     </UserProvider>
   </React.StrictMode>
 );

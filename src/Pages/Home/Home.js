@@ -46,11 +46,11 @@ const Home = () => {
 
   return (
     <div>
-      {/*<Content>
+      <Content>
         <div className="home">
           <HelpRequests userName={user ? user.userName : ""} />
         </div>
-      </Content>*/}
+      </Content>
 
       <Content>
         <div className="home">

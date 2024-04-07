@@ -10,8 +10,12 @@
  *      Info/Notizen:		Test-Daten integriert
  *
  *      Editiert von:		Kevin Krazius
- *	    Editiert am:		04-2-2024
+ *	    Editiert am:		04-02-2024
  *      Info/Notizen:		Axios integriert
+ *
+ *      Editiert von:		Kevin Krazius
+ *	    Editiert am:		04-07-2024
+ *      Info/Notizen:		Auslagern der API-Anfragen, nutzen von QuizContext
  *
  */
 
