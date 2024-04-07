@@ -71,14 +71,14 @@ const Home = () => {
         {showQuestionCatalog && <QuestionCatalog />}
       </Content> */}
 
-      {/* <Content>
+      <Content>
         <div className="home">
           <Button
             text="Frage hinzufügen"
             onClick={() => routeNavigation("/createquestion")}
           />
         </div>
-      </Content> */}
+      </Content>
 
       <Content>
         <div className="home">

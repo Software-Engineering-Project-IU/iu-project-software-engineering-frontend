@@ -19,11 +19,11 @@
  *
  */
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import "../../scss/main.scss";
 import InputField from "../InputFields/InputField";
 import Button from "../Buttons/Button";
-import axios from "axios";
+import QuizContext from "../../Context/QuizContext";
 
 const CreateQuestionBlock = () => {
   // Zustand für das ausgewählte Modul
@@ -42,33 +42,17 @@ const CreateQuestionBlock = () => {
     { text: "", isCorrect: false },
   ]);
   // Quizdaten
-  const [quizData, setQuizData] = useState([]);
+  const { questions } = useContext(QuizContext);
   // Moduldaten
   const [modules, setModules] = useState([]);
-
-  // Funktion, um Quizdaten von der API abzurufen
-  useEffect(() => {
-    const fetchQuizData = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:3001/quiz/questions"
-        );
-
-        setQuizData(response.data);
-      } catch (error) {
-        console.error("Fehler beim Abrufen der Quizdaten:", error);
-      }
-    };
-    fetchQuizData();
-  }, []);
 
   // Extrahiere Modulnamen
   useEffect(() => {
     const extractedModules = Array.from(
-      new Set(quizData.map((item) => item.module_name))
+      new Set(questions.map((item) => item.module_name))
     );
     setModules(extractedModules);
-  }, [quizData]);
+  }, [questions]);
 
   // Funktion, die aufgerufen wird, wenn ein Modul ausgewählt wird
   const handleSelectModule = (moduleName) => {

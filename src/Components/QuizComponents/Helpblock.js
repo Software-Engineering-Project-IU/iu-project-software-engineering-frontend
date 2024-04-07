@@ -13,6 +13,10 @@
  *	    Editiert am:		04-04-2024
  *      Info/Notizen:		Logik implementiert um auf Daten der Datenbank zuzugreifen und diese in UI integriert
  *
+ *      Editiert von:		Kevin Krazius
+ *	    Editiert am:		04-07-2024
+ *      Info/Notizen:		Axios Anfrage ausgelagert in QuizContext
+ *
  */
 
 import React, { useContext, useEffect, useState } from "react";
