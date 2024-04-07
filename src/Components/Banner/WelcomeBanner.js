@@ -14,10 +14,10 @@
 import React from "react";
 import "../../scss/main.scss";
 
-const WelcomeBanner = ({ text, username, isLoggedIn }) => {
+const WelcomeBanner = ({ username, isLoggedIn }) => {
   return (
     <div className={`welcome-banner ${isLoggedIn ? "active" : "inactive"}`}>
-      <h2>{isLoggedIn ? `${text}, ${username}` : text}</h2>
+      <h2>{isLoggedIn ? `Welcome, ${username}` : "Welcome"}</h2>
     </div>
   );
 };

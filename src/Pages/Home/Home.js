@@ -61,7 +61,7 @@ const Home = () => {
         </div>
       </Content>
 
-      <Content>
+      {/* <Content>
         <div className="home">
           <Button
             text="Fragenkatalog"
@@ -69,22 +69,22 @@ const Home = () => {
           />
         </div>
         {showQuestionCatalog && <QuestionCatalog />}
-      </Content>
+      </Content> */}
 
-      <Content>
+      {/* <Content>
         <div className="home">
           <Button
             text="Frage hinzufügen"
             onClick={() => routeNavigation("/createquestion")}
           />
         </div>
-      </Content>
+      </Content> */}
 
-      <Content>
+      {/* <Content>
         <div className="home">
           <HelpBlock />
         </div>
-      </Content>
+    </Content> */}
     </div>
   );
 };

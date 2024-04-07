@@ -31,8 +31,7 @@ const Navbar = () => {
       </div>
       <div className="navbar-right-section">
         <WelcomeBanner
-          text="Welcome"
-          username={user?.userName ?? "username"}
+          username={user?.user_Name ?? "username"}
           isLoggedIn={user !== undefined}
         />
         <ul className="navRight">

@@ -11,7 +11,7 @@
  *
  *      Editiert von:		Kevin Krazius
  *	    Editiert am:		04-2-2024
- *      Info/Notizen:		Axios integriert -
+ *      Info/Notizen:		Axios integriert
  *
  */
 
@@ -27,22 +27,36 @@ const RunQuiz = () => {
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [isCorrect, setIsCorrect] = useState(null);
   const [isAnswerSubmitted, setIsAnswerSubmitted] = useState(false);
-  const [quizData, setQuizData] = useState(null);
-  const quizDataRequest = "http://localhost:3001/quizdata";
+  // Zustand für die Frage und Antworten
+  const [questionData, setQuestionData] = useState([]);
+  const [answerData, setAnswerData] = useState([]);
+
+  const questionDataRequest = "http://localhost:3001/quiz/questions";
+  const answerDataRequest = "http://localhost:3001/quiz/answers";
 
   useEffect(() => {
     // Funktion zum Abrufen der Quizdaten
-    const fetchQuizData = async () => {
+    const fetchData = async () => {
       try {
-        const response = await axios.get(quizDataRequest);
-        setQuizData(response.data);
+        const [questionResponse, answerResponse] = await Promise.all([
+          axios.get(questionDataRequest),
+          axios.get(answerDataRequest),
+        ]);
+        setQuestionData(questionResponse.data);
+        // Antwortdatenstruktur anpassen, um sie mit der Frage verknüpft zu halten
+        const formattedAnswerData = {};
+        answerResponse.data.forEach((answer) => {
+          if (!formattedAnswerData[answer.question_id]) {
+            formattedAnswerData[answer.question_id] = [];
+          }
+          formattedAnswerData[answer.question_id].push(answer);
+        });
+        setAnswerData(formattedAnswerData);
       } catch (error) {
         console.error("Fehler beim Abrufen der Quizdaten:", error);
       }
     };
-
-    // Quizdaten beim Laden der Komponente abrufen
-    fetchQuizData();
+    fetchData();
   }, []);
 
   // Nächste Frage laden
@@ -50,7 +64,9 @@ const RunQuiz = () => {
     setSelectedAnswer(null);
     setIsCorrect(null);
     setIsAnswerSubmitted(false);
-    setCurrentQuestionIndex((prevIndex) => (prevIndex + 1) % quizData.length); // Loop durch Fragen
+    setCurrentQuestionIndex(
+      (prevIndex) => (prevIndex + 1) % questionData.length
+    ); // Loop durch Fragen
   };
 
   // Antworten sind nur auswählbar wenn noch nicht auf antworten geklickt wurde
@@ -62,9 +78,9 @@ const RunQuiz = () => {
 
   // Was passiert wenn auf Antworten geklickt wurde
   const handleSubmit = () => {
-    const selectedAnswerObject = quizData[currentQuestionIndex].antworten.find(
-      (answer) => answer.text === selectedAnswer
-    );
+    const selectedAnswerObject = answerData[
+      questionData[currentQuestionIndex].id
+    ].find((answer) => answer.answer_text === selectedAnswer);
 
     if (selectedAnswer) {
       setIsAnswerSubmitted(true);
@@ -81,21 +97,25 @@ const RunQuiz = () => {
 
     alert(
       "Hilfe erfolgreich angefordert für die Frage: " +
-        quizData[currentQuestionIndex].frage
+        questionData[currentQuestionIndex].question_text
     );
   };
 
-  if (!quizData) {
+  if (!questionData.length) {
     return <div>Lade Quizdaten...</div>;
   }
 
+  console.log(questionData);
+  console.log(answerData);
   return (
     <div>
       <Content>
-        <QuestionBlock question={quizData[currentQuestionIndex].frage} />
+        <QuestionBlock
+          question={questionData[currentQuestionIndex].question_text}
+        />
         <AnswerBlock
-          answers={quizData[currentQuestionIndex].antworten.map(
-            (ans) => ans.text
+          answers={answerData[questionData[currentQuestionIndex].id].map(
+            (ans) => ans.answer_text
           )}
           onSelectAnswer={handleSelectAnswer}
           selectedAnswer={selectedAnswer}
