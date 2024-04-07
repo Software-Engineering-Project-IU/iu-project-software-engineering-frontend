@@ -12,63 +12,66 @@
  *	    Editiert von:		    Kevin Krazius
  *	    Editiert am:		    04-05-2024
  *      Info/Notizen:       Logik implementiert um auf Daten der Datenbank zuzugreifen und diese in UI integriert
+ *
+ *      Editiert von:		    Kevin Krazius
+ *	    Editiert am:		    04-07-2024
+ *      Info/Notizen:       Auslagern von API-Anfrage, nutzen von QuizContext
  */
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "../../scss/main.scss";
 import InputField from "../InputFields/InputField";
 import Button from "../Buttons/Button";
-import axios from "axios";
+import QuizContext from "../../Context/QuizContext";
 
 const EditQuestionBlock = () => {
   // ID aus der URL erhalten
   let { id } = useParams();
   const navigate = useNavigate();
+  const { questions, answers } = useContext(QuizContext);
 
-  // Zustand für die Frage und Antworten
-  const [questionData, setQuestionData] = useState([]);
+  // Zustände für Frage und Antworten initialisieren
+  const [questionData, setQuestionData] = useState({});
   const [answerData, setAnswerData] = useState([]);
 
-  // Daten der Frage mit der entsprechenden ID von der API abrufen
+  // Daten aus dem QuizContext laden, wenn sie verfügbar sind
   useEffect(() => {
-    const fetchQuestionData = async () => {
+    // Funktion zum Laden der Frage und ihrer Antworten
+    const loadQuestionAndAnswers = async () => {
       try {
-        const responseQuestion = await axios.get(
-          `http://localhost:3001/quiz/questions/${id}`
+        const selectedQuestion = questions.find(
+          (question) => question.id === parseInt(id)
         );
-        const responseAnswer = await axios.get(
-          `http://localhost:3001/quiz/answers/${id}`
+        const selectedAnswers = answers.filter(
+          (answer) => answer.question_id === parseInt(id)
         );
-        setQuestionData(responseQuestion.data);
-        setAnswerData(responseAnswer.data);
+
+        // Setzen der Frage und Antworten im State
+        setQuestionData(selectedQuestion);
+        setAnswerData(selectedAnswers);
       } catch (error) {
-        console.error("Fehler beim Laden der Frage:", error);
+        console.error("Fehler beim Laden der Frage und Antworten:", error);
       }
     };
-    fetchQuestionData();
-  }, [id]);
+
+    loadQuestionAndAnswers();
+  }, [id, questions, answers]); // Dependency Array hinzufügen
 
   // Handler zum Aktualisieren der Antwort
   const handleAnswerChange = (index, value) => {
-    const newAnswers = [...questionData.antworten];
-    newAnswers[index].text = value;
-    setQuestionData({
-      ...questionData,
-      antworten: newAnswers,
-    });
+    const newAnswers = [...answerData];
+    newAnswers[index].answer_text = value;
+    setAnswerData(newAnswers);
   };
 
   // Handler zum Umschalten der Antwortkorrektheit
   const handleToggleCorrectness = (index) => {
-    const newAnswers = questionData.antworten.map((answer, idx) => ({
+    const newAnswers = answerData.map((answer, idx) => ({
       ...answer,
-      isCorrect: idx === index ? !answer.isCorrect : false, // Setze nur die gewählte Antwort auf true, alle anderen auf false
+      is_correct: idx === index ? !answer.is_correct : false,
     }));
-    setQuestionData({
-      ...questionData,
-      antworten: newAnswers,
-    });
+    setAnswerData(newAnswers);
   };
 
   const handleUpdateQuestion = () => {
@@ -76,22 +79,22 @@ const EditQuestionBlock = () => {
     navigate("/");
   };
 
+  // Wenn Frage und Antworten noch geladen werden, zeige Ladezustand an
+  if (!questionData || answerData.length === 0) {
+    return <div>Laden...</div>;
+  }
+
   return (
     <div className="content-create-question">
-      {questionData.map((question, index) => (
-        <div key={index}>
-          <h2>Modul: {question.module_name}</h2>
-          <h2>Frage bearbeiten:</h2>
-
-          <InputField
-            isBig={true}
-            value={question.question_text}
-            onChange={(e) =>
-              setQuestionData({ ...questionData, frage: e.target.value })
-            }
-          />
-        </div>
-      ))}
+      <h2>Modul: {questionData.module_name}</h2>
+      <h2>Frage bearbeiten:</h2>
+      <InputField
+        isBig={true}
+        value={questionData.question_text}
+        onChange={(e) =>
+          setQuestionData({ ...questionData, question_text: e.target.value })
+        }
+      />
 
       {/* Eingabefelder für Antworten und Toggle-Buttons */}
       <h2>Antworten eingeben:</h2>
