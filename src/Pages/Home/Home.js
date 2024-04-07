@@ -61,7 +61,7 @@ const Home = () => {
         </div>
       </Content>
 
-      {/* <Content>
+      <Content>
         <div className="home">
           <Button
             text="Fragenkatalog"
@@ -69,7 +69,7 @@ const Home = () => {
           />
         </div>
         {showQuestionCatalog && <QuestionCatalog />}
-      </Content> */}
+      </Content>
 
       <Content>
         <div className="home">

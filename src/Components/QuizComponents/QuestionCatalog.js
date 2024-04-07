@@ -17,47 +17,35 @@
  *	    Editiert am:		    04-05-2024
  *      Info/Notizen:       Logik implementiert um auf Daten der Datenbank zuzugreifen und diese in UI integriert
  *
+ *     Editiert von:		    Kevin Krazius
+ *	    Editiert am:		    04-07-2024
+ *      Info/Notizen:       Auslagern von API-Anfrage, nutzen von QuizContext
+ *
  */
 
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Button from "../Buttons/Button";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../Components/AuthProvider/AuthProvider";
-import axios from "axios";
+import QuizContext from "../../Context/QuizContext";
 
 const QuestionCatalog = () => {
   // Zustände für die Anzeige der Module
   const [visibleModule, setVisibleModule] = useState("");
-  const [questionData, setQuestionData] = useState([]);
-  const [answerData, setAnswerData] = useState([]);
+  const [groupedAnswers, setGroupedAnswers] = useState({});
   const navigate = useNavigate();
   const { user } = useAuth();
+  const { questions, answers } = useContext(QuizContext);
 
+  // Funktion zum Gruppieren der Antworten nach Frage-ID
   useEffect(() => {
-    // Funktion zum Abrufen der Questions
-    const fetchQuestionData = async () => {
-      try {
-        const responseQuestions = await axios.get(
-          "http://localhost:3001/quiz/questions"
-        );
-        const responseAnswers = await axios.get(
-          "http://localhost:3001/quiz/answers"
-        );
-        setQuestionData(responseQuestions.data);
-        setAnswerData(responseAnswers.data);
-      } catch (error) {
-        console.error("Fehler beim Abrufen der Testdaten:", error);
-      }
-    };
-
-    fetchQuestionData();
-  }, []);
-
-  const groupedAnswers = answerData.reduce((acc, answer) => {
-    acc[answer.question_id] = acc[answer.question_id] || [];
-    acc[answer.question_id].push(answer);
-    return acc;
-  }, {});
+    const groupedAnswersData = answers.reduce((acc, answer) => {
+      acc[answer.question_id] = acc[answer.question_id] || [];
+      acc[answer.question_id].push(answer);
+      return acc;
+    }, {});
+    setGroupedAnswers(groupedAnswersData);
+  }, [answers]);
 
   function routeNavigation(route) {
     // Überprüfe ob der Benutzer eingeloggt ist
@@ -75,47 +63,44 @@ const QuestionCatalog = () => {
     setVisibleModule(visibleModule === moduleName ? "" : moduleName);
   };
 
-  // Gruppieren der Fragen nach Modulnamen
-  const modules = questionData.reduce((acc, question) => {
-    acc[question.module_name] = acc[question.module_name] || [];
-    acc[question.module_name].push(question);
-    return acc;
-  }, {});
-
   return (
     <div className="catalog-block">
       <div className="module-buttons">
-        {Object.keys(modules).map((module_name, index) => (
+        {Array.from(
+          new Set(questions.map((question) => question.module_name))
+        ).map((moduleName, index) => (
           <Button
             key={index}
-            buttonColor={
-              visibleModule === module_name ? "primary" : "secondary"
-            }
-            text={module_name}
-            onClick={() => toggleModuleVisibility(module_name)}
+            buttonColor={visibleModule === moduleName ? "primary" : "secondary"}
+            text={moduleName}
+            onClick={() => toggleModuleVisibility(moduleName)}
           />
         ))}
       </div>
       {visibleModule && (
         <div className="question-container">
-          {modules[visibleModule].map((question, index) => (
-            <div key={index} className="question-block">
-              <h3>{question.question_text}</h3>
-              {groupedAnswers[question.id] && (
-                <div>
-                  {groupedAnswers[question.id].map((answer, index) => (
-                    <div key={index}>
-                      <p>{answer.answer_text}</p>
-                    </div>
-                  ))}
-                </div>
-              )}
-              <Button
-                text={"Bearbeiten"}
-                onClick={() => routeNavigation(`/editquestion/${question.id}`)}
-              />
-            </div>
-          ))}
+          {questions
+            .filter((question) => question.module_name === visibleModule)
+            .map((question, index) => (
+              <div key={index} className="question-block">
+                <h3>{question.question_text}</h3>
+                {groupedAnswers[question.id] && (
+                  <div>
+                    {groupedAnswers[question.id].map((answer, index) => (
+                      <div key={index}>
+                        <p>{answer.answer_text}</p>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                <Button
+                  text={"Bearbeiten"}
+                  onClick={() =>
+                    routeNavigation(`/editquestion/${question.id}`)
+                  }
+                />
+              </div>
+            ))}
         </div>
       )}
     </div>

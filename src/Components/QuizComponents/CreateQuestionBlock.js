@@ -17,6 +17,10 @@
  *	    Editiert am:		04-05-2024
  *      Info/Notizen:		An API-Anfrage angepasst, Name aus DB für Modulnamen übernommen, useState hinzu
  *
+ *      Editiert von:		Kevin Krazius
+ *	    Editiert am:		04-07-2024
+ *      Info/Notizen:		Benutzen von QuizContext um API Anfragen auszulagern
+ *
  */
 
 import React, { useEffect, useState, useContext } from "react";

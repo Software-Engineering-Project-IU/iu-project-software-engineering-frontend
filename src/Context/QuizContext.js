@@ -58,7 +58,9 @@ export const QuizProvider = ({ children }) => {
 
   // Context-Objekt zurückgeben, das den Zustand und eine Methode zum Aktualisieren des Zustands enthält
   return (
-    <QuizContext.Provider value={{ questions: getQuestionWithAnswers() }}>
+    <QuizContext.Provider
+      value={{ questions: getQuestionWithAnswers(), answers }}
+    >
       {children}
     </QuizContext.Provider>
   );
