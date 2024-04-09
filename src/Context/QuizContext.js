@@ -93,6 +93,36 @@ export const QuizProvider = ({ children }) => {
     }
   };
 
+  // Funktion zum Erstellen einer neuen Frage mit Antworten
+  const createQuestion = async (questionData) => {
+    try {
+      // POST-Anfrage zum Erstellen der Frage mit Antworten
+      const response = await axios.post(
+        "http://localhost:3001/quiz/create-question",
+        questionData
+      );
+
+      if (response.status === 201) {
+        // Bei Erfolg: Daten erneut abrufen, um den aktualisierten Zustand zu erhalten
+        fetchData();
+      }
+    } catch (error) {
+      console.error("Fehler beim Erstellen der Frage:", error);
+    }
+  };
+
+  const helpNeeded = async (selectedQuestion, helpRequest) => {
+    try {
+      const response = await axios.put(
+        `http://localhost:3001/quiz/help-needed/${selectedQuestion.id}`,
+        helpRequest
+      );
+      fetchData();
+    } catch (error) {
+      console.error("Fehler beim Aktualisieren der Hilfe:", error);
+    }
+  };
+
   // Funktion zum Zuordnen der Antworten zu den Fragen
   const getQuestionWithAnswers = useCallback(() => {
     return questions.map((question) => {
@@ -112,6 +142,8 @@ export const QuizProvider = ({ children }) => {
         answers,
         updateAnswer,
         updateQuestion,
+        createQuestion,
+        helpNeeded,
       }}
     >
       {children}

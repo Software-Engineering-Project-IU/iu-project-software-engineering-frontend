@@ -52,7 +52,7 @@ const Login = () => {
 
       if (foundUser) {
         // Wenn ein Benutzer mit den eingegebenen Anmeldeinformationen gefunden wurde
-        console.log("Login successful:", foundUser);
+
         loginUser(foundUser);
         alert("Anmeldung erfolgreich!");
         navigate("/");

@@ -37,8 +37,6 @@ const HelpRequests = () => {
   const handleUnhelpful = async (requestId) => {
     // Logik für nicht hilfreiche Hilfsanfragen
     deleteHelpRequest(requestId);
-
-    console.log("Nicht hilfreich geklickt." + requestId);
   };
 
   const getQuestionById = (questionId) => {

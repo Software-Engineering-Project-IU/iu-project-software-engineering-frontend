@@ -81,8 +81,8 @@ const EditQuestionBlock = () => {
       await Promise.all(
         answerData.map((answer) => updateAnswer(answer.id, answer))
       );
-      alert("Frage wurde aktualisiert.");
       navigate("/");
+      alert("Frage wurde aktualisiert.");
     } catch (error) {
       console.error(
         "Fehler beim Aktualisieren der Frage und Antworten:",

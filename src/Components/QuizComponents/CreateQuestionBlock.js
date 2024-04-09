@@ -28,17 +28,14 @@ import "../../scss/main.scss";
 import InputField from "../InputFields/InputField";
 import Button from "../Buttons/Button";
 import QuizContext from "../../Context/QuizContext";
+import { useNavigate } from "react-router-dom";
 
 const CreateQuestionBlock = () => {
-  // Zustand für das ausgewählte Modul
+  const navigate = useNavigate();
   const [selectedModule, setSelectedModule] = useState("");
-  // Zustand für das Anzeigen der Eingabekomponente
   const [showInput, setShowInput] = useState(false);
-  // Zustand für Fragentext
   const [questionText, setQuestionText] = useState("");
-  // Zustand für Modultext
   const [moduleText, setModuleText] = useState("");
-  // Zustand für Antworten
   const [answers, setAnswers] = useState([
     { text: "", isCorrect: false },
     { text: "", isCorrect: false },
@@ -46,7 +43,7 @@ const CreateQuestionBlock = () => {
     { text: "", isCorrect: false },
   ]);
   // Quizdaten
-  const { questions } = useContext(QuizContext);
+  const { questions, createQuestion } = useContext(QuizContext);
   // Moduldaten
   const [modules, setModules] = useState([]);
 
@@ -61,43 +58,14 @@ const CreateQuestionBlock = () => {
   // Funktion, die aufgerufen wird, wenn ein Modul ausgewählt wird
   const handleSelectModule = (moduleName) => {
     setSelectedModule(moduleName);
-    console.log("Ausgewähltes Modul: ", moduleName);
 
-    // Verstecke das Eingabefeld, wenn ein Modul ausgewählt wird
     setShowInput(false);
   };
 
   // Funktion zur Erstellung eines neuen Moduls (optional)
   const handleCreateNewModule = () => {
-    console.log("Erstelle neues Modul");
     setSelectedModule("");
-    setShowInput(true); // Eingabekomponente anzeigen
-    // Logik zur Erstellung eines neuen Moduls hinzufügen
-  };
-
-  // Funktion welche prüft ob sämtliche Eingaben getätigt wurden, anschließend wird über API an Datenbank übertragen
-  const createQuestion = () => {
-    if (!(selectedModule || moduleText)) {
-      alert("Bitte wählen Sie ein Modul aus oder benennen Sie ein neues.");
-      return;
-    }
-    if (!questionText) {
-      alert("Bitte geben Sie einen Fragetext ein.");
-      return;
-    }
-    if (answers.some((answer) => answer.text === "")) {
-      alert("Bitte geben Sie alle Antworten ein.");
-      return;
-    }
-    if (answers.filter((answer) => answer.isCorrect).length !== 1) {
-      alert("Bitte markieren Sie genau eine Antwort als korrekt.");
-      return;
-    }
-
-    console.log("Erstelltes/Gewähltes Modul: ", moduleText || selectedModule);
-    console.log("Erstellte Frage: ", questionText);
-    console.log("Erstellte Antworten: ", answers);
-    // Logik zum Senden der Frage an die API oder was auch immer als nächstes kommt
+    setShowInput(true);
   };
 
   // Handler zum Aktualisieren der Antwort
@@ -115,6 +83,34 @@ const CreateQuestionBlock = () => {
       isCorrect: idx === index ? !answer.isCorrect : false, // Nur die ausgewählte Antwort kann umgeschaltet werden, alle anderen sind falsch
     }));
     setAnswers(updatedAnswers);
+  };
+
+  const handleCreateQuestion = () => {
+    if (!(selectedModule || moduleText)) {
+      alert("Bitte wählen Sie ein Modul aus oder benennen Sie ein neues.");
+      return;
+    }
+    if (!questionText) {
+      alert("Bitte geben Sie einen Fragetext ein.");
+      return;
+    }
+    if (answers.some((answer) => answer.text === "")) {
+      alert("Bitte geben Sie alle Antworten ein.");
+      return;
+    }
+    if (answers.filter((answer) => answer.isCorrect).length !== 1) {
+      alert("Bitte markieren Sie genau eine Antwort als korrekt.");
+      return;
+    }
+    const questionData = {
+      module_name: moduleText || selectedModule,
+      question_text: questionText,
+      answers: answers,
+    };
+
+    createQuestion(questionData);
+    navigate("/");
+    alert("Frage wurde gespeichert!");
   };
 
   return (
@@ -177,7 +173,7 @@ const CreateQuestionBlock = () => {
           <p />
         </div>
       ))}
-      <Button text={"Frage erstellen"} onClick={createQuestion} />
+      <Button text={"Frage erstellen"} onClick={handleCreateQuestion} />
     </div>
   );
 };

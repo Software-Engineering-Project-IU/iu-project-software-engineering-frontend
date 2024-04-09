@@ -21,18 +21,19 @@ export const HelpProvider = ({ children }) => {
   const [help, setHelp] = useState([]);
 
   // Funktion zum Abrufen der Hilfsanfragen für den angemeldeten Benutzer
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const helpResponse = await axios.get(
-          "http://localhost:3001/help-requests"
-        );
-        setHelp(helpResponse.data);
-      } catch (error) {
-        console.error("Fehler beim Abrufen der Hilfeanfragen:", error);
-      }
-    };
+  const fetchData = async () => {
+    try {
+      const helpResponse = await axios.get(
+        "http://localhost:3001/help-requests"
+      );
+      setHelp(helpResponse.data);
+    } catch (error) {
+      console.error("Fehler beim Abrufen der Hilfeanfragen:", error);
+    }
+  };
 
+  // Effekt zum Initialisieren der Daten beim ersten Rendern
+  useEffect(() => {
     fetchData();
   }, []);
 
@@ -46,6 +47,7 @@ export const HelpProvider = ({ children }) => {
           is_helpful: true,
         }
       );
+      await fetchData();
       // Hilfsanfragen aktualisieren, nachdem die Anfrage erfolgreich war
       setHelp((prevHelp) =>
         prevHelp.map((item) => {
@@ -67,16 +69,31 @@ export const HelpProvider = ({ children }) => {
       await axios.delete(
         `http://localhost:3001/help-requests/${requestId}/delete`
       );
-      setHelp(help.filter((request) => request.id !== requestId));
+      fetchData();
     } catch (error) {
       console.error("Fehler beim Löschen der Hilfsanfrage:", error);
+    }
+  };
+
+  // Funktion zum hinzufügen einer neuen Hilfsanfrage
+  const newHelpComment = async (helpData) => {
+    try {
+      console.log(helpData);
+      // Hier die entsprechende URL für die Delete-Anfrage einfügen
+      await axios.post(
+        `http://localhost:3001/help-requests/provide-help`,
+        helpData
+      );
+      fetchData();
+    } catch (error) {
+      console.error("Fehler beim hinzufügen der Hilfsanfrage:", error);
     }
   };
 
   // Context-Objekt zurückgeben, das den Zustand und eine Methode zum Aktualisieren des Zustands enthält
   return (
     <HelpContext.Provider
-      value={{ help, updateHelpRequest, deleteHelpRequest }}
+      value={{ help, updateHelpRequest, deleteHelpRequest, newHelpComment }}
     >
       {children}
     </HelpContext.Provider>

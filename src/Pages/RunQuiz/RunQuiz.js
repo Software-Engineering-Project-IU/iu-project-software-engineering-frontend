@@ -25,15 +25,17 @@ import AnswerBlock from "../../Components/QuizComponents/AnswerBlock";
 import QuestionBlock from "../../Components/QuizComponents/QuestionBlock";
 import Content from "../../Layout/Content/Content";
 import QuizContext from "../../Context/QuizContext";
+import { useAuth } from "../../Components/AuthProvider/AuthProvider";
 
 const RunQuiz = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [isCorrect, setIsCorrect] = useState(null);
   const [isAnswerSubmitted, setIsAnswerSubmitted] = useState(false);
+  const { user } = useAuth();
 
   // Zugriff auf Frage- und Antwortdaten aus dem QuizContext
-  const { questions } = useContext(QuizContext);
+  const { questions, helpNeeded } = useContext(QuizContext);
 
   // Funktion zum Laden der nächsten Frage
   const loadNextQuestion = () => {
@@ -68,13 +70,16 @@ const RunQuiz = () => {
   // Handler zum Anfordern von Hilfe
   const handleRequestHelp = () => {
     const selectedQuestion = questions[currentQuestionIndex];
+
     const helpRequest = {
       question_id: selectedQuestion.id,
       module_name: selectedQuestion.module_name,
       question_text: selectedQuestion.question_text,
       selected_answer: selectedAnswer,
+      is_help_needed: true,
+      user_needing_help: user.id,
     };
-
+    helpNeeded(selectedQuestion, helpRequest);
     // Hier kann die Logik für die Hilfsanforderung implementiert werden,
     // z.B. eine API-Anfrage an den Server senden oder eine Benachrichtigung anzeigen
 
@@ -85,6 +90,7 @@ const RunQuiz = () => {
     Frage: ${helpRequest.question_text}
     Ausgewählte Antwort: ${helpRequest.selected_answer}`
     );
+    loadNextQuestion();
   };
 
   // Wenn keine Fragen vorhanden sind, zeige eine Ladeanzeige an
