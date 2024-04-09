@@ -24,17 +24,21 @@ import QuizContext from "../../Context/QuizContext";
 
 const HelpRequests = () => {
   const { user } = useAuth();
-  const { help } = useContext(HelpContext);
+  const { help, updateHelpRequest, deleteHelpRequest } =
+    useContext(HelpContext);
   const { questions } = useContext(QuizContext);
 
-  const handleHelpful = () => {
+  const handleHelpful = async (requestId) => {
     // Logik für hilfreiche Hilfsanfragen
-    console.log("Hilfreich geklickt.");
+    updateHelpRequest(requestId);
+    alert("Kommentar wurde als hilfreich markiert!");
   };
 
-  const handleUnhelpful = () => {
+  const handleUnhelpful = async (requestId) => {
     // Logik für nicht hilfreiche Hilfsanfragen
-    console.log("Nicht hilfreich geklickt.");
+    deleteHelpRequest(requestId);
+
+    console.log("Nicht hilfreich geklickt." + requestId);
   };
 
   const getQuestionById = (questionId) => {
@@ -43,26 +47,31 @@ const HelpRequests = () => {
 
   return (
     <div>
-      <h2>Deine Hilfsanfragen:</h2>
+      <h2>Hilfe zu deinen Anfragen:</h2>
       {user && help.length > 0 ? (
         help
-          .filter((request) => request.user_id === user.id)
+          .filter(
+            (request) => request.user_id === user.id && request.is_helpful === 0
+          )
           .map((request, index) => {
             const question = getQuestionById(request.question_id);
             return (
               <div key={index}>
-                <p>Modul: {question.module_name}</p>
+                <h4>Modul: {question.module_name}</h4>
                 <p>Frage: {question.question_text}</p>
                 {request.provided_help && (
                   <div className="home">
                     <h3>Hilfe wurde bereitgestellt:</h3>
                     <p>{request.provided_help}</p>
                     <div className="buttons-help-request">
-                      <Button text={"Hilfreich"} onClick={handleHelpful} />
+                      <Button
+                        text={"Hilfreich"}
+                        onClick={() => handleHelpful(request.id)}
+                      />
                       <Button
                         text={"Nicht hilfreich"}
                         buttonColor="button-secondary"
-                        onClick={handleUnhelpful}
+                        onClick={() => handleUnhelpful(request.id)}
                       />
                     </div>
                   </div>
