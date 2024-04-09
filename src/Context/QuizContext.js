@@ -5,13 +5,13 @@
  *	Erstellungsdatum:	03-07-2024
  *	Info/Notizen:		Komponente erstellt, welche die Quizdaten aus der API-Anfrage erstellt
  *
- *	Editiert von:
- *	Editiert am:
- *	Info/Notizen:
+ *	Editiert von:     Kevin Krazius
+ *	Editiert am:      04-09-2024
+ *	Info/Notizen:     fetchData() benutzt callBack um in anderen Funktionen aufgerufen zu werden, somit aktualisiert die App ihre Daten beim ändern von Datensätzen
  *
  */
 
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useState, useEffect, useCallback } from "react";
 import axios from "axios";
 
 // QuizContext erstellen
@@ -24,29 +24,77 @@ export const QuizProvider = ({ children }) => {
   const [answers, setAnswers] = useState([]);
 
   // Funktion zum Abrufen der Quizdaten
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // Alle Fragen abrufen
-        const questionResponse = await axios.get(
-          "http://localhost:3001/quiz/questions"
-        );
-        setQuestions(questionResponse.data);
+  const fetchData = useCallback(async () => {
+    try {
+      // Alle Fragen abrufen
+      const questionResponse = await axios.get(
+        "http://localhost:3001/quiz/questions"
+      );
+      setQuestions(questionResponse.data);
 
-        // Alle Antworten abrufen
-        const answerResponse = await axios.get(
-          "http://localhost:3001/quiz/answers"
-        );
-        setAnswers(answerResponse.data);
-      } catch (error) {
-        console.error("Fehler beim Abrufen der Quizdaten:", error);
-      }
-    };
-    fetchData();
+      // Alle Antworten abrufen
+      const answerResponse = await axios.get(
+        "http://localhost:3001/quiz/answers"
+      );
+      setAnswers(answerResponse.data);
+    } catch (error) {
+      console.error("Fehler beim Abrufen der Quizdaten:", error);
+    }
   }, []);
 
+  // Funktion zum Abrufen der Quizdaten
+  useEffect(() => {
+    fetchData(); // Daten beim ersten Rendern abrufen
+  }, [fetchData]); // useEffect neu auslösen, wenn fetchData sich ändert
+
+  // Funktion zum updaten der Frage
+  const updateQuestion = async (questionId, questionData) => {
+    try {
+      await axios.put(
+        `http://localhost:3001/quiz/update-questions/${questionId}`,
+        questionData
+      );
+      fetchData();
+      // Frage nach dem Update erneut abrufen und den Zustand aktualisieren
+      const updatedQuestionResponse = await axios.get(
+        `http://localhost:3001/quiz/questions/${questionId}`
+      );
+      const updatedQuestion = updatedQuestionResponse.data;
+      setQuestions((prevQuestions) =>
+        prevQuestions.map((question) =>
+          question.id === questionId ? updatedQuestion : question
+        )
+      );
+    } catch (error) {
+      console.error("Fehler beim Aktualisieren der Frage:", error);
+    }
+  };
+
+  // Funktion zum updaten der Antworten
+  const updateAnswer = async (answerId, answerData) => {
+    try {
+      await axios.put(
+        `http://localhost:3001/quiz/update-answers/${answerId}`,
+        answerData
+      );
+      fetchData();
+      // Antwort nach dem Update erneut abrufen und den Zustand aktualisieren
+      const updatedAnswerResponse = await axios.get(
+        `http://localhost:3001/quiz/answers/${answerId}`
+      );
+      const updatedAnswer = updatedAnswerResponse.data;
+      setAnswers((prevAnswers) =>
+        prevAnswers.map((answer) =>
+          answer.id === answerId ? updatedAnswer : answer
+        )
+      );
+    } catch (error) {
+      console.error("Fehler beim Aktualisieren der Antwort:", error);
+    }
+  };
+
   // Funktion zum Zuordnen der Antworten zu den Fragen
-  const getQuestionWithAnswers = () => {
+  const getQuestionWithAnswers = useCallback(() => {
     return questions.map((question) => {
       // Antworten zu dieser Frage filtern
       const questionAnswers = answers.filter(
@@ -54,12 +102,17 @@ export const QuizProvider = ({ children }) => {
       );
       return { ...question, answers: questionAnswers };
     });
-  };
+  }, [questions, answers]);
 
   // Context-Objekt zurückgeben, das den Zustand und eine Methode zum Aktualisieren des Zustands enthält
   return (
     <QuizContext.Provider
-      value={{ questions: getQuestionWithAnswers(), answers }}
+      value={{
+        questions: getQuestionWithAnswers(),
+        answers,
+        updateAnswer,
+        updateQuestion,
+      }}
     >
       {children}
     </QuizContext.Provider>

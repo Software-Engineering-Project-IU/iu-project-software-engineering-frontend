@@ -29,7 +29,8 @@ const EditQuestionBlock = () => {
   // ID aus der URL erhalten
   let { id } = useParams();
   const navigate = useNavigate();
-  const { questions, answers } = useContext(QuizContext);
+  const { questions, answers, updateQuestion, updateAnswer } =
+    useContext(QuizContext);
 
   // Zustände für Frage und Antworten initialisieren
   const [questionData, setQuestionData] = useState({});
@@ -74,9 +75,20 @@ const EditQuestionBlock = () => {
     setAnswerData(newAnswers);
   };
 
-  const handleUpdateQuestion = () => {
-    alert("Frage wurde aktualisiert.");
-    navigate("/");
+  const handleUpdateQuestion = async () => {
+    try {
+      await updateQuestion(questionData.id, questionData);
+      await Promise.all(
+        answerData.map((answer) => updateAnswer(answer.id, answer))
+      );
+      alert("Frage wurde aktualisiert.");
+      navigate("/");
+    } catch (error) {
+      console.error(
+        "Fehler beim Aktualisieren der Frage und Antworten:",
+        error
+      );
+    }
   };
 
   // Wenn Frage und Antworten noch geladen werden, zeige Ladezustand an
