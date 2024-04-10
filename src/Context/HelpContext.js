@@ -23,10 +23,12 @@ export const HelpProvider = ({ children }) => {
   // Funktion zum Abrufen der Hilfsanfragen für den angemeldeten Benutzer
   const fetchData = async () => {
     try {
+      console.log("hello");
       const helpResponse = await axios.get(
         "http://localhost:3001/help-requests"
       );
       setHelp(helpResponse.data);
+      console.log("log", helpResponse.data);
     } catch (error) {
       console.error("Fehler beim Abrufen der Hilfeanfragen:", error);
     }
@@ -48,15 +50,6 @@ export const HelpProvider = ({ children }) => {
         }
       );
       await fetchData();
-      // Hilfsanfragen aktualisieren, nachdem die Anfrage erfolgreich war
-      setHelp((prevHelp) =>
-        prevHelp.map((item) => {
-          if (item.id === requestId) {
-            return { ...item, is_helpful: true };
-          }
-          return item;
-        })
-      );
     } catch (error) {
       console.error("Fehler beim Aktualisieren der Hilfsanfrage:", error);
     }

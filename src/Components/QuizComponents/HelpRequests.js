@@ -28,6 +28,8 @@ const HelpRequests = () => {
     useContext(HelpContext);
   const { questions } = useContext(QuizContext);
 
+  console.log("from helpreq", help, user);
+
   const handleHelpful = async (requestId) => {
     // Logik für hilfreiche Hilfsanfragen
     updateHelpRequest(requestId);

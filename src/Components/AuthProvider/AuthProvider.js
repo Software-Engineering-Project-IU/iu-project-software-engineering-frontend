@@ -11,8 +11,8 @@
  *
  */
 
-import React, { createContext, useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { createContext, useContext, useEffect, useState } from "react";
+import { json, useNavigate } from "react-router-dom";
 
 const AuthContext = createContext();
 
@@ -24,12 +24,26 @@ export const AuthProvider = ({ children }) => {
 
   const loginUser = (userData) => {
     setUser(userData);
+    if (userData) {
+      localStorage.setItem("user", JSON.stringify(userData));
+    }
   };
 
   const logoutUser = () => {
     setUser(undefined);
+    localStorage.removeItem("user");
     navigate("/");
   };
+
+  useEffect(() => {
+    const cachedUserData = localStorage.getItem("user");
+    if (cachedUserData) {
+      const jsonUser = JSON.parse(cachedUserData);
+      if (jsonUser) {
+        setUser(jsonUser);
+      }
+    }
+  }, []);
 
   return (
     <AuthContext.Provider value={{ user, loginUser, logoutUser }}>
