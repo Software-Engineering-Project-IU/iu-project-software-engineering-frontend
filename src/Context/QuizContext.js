@@ -70,6 +70,19 @@ export const QuizProvider = ({ children }) => {
     }
   };
 
+  // Funktion zu updaten von is_help_needed
+  const deleteHelpNeeded = async (questionId) => {
+    try {
+      console.log("ich bin drin");
+      await axios.put(
+        `http://localhost:3001/quiz/delete-help-needed/${questionId}`
+      );
+      fetchData();
+    } catch (error) {
+      console.error("Fehler beim Aktualisieren der Frage:", error);
+    }
+  };
+
   // Funktion zum updaten der Antworten
   const updateAnswer = async (answerId, answerData) => {
     try {
@@ -144,6 +157,7 @@ export const QuizProvider = ({ children }) => {
         updateQuestion,
         createQuestion,
         helpNeeded,
+        deleteHelpNeeded,
       }}
     >
       {children}

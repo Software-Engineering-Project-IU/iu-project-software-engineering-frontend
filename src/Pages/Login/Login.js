@@ -27,6 +27,7 @@ import Content from "../../Layout/Content/Content";
 import { useNavigate } from "react-router-dom";
 import "../../scss/main.scss";
 import UserContext from "../../Context/UserContext";
+import HelpContext from "../../Context/HelpContext";
 
 const Login = () => {
   const [user, setUser] = useState("");
@@ -34,6 +35,7 @@ const Login = () => {
   const navigate = useNavigate();
   const { loginUser } = useAuth();
   const { users } = useContext(UserContext);
+  const { fetchData } = useContext(HelpContext);
 
   // Login-Request
   const handleLogin = () => {
@@ -55,6 +57,7 @@ const Login = () => {
 
         loginUser(foundUser);
         alert("Anmeldung erfolgreich!");
+        fetchData();
         navigate("/");
       } else {
         // Wenn kein Benutzer mit den eingegebenen Anmeldeinformationen gefunden wurde

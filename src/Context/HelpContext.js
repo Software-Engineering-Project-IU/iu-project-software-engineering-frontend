@@ -49,7 +49,7 @@ export const HelpProvider = ({ children }) => {
           is_helpful: true,
         }
       );
-      await fetchData();
+      fetchData();
     } catch (error) {
       console.error("Fehler beim Aktualisieren der Hilfsanfrage:", error);
     }
@@ -71,7 +71,6 @@ export const HelpProvider = ({ children }) => {
   // Funktion zum hinzufügen einer neuen Hilfsanfrage
   const newHelpComment = async (helpData) => {
     try {
-      console.log(helpData);
       // Hier die entsprechende URL für die Delete-Anfrage einfügen
       await axios.post(
         `http://localhost:3001/help-requests/provide-help`,
@@ -87,7 +86,13 @@ export const HelpProvider = ({ children }) => {
   // Context-Objekt zurückgeben, das den Zustand und eine Methode zum Aktualisieren des Zustands enthält
   return (
     <HelpContext.Provider
-      value={{ help, updateHelpRequest, deleteHelpRequest, newHelpComment }}
+      value={{
+        help,
+        updateHelpRequest,
+        deleteHelpRequest,
+        newHelpComment,
+        fetchData,
+      }}
     >
       {children}
     </HelpContext.Provider>

@@ -88,7 +88,7 @@ const HelpBlock = () => {
         alert("Bitte geben Sie einen Hilfskommentar ein.");
         return;
       }
-      alert("Hilfskommentar geschickt!");
+
       // Optional: Kommentar nach dem Absenden löschen
       setHelpComment({
         ...helpComment,
@@ -104,6 +104,8 @@ const HelpBlock = () => {
       user_id: user_needing_help,
       provided_help: helpComment[id] ?? "",
     };
+    alert("Hilfskommentar geschickt!");
+    console.log("vor kommentar abschicken", helpData);
     newHelpComment(helpData);
   };
 
@@ -112,8 +114,6 @@ const HelpBlock = () => {
     return <div>Hilfsanfragen werden geladen...</div>;
   }
 
-  console.log("help", helpForUser);
-  console.log("questionsNeeding", questionsNeedingHelp);
   // Wenn die Daten geladen wurden, rendere die Fragen
   return (
     <div className="catalog-block">

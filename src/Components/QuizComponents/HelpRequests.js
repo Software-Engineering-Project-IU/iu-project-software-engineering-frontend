@@ -26,18 +26,21 @@ const HelpRequests = () => {
   const { user } = useAuth();
   const { help, updateHelpRequest, deleteHelpRequest } =
     useContext(HelpContext);
-  const { questions } = useContext(QuizContext);
+  const { questions, deleteHelpNeeded } = useContext(QuizContext);
 
   console.log("from helpreq", help, user);
 
-  const handleHelpful = async (requestId) => {
+  const handleHelpful = async (requestId, questionId) => {
     // Logik für hilfreiche Hilfsanfragen
-    updateHelpRequest(requestId);
     alert("Kommentar wurde als hilfreich markiert!");
+    updateHelpRequest(requestId);
+    console.log(questionId);
+    deleteHelpNeeded(questionId);
   };
 
   const handleUnhelpful = async (requestId) => {
     // Logik für nicht hilfreiche Hilfsanfragen
+    alert("Die Hilfe wurde gelöscht!");
     deleteHelpRequest(requestId);
   };
 
@@ -66,7 +69,9 @@ const HelpRequests = () => {
                     <div className="buttons-help-request">
                       <Button
                         text={"Hilfreich"}
-                        onClick={() => handleHelpful(request.id)}
+                        onClick={() =>
+                          handleHelpful(request.id, request.question_id)
+                        }
                       />
                       <Button
                         text={"Nicht hilfreich"}
