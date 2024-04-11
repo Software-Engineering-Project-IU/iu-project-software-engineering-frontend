@@ -333,6 +333,13 @@ $button-active-color: darken($primary-color, 25%);
   }
 }
 
+.help-in-quiz {
+  color: $correct-answer;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
 .big-inputfield {
   width: 500px;
   height: 150px;
