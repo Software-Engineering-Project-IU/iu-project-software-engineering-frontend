@@ -32,7 +32,11 @@ const HelpBlock = () => {
   const [loading, setLoading] = useState(true);
   const { user } = useAuth();
   const { questions } = useContext(QuizContext);
-  const { newHelpComment } = useContext(HelpContext);
+  const { help, newHelpComment } = useContext(HelpContext);
+
+  const helpForUser = user
+    ? help.filter((item) => item.user_id === user?.id && item.is_helpful === 0)
+    : [];
 
   useEffect(() => {
     const fetchQuestionsNeedingHelp = async () => {
@@ -50,6 +54,7 @@ const HelpBlock = () => {
             module_name: question.module_name,
             question_text: question.question_text,
             answers: question.answers,
+            is_help_needed: question.is_help_needed,
           }))
         );
         setLoading(false); // Setze den Ladezustand auf false, wenn die Daten geladen wurden
@@ -83,6 +88,7 @@ const HelpBlock = () => {
         alert("Bitte geben Sie einen Hilfskommentar ein.");
         return;
       }
+      alert("Hilfskommentar geschickt!");
       // Optional: Kommentar nach dem Absenden löschen
       setHelpComment({
         ...helpComment,
@@ -106,39 +112,47 @@ const HelpBlock = () => {
     return <div>Hilfsanfragen werden geladen...</div>;
   }
 
+  console.log("help", helpForUser);
+  console.log("questionsNeeding", questionsNeedingHelp);
   // Wenn die Daten geladen wurden, rendere die Fragen
   return (
     <div className="catalog-block">
-      <h2>DEINE HILFE WIRD BENÖTIGT:</h2>
-      {questionsNeedingHelp.map((questionData, index) => (
-        <div className="question-block" key={index}>
-          <h3>
-            {questionData.module_name}: {questionData.question_text}
-          </h3>
-          <div>
-            {questionData.answers.map((answer, index) => (
-              <p key={index}>{answer.answer_text}</p>
-            ))}
+      <h2>HILFE WIRD BENÖTIGT:</h2>
+      {questionsNeedingHelp
+        .filter(
+          (questionData) =>
+            questionData.is_help_needed &&
+            questionData.user_needing_help != user?.id
+        )
+        .map((questionData, index) => (
+          <div className="question-block" key={index}>
+            <h3>
+              {questionData.module_name}: {questionData.question_text}
+            </h3>
+            <div>
+              {questionData.answers.map((answer, index) => (
+                <p key={index}>{answer.answer_text}</p>
+              ))}
+            </div>
+            <InputField
+              label={`(Hilfskommentar schreiben)`}
+              type="text"
+              name={`helpComment_${questionData.id}`}
+              value={helpComment[questionData.id] || ""}
+              onChange={(e) =>
+                handleHelpCommentChange(questionData.id, e.target.value)
+              }
+              isBig={true}
+              height={100}
+              width={300}
+            />
+            <p />
+            <Button
+              text="Hilfskommentar abschicken"
+              onClick={() => handleSubmitHelpComment(questionData.id)}
+            />
           </div>
-          <InputField
-            label={`(Hilfskommentar schreiben)`}
-            type="text"
-            name={`helpComment_${questionData.id}`}
-            value={helpComment[questionData.id] || ""}
-            onChange={(e) =>
-              handleHelpCommentChange(questionData.id, e.target.value)
-            }
-            isBig={true}
-            height={100}
-            width={300}
-          />
-          <p />
-          <Button
-            text="Hilfskommentar abschicken"
-            onClick={() => handleSubmitHelpComment(questionData.id)}
-          />
-        </div>
-      ))}
+        ))}
     </div>
   );
 };

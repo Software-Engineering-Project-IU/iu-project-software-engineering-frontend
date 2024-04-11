@@ -77,6 +77,7 @@ export const HelpProvider = ({ children }) => {
         `http://localhost:3001/help-requests/provide-help`,
         helpData
       );
+
       fetchData();
     } catch (error) {
       console.error("Fehler beim hinzufügen der Hilfsanfrage:", error);

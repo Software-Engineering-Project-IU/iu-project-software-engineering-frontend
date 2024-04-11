@@ -80,7 +80,7 @@ const HelpRequests = () => {
             );
           })
       ) : (
-        <p>Keine Hilfsanfragen.</p>
+        <p>Keine Hilfe vorhanden.</p>
       )}
     </div>
   );

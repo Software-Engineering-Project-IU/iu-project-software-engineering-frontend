@@ -214,6 +214,7 @@ $button-active-color: darken($primary-color, 25%);
   border-radius: 5px;
   margin: 0 auto;
   padding-top: 15px;
+  flex: 1;
 }
 
 .content-create-question {
@@ -414,6 +415,11 @@ $button-active-color: darken($primary-color, 25%);
     font-size: 18px;
     color: $secondary-color;
   }
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
 }
 
 /* Animationen für richtige/falsche Antworten */
